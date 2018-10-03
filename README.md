@@ -21,6 +21,8 @@
 
 #### Android
 
+**Android not supported yet**
+
 1. Open up `android/app/src/main/java/[...]/MainActivity.java`
   - Add `import fm.feed.android.react.RNFMAudioPlayerPackage;` to the imports at the top of the file
   - Add `new RNFMAudioPlayerPackage()` to the list returned by the `getPackages()` method

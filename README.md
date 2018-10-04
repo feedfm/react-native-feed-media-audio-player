@@ -21,8 +21,9 @@
 
 #### Android
 
-**Android not supported yet**
+Android is not supported **yet**
 
+<!--
 1. Open up `android/app/src/main/java/[...]/MainActivity.java`
   - Add `import fm.feed.android.react.RNFMAudioPlayerPackage;` to the imports at the top of the file
   - Add `new RNFMAudioPlayerPackage()` to the list returned by the `getPackages()` method
@@ -35,13 +36,17 @@
   	```
       compile project(':react-native-audio-player')
   	```
-
+-->
 
 ## Usage
 ```javascript
-import RNFMAudioPlayer from 'react-native-audio-player';
+import AudioPlayer from 'react-native-audio-player';
 
-// TODO: What to do with the module?
-RNFMAudioPlayer;
+AudioPlayer.setToken("demo", "demo");
+
+// later...
+AudioPlayer.play();
+AudioPlayer.skip();
+AudioPlayer.pause();
 ```
   

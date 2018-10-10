@@ -10,12 +10,9 @@ To develop things,
 
 1. open the iOS app in XCode: `example/ios/example.xcodeproj`. Our native
   code is listed in `Libraries -> FNFMAudioPlayer.xcodeproj`.
-2. open the javascript code in whatever editor you want: `package/*`
-3. start up the metro bundler package in some terminal:
-
-```bash
-bash$ ./example/node_modules/react-native/scripts/launchPackager.command
-```
+2. start up the metro bundler package with `npm start`
+  from the `example` dir.
+3. open the javascript code in whatever editor you want: `package/*`
 
 You build and start the app via XCode. That should build the native parts
 and start them on the simulator. The simulator will ping the metro bundler

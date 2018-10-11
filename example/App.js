@@ -40,6 +40,7 @@ export default class App extends Component {
         station: player.activeStation,
         stations: player.stations,
         requestingSkip: false
+        // play: will hold the current play when one starts
       });
 
       this.elapsedTimer = setInterval(() => {
@@ -144,6 +145,15 @@ export default class App extends Component {
               (<Text style={styles.text}>(trying to skip)</Text>) :
               (<Button onPress={() => { this.skip(); }} title="skip"/>)
           }
+          <Button onPress={() => {
+            audioPlayerService.player.volume = 0;
+          }} title="vol 0"/>
+          <Button onPress={() => {
+            audioPlayerService.player.volume = 0.5;
+          }} title="vol 0.5"/>
+          <Button onPress={() => {
+            audioPlayerService.player.volume = 1;
+          }} title="vol 1"/>
         </View>
       );
 

@@ -12,14 +12,7 @@ import AudioPlayerService from 'react-native-feed-media-audio-player';
 
 console.warn('restart!');
 
-AudioPlayerService.initialize({ token: 'demo', secret: 'demo' });
-
-/*
-AudioPlayerService.getAvailablePlayer().then((res) => {
-  console.warn('available player returned ', !!res);
-  //res.play();
-});
-*/
+AudioPlayerService.initialize({ token: 'counting', secret: 'counting' });
 
 export default class App extends Component {
 
@@ -48,6 +41,14 @@ export default class App extends Component {
         requestingSkip: false
       });
 
+      this.elapsedTimer = setInterval(() => {
+        if ((this.state.playbackState === 'PLAYING') && (this.state.play)) {
+          this.setState({
+            play: { ...this.state.play, elapsed: player.elapsedTime }
+          });
+        }
+      }, 1000);
+
       this.stateChangeUnbind = player.on('state-change', (state) => {
         console.log('state change to', state);
         this.setState({ playbackState: state });
@@ -62,7 +63,7 @@ export default class App extends Component {
         console.log('play started', play);
         this.setState({ 
           requestingSkip: false,
-          play: play 
+          play: { ...play, elapsed: 0 }
         });
       });
 
@@ -76,9 +77,12 @@ export default class App extends Component {
   }
 
   componentWillUnmount() {
-    this.stateChangeUnbind();
-    this.stationChangeUnbind();
-    this.playStartedUnbind();
+    if (this.state.available) {
+      this.stateChangeUnbind();
+      this.stationChangeUnbind();
+      this.playStartedUnbind();
+      clearInterval(this.elapsedTimer);
+    }
   }
 
   skip() {
@@ -130,7 +134,7 @@ export default class App extends Component {
           <Text style={styles.welcome}>{this.state.play.title}</Text>
           <Text style={styles.welcome}>by {this.state.play.artist}</Text>
           <Text style={styles.welcome}>on {this.state.play.album}</Text>
-          <Text style={styles.welcome}>X of Y seconds elapsed</Text>
+          <Text style={styles.welcome}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
           <Button onPress={() => {
             AudioPlayerService.player.pause();
           }} title="pause"/>
@@ -148,7 +152,7 @@ export default class App extends Component {
           <Text style={styles.welcome}>{this.state.play.title}</Text>
           <Text style={styles.welcome}>by {this.state.play.artist}</Text>
           <Text style={styles.welcome}>on {this.state.play.album}</Text>
-          <Text style={styles.welcome}>X of Y seconds elapsed</Text>
+          <Text style={styles.welcome}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
           <Button onPress={() => {
             AudioPlayerService.player.play();
           }} title="play"/>

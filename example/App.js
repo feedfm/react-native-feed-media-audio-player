@@ -4,10 +4,10 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Button } from 'react-native';
-import AudioPlayerService from 'react-native-feed-media-audio-player';
+import audioPlayerService from 'react-native-feed-media-audio-player';
 
 // initialize the player as early in the app as possible
-AudioPlayerService.initialize({ token: 'demo', secret: 'demo' });
+audioPlayerService.initialize({ token: 'demo', secret: 'demo' });
 
 // If you want to test transitions between songs, try using 'counting'
 // for both the token and secret values. Also try 'badgeo' for both
@@ -26,7 +26,7 @@ export default class App extends Component {
 
   componentDidMount() {
     // Make sure music is available for playback before registering event listeners
-    AudioPlayerService.getAvailablePlayer((player) => {
+    audioPlayerService.getAvailablePlayer((player) => {
       // no music is available
       if (!player) {
         this.setState({ available: false });
@@ -88,7 +88,7 @@ export default class App extends Component {
     // note that we're trying to skip
     this.setState({ requestingSkip: true });
     // ask the player to skip the current song
-    AudioPlayerService.player.skip();
+    audioPlayerService.player.skip();
   }
 
   render() {
@@ -116,7 +116,7 @@ export default class App extends Component {
       return (
         <View style={styles.container}>
           <Button onPress={() => {
-            AudioPlayerService.player.play();
+            audioPlayerService.player.play();
           }} title={'click to play ' + this.state.station.name}/>
         </View>
       );
@@ -137,7 +137,7 @@ export default class App extends Component {
           <Text style={styles.text}>on {this.state.play.album}</Text>
           <Text style={styles.text}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
           <Button onPress={() => {
-            AudioPlayerService.player.pause();
+            audioPlayerService.player.pause();
           }} title="pause"/>
           {
             this.state.requestingSkip ? 
@@ -155,7 +155,7 @@ export default class App extends Component {
           <Text style={styles.text}>on {this.state.play.album}</Text>
           <Text style={styles.text}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
           <Button onPress={() => {
-            AudioPlayerService.player.play();
+            audioPlayerService.player.play();
           }} title="play"/>
           {
             !this.state.play.canSkip ? (<Text style={styles.text}>(you're temporarily out of skips)</Text>) :

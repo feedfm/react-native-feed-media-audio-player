@@ -1,18 +1,17 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
+ * Sample React App that uses React Native adapter for
  */
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Button } from 'react-native';
 import AudioPlayerService from 'react-native-feed-media-audio-player';
 
-console.warn('restart!');
+// initialize the player as early in the app as possible
+AudioPlayerService.initialize({ token: 'demo', secret: 'demo' });
 
-AudioPlayerService.initialize({ token: 'counting', secret: 'counting' });
+// If you want to test transitions between songs, try using 'counting'
+// for both the token and secret values. Also try 'badgeo' for both
+// values to test out when no music is available.
 
 export default class App extends Component {
 
@@ -20,11 +19,13 @@ export default class App extends Component {
     super(props);
    
     this.state = {
+      // music is available (true), not available (false), or undetermined (null)
       available: null,
     };
   }
 
   componentDidMount() {
+    // Make sure music is available for playback before registering event listeners
     AudioPlayerService.getAvailablePlayer((player) => {
       // no music is available
       if (!player) {
@@ -50,17 +51,14 @@ export default class App extends Component {
       }, 1000);
 
       this.stateChangeUnbind = player.on('state-change', (state) => {
-        console.log('state change to', state);
         this.setState({ playbackState: state });
       });
   
       this.stationChangeUnbind = player.on('station-change', (station) => {
-        console.log('station change to', station);
         this.setState({ station: station });
       });
   
       this.playStartedUnbind = player.on('play-started', (play) => {
-        console.log('play started', play);
         this.setState({ 
           requestingSkip: false,
           play: { ...play, elapsed: 0 }
@@ -68,9 +66,9 @@ export default class App extends Component {
       });
 
       this.skipFailedUnbind = player.on('skip-failed', () => {
-        console.log('skip failed!');
         this.setState({
-          requestingSkip: false
+          requestingSkip: false,
+          play: { ...this.state.play, canSkip: false }
         });
       })
     });
@@ -81,12 +79,15 @@ export default class App extends Component {
       this.stateChangeUnbind();
       this.stationChangeUnbind();
       this.playStartedUnbind();
+      this.skipFailedUnbind();
       clearInterval(this.elapsedTimer);
     }
   }
 
   skip() {
+    // note that we're trying to skip
     this.setState({ requestingSkip: true });
+    // ask the player to skip the current song
     AudioPlayerService.player.skip();
   }
 
@@ -95,23 +96,23 @@ export default class App extends Component {
     if (this.state.available === null) {
       return (
         <View style={styles.container}>
-          <Text style={styles.welcome}>initializing...</Text>
+          <Text style={styles.text}>initializing...</Text>
         </View>
       );
-      }
+    }
 
-    // no music availale for this person
+    // no music availale for playback
     if (this.state.available === false) {
       return (
         <View style={styles.container}>
-          <Text style={styles.welcome}>sorry, no music is available for you</Text>
+          <Text style={styles.text}>sorry, no music is available for you</Text>
         </View>
       );
     }
 
     // music is available!
     switch (this.state.playbackState) {
-      case 'READY_TO_PLAY': 
+    case 'READY_TO_PLAY': 
       return (
         <View style={styles.container}>
           <Button onPress={() => {
@@ -120,81 +121,51 @@ export default class App extends Component {
         </View>
       );
 
-      case 'WAITING_FOR_ITEM':
-      case 'STALLED':
+    case 'WAITING_FOR_ITEM':
+    case 'STALLED':
       return (
         <View style={styles.container}>
-          <Text style={styles.welcome}>waiting for music..</Text>
+          <Text style={styles.text}>waiting for music..</Text>
         </View>
       );
 
-      case 'PLAYING':
+    case 'PLAYING':
       return (
         <View style={styles.container}>
-          <Text style={styles.welcome}>{this.state.play.title}</Text>
-          <Text style={styles.welcome}>by {this.state.play.artist}</Text>
-          <Text style={styles.welcome}>on {this.state.play.album}</Text>
-          <Text style={styles.welcome}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
+          <Text style={styles.text}>{this.state.play.title}</Text>
+          <Text style={styles.text}>by {this.state.play.artist}</Text>
+          <Text style={styles.text}>on {this.state.play.album}</Text>
+          <Text style={styles.text}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
           <Button onPress={() => {
             AudioPlayerService.player.pause();
           }} title="pause"/>
           {
             this.state.requestingSkip ? 
-             (<Text style={styles.welcome}>(trying to skip)</Text>) :
-             (<Button onPress={() => { this.skip(); }} title="skip"/>)
+              (<Text style={styles.text}>(trying to skip)</Text>) :
+              (<Button onPress={() => { this.skip(); }} title="skip"/>)
           }
         </View>
       );
 
-      case 'PAUSED':
+    case 'PAUSED':
       return (
         <View style={styles.container}>
-          <Text style={styles.welcome}>{this.state.play.title}</Text>
-          <Text style={styles.welcome}>by {this.state.play.artist}</Text>
-          <Text style={styles.welcome}>on {this.state.play.album}</Text>
-          <Text style={styles.welcome}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
+          <Text style={styles.text}>{this.state.play.title}</Text>
+          <Text style={styles.text}>by {this.state.play.artist}</Text>
+          <Text style={styles.text}>on {this.state.play.album}</Text>
+          <Text style={styles.text}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
           <Button onPress={() => {
             AudioPlayerService.player.play();
           }} title="play"/>
           {
-            this.state.requestingSkip ? 
-             (<Text style={styles.welcome}>(trying to skip)</Text>) :
-             (<Button onPress={() => { this.skip(); }} title="skip"/>)
+            !this.state.play.canSkip ? (<Text style={styles.text}>(you're temporarily out of skips)</Text>) :
+            this.state.requestingSkip ? (<Text style={styles.text}>(trying to skip)</Text>) :
+                                        (<Button onPress={() => { this.skip(); }} title="skip"/>)
           }
         </View>
       );
-      }
-      /*
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>{this.state.count}</Text>
-        <Button onPress={() => {
-          AudioPlayerService.player.play();
-        }} title="play"/>
-        <Button onPress={() => {
-          AudioPlayerService.player.pause();
-        }} title="pause"/>
-        <Button onPress={() => {
-          AudioPlayerService.player.skip();
-        }} title="skip"/>
-        <Button onPress={() => {
-          AudioPlayerService.player.stop();
-        }} title="stop"/>
-        <Button onPress={() => {
-          // advance to next station
-          let player = AudioPlayerService.player;
-          let index = player.stations.indexOf(player.activeStation);
-          if (index > -1) {
-            index = (index + 1) % player.stations.length;
-            player.activeStation = player.stations[index];
-          }
-        }} title="next station"/>
-      </View>
-    );
+    }
 
-  }
-      
-  */
   }
 }
 
@@ -205,14 +176,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
+  text: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });

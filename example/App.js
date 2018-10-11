@@ -1,5 +1,5 @@
 /**
- * Sample React App that uses React Native adapter for
+ * Sample React App that uses React Native Feed Media Audio Player
  */
 
 import React, { Component } from 'react';

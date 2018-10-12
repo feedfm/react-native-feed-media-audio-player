@@ -6,5 +6,8 @@
 		{
 			"path": "example"
 		}
-	]
+	],
+	"settings": {
+		"editor.tabSize": 2
+	}
 }

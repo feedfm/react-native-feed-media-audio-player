@@ -2,8 +2,8 @@
  * Sample React App that uses React Native Feed Media Audio Player
  */
 
-import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Button } from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import { Platform, StyleSheet, Text, View, Button } from 'react-native'; // eslint-disable-line no-unused-vars
 import audioPlayerService from 'react-native-feed-media-audio-player';
 
 // initialize the player as early in the app as possible
@@ -17,7 +17,7 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
-   
+
     this.state = {
       // music is available (true), not available (false), or undetermined (null)
       available: null,
@@ -58,13 +58,13 @@ export default class App extends Component {
       this.stateChangeUnbind = player.on('state-change', (state) => {
         this.setState({ playbackState: state });
       });
-  
+
       this.stationChangeUnbind = player.on('station-change', (station) => {
         this.setState({ station: station });
       });
-  
+
       this.playStartedUnbind = player.on('play-started', (play) => {
-        this.setState({ 
+        this.setState({
           requestingSkip: false,
           play: { ...play, elapsed: 0 }
         });
@@ -117,12 +117,12 @@ export default class App extends Component {
 
     // music is available!
     switch (this.state.playbackState) {
-    case 'READY_TO_PLAY': 
+    case 'READY_TO_PLAY':
       return (
         <View style={styles.container}>
           <Button onPress={() => {
             audioPlayerService.player.play();
-          }} title={'click to play ' + this.state.station.name}/>
+          }} title={'click to play ' + this.state.station.name} />
         </View>
       );
 
@@ -143,21 +143,21 @@ export default class App extends Component {
           <Text style={styles.text}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
           <Button onPress={() => {
             audioPlayerService.player.pause();
-          }} title="pause"/>
+          }} title="pause" />
           {
-            this.state.requestingSkip ? 
+            this.state.requestingSkip ?
               (<Text style={styles.text}>(trying to skip)</Text>) :
-              (<Button onPress={() => { this.skip(); }} title="skip"/>)
+              (<Button onPress={() => { this.skip(); }} title="skip" />)
           }
           <Button onPress={() => {
             audioPlayerService.player.volume = 0;
-          }} title="vol 0"/>
+          }} title="vol 0" />
           <Button onPress={() => {
             audioPlayerService.player.volume = 0.5;
-          }} title="vol 0.5"/>
+          }} title="vol 0.5" />
           <Button onPress={() => {
             audioPlayerService.player.volume = 1;
-          }} title="vol 1"/>
+          }} title="vol 1" />
         </View>
       );
 
@@ -170,11 +170,11 @@ export default class App extends Component {
           <Text style={styles.text}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
           <Button onPress={() => {
             audioPlayerService.player.play();
-          }} title="play"/>
+          }} title="play" />
           {
             !this.state.play.canSkip ? (<Text style={styles.text}>(you're temporarily out of skips)</Text>) :
-            this.state.requestingSkip ? (<Text style={styles.text}>(trying to skip)</Text>) :
-                                        (<Button onPress={() => { this.skip(); }} title="skip"/>)
+              this.state.requestingSkip ? (<Text style={styles.text}>(trying to skip)</Text>) :
+                (<Button onPress={() => { this.skip(); }} title="skip" />)
           }
         </View>
       );

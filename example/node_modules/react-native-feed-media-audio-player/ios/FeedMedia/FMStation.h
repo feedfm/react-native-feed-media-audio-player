@@ -27,7 +27,7 @@
  *  Station name
  */
 
-@property (readonly) NSString *name;
+@property (readonly, nonnull) NSString *name;
 
 /*
  *  Globally unique ID for this station. This value should not be cached by
@@ -36,14 +36,14 @@
  *  id).
  */
 
-@property (readonly) NSString *identifier;
+@property (readonly, nonnull) NSString *identifier;
 
 /**
  *  Options dictionary. Contact feed.fm to have data specific to your app
  *  appear here!
  */
 
-@property (readonly) NSDictionary *options;
+@property (readonly, nullable) NSDictionary *options;
 
 /**
  * When true, this station is on-demand, and `-audioFiles` contains
@@ -62,7 +62,7 @@
  * Used internally to detect if this is a simulcast stream or not
  */
 
-@property (readonly) NSString *castURL;
+@property (readonly, nonnull) NSString *castURL;
 
 /**
  * Return true if this station is a simulcast station
@@ -75,7 +75,7 @@
  * is on-demand, otherwise this is NULL.
  */
 
-@property NSArray *audioItems;
+@property (nullable) NSArray *audioItems;
 
 /**
  * Representation of the object in dictionary form
@@ -93,12 +93,12 @@
  * Returns expiry date for offline stations, null for online stations.
  */
 
-@property (readonly) NSUInteger expiry;
+@property (readonly, nullable) NSDate *expiry;
 
 /*
  *  JSON representation of this object
  */
-@property (readonly) NSMutableDictionary *dict;
+@property (readonly, nonnull) NSMutableDictionary *dict;
 /*
  *  Used internally to convert the JSON representation of this
  *  station to this object.
@@ -106,6 +106,6 @@
  *  @param jsonDictionary JSON dictionary
  *  @return returns new FMStation instance
  */
-- (id)initWithJSON:(id)jsonDictionary isTypeOffline:(BOOL)isOffline;
+- (nonnull id)initWithJSON:(nonnull id)jsonDictionary isTypeOffline:(BOOL)isOffline;
 
 @end

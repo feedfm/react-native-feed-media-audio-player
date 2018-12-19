@@ -47,6 +47,7 @@ export default class App extends Component {
         // play: will hold the current play when one starts
       });
 
+
       this.elapsedTimer = setInterval(() => {
         if ((this.state.playbackState === 'PLAYING') && (this.state.play)) {
           this.setState({
@@ -60,6 +61,7 @@ export default class App extends Component {
       });
 
       this.stationChangeUnbind = player.on('station-change', (station) => {
+        console.log(station);
         this.setState({ station: station });
       });
 
@@ -114,10 +116,12 @@ export default class App extends Component {
         </View>
       );
     }
-
+    //console.log(this.state.playbackState);
     // music is available!
+
     switch (this.state.playbackState) {
     case 'READY_TO_PLAY':
+    console.log("READY_TO_PLAY");
       return (
         <View style={styles.container}>
           <Button onPress={() => {
@@ -172,12 +176,19 @@ export default class App extends Component {
             audioPlayerService.player.play();
           }} title="play" />
           {
-            !this.state.play.canSkip ? (<Text style={styles.text}>(you're temporarily out of skips)</Text>) :
+            !this.state.play.canSkip ? (<Text style={styles.text}>(youre temporarily out of skips)</Text>) :
               this.state.requestingSkip ? (<Text style={styles.text}>(trying to skip)</Text>) :
                 (<Button onPress={() => { this.skip(); }} title="skip" />)
           }
         </View>
       );
+    case 'UNINITIALIZED':
+      return (
+        <View style={styles.container}>
+          <Text style={styles.text}>UNINITIALIZED case</Text>
+        </View>
+      );
+
     }
 
   }

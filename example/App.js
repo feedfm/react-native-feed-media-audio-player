@@ -57,15 +57,18 @@ export default class App extends Component {
       }, 1000);
 
       this.stateChangeUnbind = player.on('state-change', (state) => {
+        console.log("***** state changed", state);
         this.setState({ playbackState: state });
       });
 
       this.stationChangeUnbind = player.on('station-change', (station) => {
+        console.log("***** station changed", station);
         console.log(station);
         this.setState({ station: station });
       });
 
       this.playStartedUnbind = player.on('play-started', (play) => {
+        console.log("***** state play started", play);
         this.setState({
           requestingSkip: false,
           play: { ...play, elapsed: 0 }
@@ -98,8 +101,35 @@ export default class App extends Component {
     audioPlayerService.player.skip();
   }
 
+  renderButtons() {
+
+    const renderButtons = [];
+    renderButtons.push(
+        <Button 
+        key = 'keyee'
+        onPress={() => {
+          audioPlayerService.player.play();
+        }} title={'click to play '} />
+    );
+
+    this.state.stations.forEach(station => {
+      renderButtons.push(
+        <Button
+        key = {'key' + this.state.station.id} 
+        onPress={() => {
+          audioPlayerService.player.activeStation = station ;
+        }} title={'click to Set ' + station.name} />
+      );
+    });
+
+    
+    return renderButtons;
+  }
+
+
   render() {
     // player still intializing
+    console.log(this.state);
     if (this.state.available === null) {
       return (
         <View style={styles.container}>
@@ -123,11 +153,10 @@ export default class App extends Component {
     case 'READY_TO_PLAY':
     console.log("READY_TO_PLAY");
       return (
-        <View style={styles.container}>
-          <Button onPress={() => {
-            audioPlayerService.player.play();
-          }} title={'click to play ' + this.state.station.name} />
-        </View>
+          <View style={styles.container}>
+           { this.renderButtons() }
+          </View>
+
       );
 
     case 'WAITING_FOR_ITEM':
@@ -193,6 +222,9 @@ export default class App extends Component {
 
   }
 }
+
+
+
 
 const styles = StyleSheet.create({
   container: {

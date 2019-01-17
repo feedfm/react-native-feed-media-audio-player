@@ -99,27 +99,21 @@ export default class App extends Component {
 
   renderButtons() {
 
-    const renderButtons = [];
-    renderButtons.push(
-        <Button 
-        key = 'keyee'
+    return [
+      <Button 
+        key="play"
         onPress={() => {
           audioPlayerService.player.play();
-        }} title={'click to play '} />
-    );
+        }} title={'click to play '} />,
 
-    this.state.stations.forEach(station => {
-      renderButtons.push(
+      ...this.state.stations.map(station =>
         <Button
-        key = {'key' + this.state.station.id} 
-        onPress={() => {
-          audioPlayerService.player.activeStation = station ;
-        }} title={'click to Set ' + station.name} />
-      );
-    });
-
-    
-    return renderButtons;
+          key = {'key' + station.id} 
+          onPress={() => {
+            audioPlayerService.player.activeStation = station ;
+          }} title={'click to Set ' + station.name} />
+      )
+    ];
   }
 
 
@@ -146,9 +140,9 @@ export default class App extends Component {
     switch (this.state.playbackState) {
     case 'READY_TO_PLAY':
       return (
-          <View style={styles.container}>
-           { this.renderButtons() }
-          </View>
+        <View style={styles.container}>
+          { this.renderButtons() }
+        </View>
 
       );
 

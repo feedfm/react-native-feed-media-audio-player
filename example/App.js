@@ -57,18 +57,14 @@ export default class App extends Component {
       }, 1000);
 
       this.stateChangeUnbind = player.on('state-change', (state) => {
-        console.log("***** state changed", state);
         this.setState({ playbackState: state });
       });
 
       this.stationChangeUnbind = player.on('station-change', (station) => {
-        console.log("***** station changed", station);
-        console.log(station);
         this.setState({ station: station });
       });
 
       this.playStartedUnbind = player.on('play-started', (play) => {
-        console.log("***** state play started", play);
         this.setState({
           requestingSkip: false,
           play: { ...play, elapsed: 0 }
@@ -129,7 +125,6 @@ export default class App extends Component {
 
   render() {
     // player still intializing
-    console.log(this.state);
     if (this.state.available === null) {
       return (
         <View style={styles.container}>
@@ -146,12 +141,10 @@ export default class App extends Component {
         </View>
       );
     }
-    //console.log(this.state.playbackState);
     // music is available!
 
     switch (this.state.playbackState) {
     case 'READY_TO_PLAY':
-    console.log("READY_TO_PLAY");
       return (
           <View style={styles.container}>
            { this.renderButtons() }
@@ -211,12 +204,12 @@ export default class App extends Component {
           }
         </View>
       );
-    case 'UNINITIALIZED':
-      return (
-        <View style={styles.container}>
-          <Text style={styles.text}>UNINITIALIZED case</Text>
-        </View>
-      );
+
+    //case 'UNINITIALIZED':
+    // not reached, because player.state.available is not null at this point:
+
+    //case 'OFFLINE':
+    // not yet exposed to react native clients
 
     }
 

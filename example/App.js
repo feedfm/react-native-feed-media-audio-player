@@ -22,13 +22,14 @@ export default class App extends Component {
       // music is available (true), not available (false), or undetermined (null)
       available: null,
     };
-
+    this.cID = null
     this.player = audioPlayerService.player;
   }
 
   componentDidMount() {
     // Make sure music is available for playback before registering event listeners
     this.player.whenAvailable((available) => {
+      
       // no music is available
       if (!available) {
         this.setState({ available: false });
@@ -55,6 +56,12 @@ export default class App extends Component {
           });
         }
       }, 1000);
+      
+      this.cidChangeUnbind = player.on('requestedClientIdAvaialable', (ClientID) => {
+        console.log("Client id 2 ="+ ClientID);
+        this.cID = ClientID;
+        this.setState(this.state);
+      });
 
       this.stateChangeUnbind = player.on('state-change', (state) => {
         this.setState({ playbackState: state });
@@ -100,15 +107,30 @@ export default class App extends Component {
   renderButtons() {
 
     return [
-      <Button 
+      (
+      <View key="cid"  style={styles.container}>
+         <Text style={styles.text}>CID={this.cID}</Text>
+        </View>
+      ),
+      <Button
         key="play"
         onPress={() => {
           audioPlayerService.player.play();
         }} title={'click to play '} />,
+      <Button
+        key="GetCID"
+        onPress={() => {
+          audioPlayerService.player.requestClientID();
+        }} title={'Request client id'} />,
 
+      <Button
+        key="CreateCID"
+        onPress={() => {
+          audioPlayerService.player.createNewClientID();
+        }} title={'Create new client id'} />,
       ...this.state.stations.map(station =>
         <Button
-          key = {'key' + station.id} 
+          key = {'key' + station.id}
           onPress={() => {
             audioPlayerService.player.activeStation = station ;
           }} title={'click to Set ' + station.name} />

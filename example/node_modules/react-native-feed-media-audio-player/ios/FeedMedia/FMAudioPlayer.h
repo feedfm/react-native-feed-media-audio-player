@@ -1102,4 +1102,18 @@ NS_ASSUME_NONNULL_END
 
 + (void)setClientToken:(nonnull NSString *)token secret:(nonnull NSString *)secret detectLocalMusic:(BOOL) detectLocalMusic DEPRECATED_ATTRIBUTE;
 
+/**
+ * Seek station by give no of seconds.
+ * Max allowed value can be obtained by maxSeekableLength
+ * @see maxSeekableLength
+ * @param time in seconds
+ */
+- (void) seekStationBy: (NSTimeInterval) time;
+
+/**
+ * Max no of seconds that can be seeked in the current station
+ * @return Time in seconds 
+ */
+- (NSTimeInterval) maxSeekableLength ;
+
 @end

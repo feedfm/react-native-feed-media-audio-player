@@ -1,1 +1,1 @@
-package/CHANGELOG.md
+example/node_modules/react-native-feed-media-audio-player/CHANGELOG.md

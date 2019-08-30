@@ -33,8 +33,6 @@ local.properties
 # node.js
 #
 node_modules/*
-!node_modules/react-native-feed-media-audio-player
-!node_modules/react-native-feed-media-audio-player/**
 npm-debug.log
 yarn-error.log
 

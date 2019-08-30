@@ -11,7 +11,8 @@
     "ajv": "^6.10.2",
     "nanoevents": "^1.0.8",
     "react": "^16.8.3",
-    "react-native": "^0.59.8"
+    "react-native": "^0.59.8",
+    "scheduler": "^0.15.0"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",

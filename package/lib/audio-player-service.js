@@ -17,6 +17,7 @@ class AudioPlayerService {
      * 
      * @param {string} options.token - token provided by Feed.fm. defaults to 'demo'
      * @param {string} options.secret - secret provided by Feed.fm. defaults to 'demo'
+     * @param {boolean} options.debug - when true, add console.log statements to help with debugging
      * @param {availabilityCallback} options.whenAvailable - a function called when the player
      *   deems music to be available or not (see AudioPlayer.whenAvailable)
      * @returns {AudioPlayer} - the singleton AudioPlayer instance
@@ -31,11 +32,13 @@ class AudioPlayerService {
     options = {
       token: 'demo',
       secret: 'demo',
+      debug: false,
+
       ...options
     };
 
     // create an audio player
-    const audioPlayer = this._audioPlayer = new AudioPlayer();
+    const audioPlayer = this._audioPlayer = new AudioPlayer(options.debug);
 
     // kick off native audio player creation
     audioPlayer.initialize(options.token, options.secret, options.whenAvailable);

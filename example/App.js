@@ -7,7 +7,7 @@ import { Platform, StyleSheet, Text, View, Button } from 'react-native'; // esli
 import audioPlayerService from 'react-native-feed-media-audio-player';
 
 // initialize the player as early in the app as possible
-audioPlayerService.initialize({ token: 'demo', secret: 'demo' });
+audioPlayerService.initialize({ token: 'demo', secret: 'demo', debug: true });
 
 // If you want to test transitions between songs, try using 'counting'
 // for both the token and secret values. Also try 'badgeo' for both
@@ -22,7 +22,7 @@ export default class App extends Component {
       // music is available (true), not available (false), or undetermined (null)
       available: null,
     };
-    this.cID = null
+    this.cID = null;
     this.player = audioPlayerService.player;
   }
 
@@ -58,7 +58,7 @@ export default class App extends Component {
       }, 1000);
       
       this.cidChangeUnbind = player.on('requestedClientIdAvaialable', (ClientID) => {
-        console.log("Client id 2 ="+ ClientID);
+        console.log('Client id 2 ='+ ClientID);
         this.cID = ClientID;
         this.setState(this.state);
       });
@@ -108,8 +108,8 @@ export default class App extends Component {
 
     return [
       (
-      <View key="cid"  style={styles.container}>
-         <Text style={styles.text}>CID={this.cID}</Text>
+        <View key="cid"  style={styles.container}>
+          <Text style={styles.text}>CID={this.cID}</Text>
         </View>
       ),
       <Button

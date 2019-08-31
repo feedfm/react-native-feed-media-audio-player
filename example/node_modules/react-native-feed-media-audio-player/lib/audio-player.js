@@ -31,7 +31,9 @@ const { RNFMAudioPlayer } = NativeModules;
 
 class AudioPlayer {
 
-  constructor() {
+  constructor(debug) {
+    this._debug = !!debug;
+
     // default state until we hear from the player
     this._state = RNFMAudioPlayer.audioPlayerPlaybackStateUninitialized;
 
@@ -50,6 +52,13 @@ class AudioPlayer {
     this.onStationChangeSubscription = nativeEmitter.addListener('station-change', this.onStationChange.bind(this));
     this.onPlayStartedSubscription = nativeEmitter.addListener('play-started', this.onPlayStarted.bind(this));
     this.onSkipFailedSubscription = nativeEmitter.addListener('skip-failed', this.onSkipFailed.bind(this));
+  }
+
+  log() {
+    if (this._debug) {
+      var args = [ 'feed.fm: ' + arguments[0], ... Array.prototype.slice.call(arguments, 1) ];
+      console.log.apply(console.log, args);
+    }
   }
 
   /**
@@ -72,6 +81,8 @@ class AudioPlayer {
    *       availability is determined
    */
   initialize(token, secret, availability) {
+    this.log('initializing with token "' + token + '" and secret "' + secret + '"');
+
     RNFMAudioPlayer.initializeWithToken(token, secret);
 
     if (availability) {
@@ -87,6 +98,7 @@ class AudioPlayer {
    */
   whenAvailable(availability) {
     if (this._available !== null) {
+      this.log('music has become available');
       availability(this._available);
       return;
     }
@@ -101,7 +113,8 @@ class AudioPlayer {
    * @param {functin} callback - this function is called every time the event is triggered
    * @returns {function} - returns a function to unsubscribe from these events
    */
-  on() {
+  on(event) {
+    this.log('client registered "on" handler for "' + event + '"');
     return this._emitter.on.apply(this._emitter, arguments);
   }
 
@@ -113,6 +126,8 @@ class AudioPlayer {
    * @param {function} callback  -
    */
   once(event, callback) {
+    this.log('client registered "once" handler for "' + event + '"');
+
     const unbind = this._emitter.on(event, function () {
       unbind();
       callback.apply(this, arguments);
@@ -125,6 +140,7 @@ class AudioPlayer {
    *
    */
   play() {
+    this.log('client called play()');
     RNFMAudioPlayer.play();
   }
 
@@ -132,6 +148,7 @@ class AudioPlayer {
    * Pause music playback
    */
   pause() {
+    this.log('client called pause()');
     RNFMAudioPlayer.pause();
   }
 
@@ -141,6 +158,7 @@ class AudioPlayer {
    * a 'skip-failed' event will be triggered and the current song will continue playback.
    */
   skip() {
+    this.log('client called skip()')
     RNFMAudioPlayer.skip();
   }
 
@@ -148,6 +166,7 @@ class AudioPlayer {
    * Stop playback of the current song and free up any audio data in memory.
    */
   stop() {
+    this.log('client called stop()');
     RNFMAudioPlayer.stop();
   }
 
@@ -202,6 +221,7 @@ class AudioPlayer {
    * come from the `stations` property)
    */
   set activeStation(station) {
+    this.log('client setting active station to', station);
     RNFMAudioPlayer.setActiveStation(station.id);
   }
 
@@ -216,6 +236,7 @@ class AudioPlayer {
    * Set the music volume (from 0..1)
    */
   set volume(volume) {
+    this.log('client setting music volume to ' + volume);
     RNFMAudioPlayer.setVolume(volume);
   }
 
@@ -235,6 +256,7 @@ class AudioPlayer {
    * Set the client id, this must be a valid client id.
    */
   setclientID(id) {
+    this.log('client setting clientd id to ' + id);
     RNFMAudioPlayer.setClientID(id);
   }
 
@@ -261,7 +283,7 @@ class AudioPlayer {
   */
 
   onNewClientID(props) {
-    console.log("Client id ="+ props.ClientID);
+    this.log('received client id "' + props.ClientID + '" from server');
     this.ClientID = props.ClientID
     this._emitter.emit('requestedClientIdAvaialable', this.ClientID, this);
   }
@@ -341,6 +363,7 @@ class AudioPlayer {
       delete this._enteredPlayStateAt;
     }
 
+    this.log('player state changed to ' + this.playbackState);
     this._emitter.emit('state-change', this.playbackState, this);
   }
 
@@ -378,7 +401,8 @@ class AudioPlayer {
 
   onPlayStarted(props) {
     const play = props.play;
-    console.log("PLay111____________",play);
+
+    this.log('play has started', play);
     this._currentPlay = play;
     // reset elapsed time counters
     this._elapsedPlayTime = 0;

@@ -90,7 +90,7 @@ wait for a list of available music stations:
 ```javascript
 import audioPlayerService from 'react-native-feed-media-audio-player';
 
-audioPlayerService.initialize({ token: 'demo', secret: 'demo' });
+audioPlayerService.initialize({ token: 'demo', secret: 'demo', debug: true });
 ```
 
 The audioPlayerService exposes the singleton player via `audioPlayerService.player`.

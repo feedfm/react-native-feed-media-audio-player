@@ -1,6 +1,7 @@
 
 - v2.3.3 - update React Native dependency
   - update to react-native@^0.59.8
+  - added 'debug' option when initializing library
 
 - v2.3.2 - bugfixes
   - update to Android SDK v5.2.8 to handle play -> pause transition before notification is created on Android

@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "RNFMAudioPlayer"
-  s.version      = "2.2.2"
+  s.version      = "2.3.5"
   s.summary      = "RNFMAudioPlayer"
   s.description  = <<-DESC
                   RNFMAudioPlayer is the React Native wrapper for the Feed.fm Audio SDK

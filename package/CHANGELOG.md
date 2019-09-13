@@ -1,4 +1,7 @@
 
+- v2.3.5 - update iOS library
+  - changes to support iOS 13 and prevent crash
+
 - v2.3.4 - add debugging option
   - new 'debug' option to assist with debugging integration
 

@@ -1,5 +1,5 @@
 
-- v2.3.6 - background music
+- v2.4.0 - background music
   - offer 'enableBackgroundMusic:boolean' as initialization option
   - update to iOS library v4.3.2
   - update to Android library v5.2.9

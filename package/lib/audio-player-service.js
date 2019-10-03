@@ -20,6 +20,10 @@ class AudioPlayerService {
      * @param {boolean} options.debug - when true, add console.log statements to help with debugging
      * @param {availabilityCallback} options.whenAvailable - a function called when the player
      *   deems music to be available or not (see AudioPlayer.whenAvailable)
+     * @param {boolean} options.enableBackgroundMusic - when true, the player will interact
+     *   with the lock screen (iOS) and create a notification (Android) to enable background audio
+     *   playback and control. The default is false. Note: if true, iOS will also require that 
+     *   you have granted the app background audio permissions when building.
      * @returns {AudioPlayer} - the singleton AudioPlayer instance
      */
 
@@ -33,6 +37,7 @@ class AudioPlayerService {
       token: 'demo',
       secret: 'demo',
       debug: false,
+      enableBackgroundMusic: false,
 
       ...options
     };
@@ -41,7 +46,7 @@ class AudioPlayerService {
     const audioPlayer = this._audioPlayer = new AudioPlayer(options.debug);
 
     // kick off native audio player creation
-    audioPlayer.initialize(options.token, options.secret, options.whenAvailable);
+    audioPlayer.initialize(options.token, options.secret, options.whenAvailable, options.enableBackgroundMusic);
 
     return audioPlayer;
   }

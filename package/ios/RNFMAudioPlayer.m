@@ -73,7 +73,7 @@ RCT_EXPORT_MODULE()
     return outStations;
 }
 
-RCT_EXPORT_METHOD(initializeWithToken:(NSString *)token secret:(NSString *)secret)
+RCT_EXPORT_METHOD(initializeWithToken:(NSString *)token secret:(NSString *)secret enableBackgroundMusic:(BOOL)enableBackgroundMusic)
 {
     //RCTLogDebug(@"initializing feed.fm audio");
 
@@ -84,11 +84,13 @@ RCT_EXPORT_METHOD(initializeWithToken:(NSString *)token secret:(NSString *)secre
     
     [FMAudioPlayer setClientToken:token secret:secret];
 
+    FMAudioPlayer.sharedPlayer.doesHandleRemoteCommands = enableBackgroundMusic;
+
     [FMAudioPlayer.sharedPlayer whenAvailable:^{
         [self sendEventWithName:@"availability" body:@{
                                            @"available": @YES,
-                                           @"stations": [self mapStationListToDictionary:_player.stationList],
-                                           @"activeStationId": _player.activeStation.identifier
+                                           @"stations": [self mapStationListToDictionary:self->_player.stationList],
+                                           @"activeStationId": self->_player.activeStation.identifier
                                            }];
     } notAvailable:^{
         [self sendEventWithName:@"availability" body:@{

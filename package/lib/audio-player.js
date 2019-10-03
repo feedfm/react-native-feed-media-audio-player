@@ -79,11 +79,14 @@ class AudioPlayer {
    * @param {string} secret - secret value provided by Feed.fm
    * @param {availabilityCallback} [availability] - callback that is called once when
    *       availability is determined
+   * @param {boolean} [handleRemoteCommands] - when true, the audio player should
+   *       integrate with lock screen controls (iOS) or notification controls (Android)
+   *       to support background audio playback and control.
    */
-  initialize(token, secret, availability) {
+  initialize(token, secret, availability, handleRemoteCommands) {
     this.log('initializing with token "' + token + '" and secret "' + secret + '"');
 
-    RNFMAudioPlayer.initializeWithToken(token, secret);
+    RNFMAudioPlayer.initializeWithToken(token, secret, handleRemoteCommands);
 
     if (availability) {
       this.whenAvailable(availability);

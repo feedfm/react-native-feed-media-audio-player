@@ -23,17 +23,16 @@ Here is how we structure things:
   `package.json` had some reference to the library in this repo, like
   `"react-native-feed-media-audio-player": "file:../package"`
   it would cause horrible symbolic link issues with the 'haste map',
-  whatever that is. Instead, you should:
+  whatever that is.
 - run `cp -r package example/node_modules/react-native-feed-media-audio-player`
   so that the app has access to our library.
-- edit the code in `example/node_modules/react-native-feed-media-audio-player`
-  and then copy the changes to the `package` dir and check that back into
-  the repo.
+- make all your changes in the `package` directory, and then run that cp
+  command to push them to the example app.
+- check in your changes to the `package` directory.
 
 ** important **
 
-The repo does not check in the `examples/node_modules` dir! You need to copy
-your changes back to the `package` dir and check them in!
+The repo does not check in the `examples/node_modules` dir! This is by design!
 
 # Development notes
 

@@ -86,17 +86,9 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
   }
 
   @ReactMethod
-  public void initializeWithToken(String token, String secret) {
+  public void initializeWithToken(String token, String secret, boolean enableBackgroundMusic) {
 
-    FeedPlayerService.initialize(reactContext, token, secret);
-
-    mFeedAudioPlayer = FeedPlayerService.getInstance();
-    mFeedAudioPlayer.addPlayListener(RNFMAudioPlayerModule.this);
-    mFeedAudioPlayer.addSkipListener(RNFMAudioPlayerModule.this);
-    mFeedAudioPlayer.addStationChangedListener(RNFMAudioPlayerModule.this);
-    mFeedAudioPlayer.addStateListener(RNFMAudioPlayerModule.this);
-
-    FeedPlayerService.getInstance(new FeedAudioPlayer.AvailabilityListener() {
+    FeedAudioPlayer.AvailabilityListener listener = new FeedAudioPlayer.AvailabilityListener() {
       @Override
       public void onPlayerAvailable(FeedAudioPlayer feedAudioPlayer) {
         WritableMap params = Arguments.createMap();
@@ -122,7 +114,27 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
         params.putBoolean("available", false);
         sendEvent(reactContext, "availability", params);
       }
-    });
+    };
+
+    if (enableBackgroundMusic) {
+      FeedPlayerService.initialize(reactContext, token, secret);
+
+      mFeedAudioPlayer = FeedPlayerService.getInstance();
+      FeedPlayerService.getInstance(listener);
+
+    } else {
+      mFeedAudioPlayer = new FeedAudioPlayer.Builder()
+        .setToken(token)
+        .setSecret(secret)
+        .setContext(reactContext)
+        .setAvailabilityListener(listener)
+        .build();
+    }
+
+    mFeedAudioPlayer.addPlayListener(RNFMAudioPlayerModule.this);
+    mFeedAudioPlayer.addSkipListener(RNFMAudioPlayerModule.this);
+    mFeedAudioPlayer.addStationChangedListener(RNFMAudioPlayerModule.this);
+    mFeedAudioPlayer.addStateListener(RNFMAudioPlayerModule.this);
   }
 
 

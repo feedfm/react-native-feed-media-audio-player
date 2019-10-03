@@ -10,7 +10,8 @@ export default AudioPlayerService;
  *   token: '',
  *   secret: '',
  *   onAvailable: function() { },
- *   onUnavailable: function() { }
+ *   onUnavailable: function() { },
+ *   enableBackgroundMusic: false
  * })
  * 
  * create player = AudioPlayer instance (state = UNINITIALIZED)

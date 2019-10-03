@@ -1,4 +1,9 @@
 
+- v2.3.6 - background music
+  - offer 'enableBackgroundMusic:boolean' as initialization option
+  - update to iOS library v4.3.2
+  - update to Android library v5.2.9
+
 - v2.3.5 - update iOS library
   - changes to support iOS 13 and prevent crash
 

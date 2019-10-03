@@ -7,7 +7,7 @@ import { Platform, StyleSheet, Text, View, Button } from 'react-native'; // esli
 import audioPlayerService from 'react-native-feed-media-audio-player';
 
 // initialize the player as early in the app as possible
-audioPlayerService.initialize({ token: 'demo', secret: 'demo', debug: true });
+audioPlayerService.initialize({ token: 'demo', secret: 'demo', debug: true, enableBackgroundMusic: false });
 
 // If you want to test transitions between songs, try using 'counting'
 // for both the token and secret values. Also try 'badgeo' for both

@@ -938,10 +938,7 @@ NS_ASSUME_NONNULL_END
 /**
  * If YES (the default), then the Feed.fm library will
  * register with the MPRemoteCommandCenter to handle play/pause/skip/like/dislike
- * commands upon start of playback. Note that, unless a lockScreenDelegate
- * is assigned, the FMAudioPlayer will still enable/disable the
- * play/pause/skip/like/dislike buttons in the MPRemoteCommandCenter (but not
- * respond to them) when this is NO.
+ * commands upon start of playback. 
  */
 
 @property (nonatomic) BOOL doesHandleRemoteCommands;

@@ -45,6 +45,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNFMAudioPlayer;
 		};
+		76C628B923A93D0D00E40896 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 76C626BA23A9250E00E40896 /* RNFMAudioPlayer.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 58B511DA1A9E6C8500147676;
+			remoteInfo = RNFMAudioPlayer;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -252,6 +259,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				76C628BA23A93D0D00E40896 /* PBXTargetDependency */,
 			);
 			name = example;
 			productName = example;
@@ -597,6 +605,11 @@
 			isa = PBXTargetDependency;
 			target = 2D02E47A1E0B4A5D006451C7 /* example-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
+		};
+		76C628BA23A93D0D00E40896 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RNFMAudioPlayer;
+			targetProxy = 76C628B923A93D0D00E40896 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -14,11 +14,11 @@
   "author": "Eric Lambrecht <eric@feed.fm>",
   "license": "SEE LICENSE IN LICENSE.md",
   "peerDependencies": {
-    "react-native": "^0.59.8"
+    "react-native": "^0.60.5"
   },
   "dependencies": {
     "nanoevents": "^1.0.8",
-    "react-native": "^0.59.8"
+    "react-native": "^0.60.5"
   },
   "directories": {
     "lib": "lib"

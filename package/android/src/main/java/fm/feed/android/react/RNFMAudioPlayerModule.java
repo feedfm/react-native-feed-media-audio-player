@@ -1,8 +1,10 @@
 
 package fm.feed.android.react;
 
-import android.support.annotation.Nullable;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -186,7 +188,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
 
   private void sendEvent(ReactContext reactContext,
                          String eventName,
-                         @Nullable WritableMap params) {
+                        @Nullable WritableMap params) {
     reactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
             .emit(eventName, params);

@@ -4,75 +4,18 @@
 This library will expose the iOS and Android Feed.fm SDKs for use in React
 Native projects for music playback. 
 
-## Getting started
+## How to use
 
-`$ npm install react-native-feed-media-audio-player --save`
+From your React Native v0.60 or above project, run:
 
-### Mostly automatic installation
+```
+npm install react-native-feed-media-audio-player
+cd ios
+pod install
+```
 
-`$ react-native link react-native-feed-media-audio-player`
+done!
 
-**note** - Android users see item 4 in the Android section below regarding
-API levels and Java 1.8 issues.
-
-### Manual installation
-
-#### iOS
-
-1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-feed-media-audio-player` and add `RNFMAudioPlayer.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add `libRNFMAudioPlayer.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Run your project (`Cmd+R`)<
-
-#### Android
-
-1. Open up `android/app/src/main/java/[...]/MainApplication.java`
-  - Add `import fm.feed.adroid.react.RNFMAudioPlayerPackage;` to the imports at the top of the file
-  - Add `new RNFMAudioPlayerPackage()` to the list returned by the `getPackages()` method
-2. Append the following lines to `android/settings.gradle` before the `include ':app'` line:
-        ```
-        include ':react-native-feed-media-audio-player'
-        project(':react-native-feed-media-audio-player').projectDir = new File(rootProject.projectDir,   '../node_modules/react-native-feed-media-audio-player/android')
-
-        ```
-3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
-        ```
-      implementation project(':react-native-feed-media-audio-player')
-        ```
-
-4. Our library uses version 28.0.0 of the Android support library and Java 1.8, so you may need to
-update your build and target versions to be compatible if you're using an older
-version of React Native. Change your `android/app/build.gradle`
-to the following:
-
-        ```
-      buildscript {
-        ext {
-          buildToolsVersion = "28.0.3"
-          minSdkVersion = 16
-          compileSdkVersion = 28
-          targetSdkVersion = 28
-          supportLibVersion = "28.0.0"
-        }
-        ...
-      }
-        ```
-
-and, near the top of your `android/build.gradle`, add the following compile options to make sure
-the Java 1.8 compiles nicely:
-
-        ```
-        android {
-          compileSdkVersion rootProject.ext.compileSdkVersion
-          
-          // support java 1.8:
-          compileOptions {
-              sourceCompatibility JavaVersion.VERSION_1_8
-              targetCompatibility JavaVersion.VERSION_1_8
-          }
-          ...
-        }
-        ```
 
 ## Sample
 

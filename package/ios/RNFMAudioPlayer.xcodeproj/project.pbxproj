@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A95238E821655321007405D9 /* libFeedMediaCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A95238DF21655320007405D9 /* libFeedMediaCore.a */; };
 		B3E7B58A1CC2AC0600A0062D /* RNFMAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNFMAudioPlayer.m */; };
 /* End PBXBuildFile section */
 
@@ -25,16 +24,6 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNFMAudioPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNFMAudioPlayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		A95238DE21655320007405D9 /* FMLockScreenDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMLockScreenDelegate.h; sourceTree = "<group>"; };
-		A95238DF21655320007405D9 /* libFeedMediaCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFeedMediaCore.a; sourceTree = "<group>"; };
-		A95238E021655320007405D9 /* FeedMediaCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedMediaCore.h; sourceTree = "<group>"; };
-		A95238E121655321007405D9 /* FMStationArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMStationArray.h; sourceTree = "<group>"; };
-		A95238E221655321007405D9 /* FMAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMAudioPlayer.h; sourceTree = "<group>"; };
-		A95238E321655321007405D9 /* FMAudioItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMAudioItem.h; sourceTree = "<group>"; };
-		A95238E421655321007405D9 /* FMError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMError.h; sourceTree = "<group>"; };
-		A95238E521655321007405D9 /* FMLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMLog.h; sourceTree = "<group>"; };
-		A95238E621655321007405D9 /* CWStatusBarNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWStatusBarNotification.h; sourceTree = "<group>"; };
-		A95238E721655321007405D9 /* FMStation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMStation.h; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* RNFMAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNFMAudioPlayer.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNFMAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNFMAudioPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -44,7 +33,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A95238E821655321007405D9 /* libFeedMediaCore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,28 +50,10 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				A95238DD21655320007405D9 /* FeedMedia */,
 				B3E7B5881CC2AC0600A0062D /* RNFMAudioPlayer.h */,
 				B3E7B5891CC2AC0600A0062D /* RNFMAudioPlayer.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		A95238DD21655320007405D9 /* FeedMedia */ = {
-			isa = PBXGroup;
-			children = (
-				A95238DE21655320007405D9 /* FMLockScreenDelegate.h */,
-				A95238DF21655320007405D9 /* libFeedMediaCore.a */,
-				A95238E021655320007405D9 /* FeedMediaCore.h */,
-				A95238E121655321007405D9 /* FMStationArray.h */,
-				A95238E221655321007405D9 /* FMAudioPlayer.h */,
-				A95238E321655321007405D9 /* FMAudioItem.h */,
-				A95238E421655321007405D9 /* FMError.h */,
-				A95238E521655321007405D9 /* FMLog.h */,
-				A95238E621655321007405D9 /* CWStatusBarNotification.h */,
-				A95238E721655321007405D9 /* FMStation.h */,
-			);
-			path = FeedMedia;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

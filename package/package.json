@@ -14,13 +14,19 @@
   "author": "Eric Lambrecht <eric@feed.fm>",
   "license": "SEE LICENSE IN LICENSE.md",
   "peerDependencies": {
-    "react-native": "^0.60.5"
+    "react": "^16.8.1",
+    "react-native": ">0.60.5"
   },
-  "dependencies": {
-    "nanoevents": "^1.0.8",
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/runtime": "^7.7.7",
+    "react": "^16.8.3",
     "react-native": "^0.60.5"
   },
   "directories": {
     "lib": "lib"
+  },
+  "dependencies": {
+    "nanoevents": "^2.0.0"
   }
 }

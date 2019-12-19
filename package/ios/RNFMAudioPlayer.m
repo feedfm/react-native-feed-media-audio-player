@@ -87,10 +87,13 @@ RCT_EXPORT_METHOD(initializeWithToken:(NSString *)token secret:(NSString *)secre
     FMAudioPlayer.sharedPlayer.doesHandleRemoteCommands = enableBackgroundMusic;
 
     [FMAudioPlayer.sharedPlayer whenAvailable:^{
+        // the active station is not set at this time, so assume it is the first station
+        FMStation *station = [self->_player.stationList firstObject];
+        
         [self sendEventWithName:@"availability" body:@{
                                            @"available": @YES,
                                            @"stations": [self mapStationListToDictionary:self->_player.stationList],
-                                           @"activeStationId": self->_player.activeStation.identifier
+                                           @"activeStationId": station.identifier
                                            }];
     } notAvailable:^{
         [self sendEventWithName:@"availability" body:@{

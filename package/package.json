@@ -11,7 +11,16 @@
     "music",
     "audio"
   ],
-  "author": "Eric Lambrecht <eric@feed.fm>",
+  "contributors": [
+    {
+      "name": "Eric Lambrecht",
+      "email": "eric@feed.fm"
+    },
+    {
+      "name": "Arveen Kumar",
+      "email": "arveen@feed.fm"
+    }
+  ],
   "license": "SEE LICENSE IN LICENSE.md",
   "peerDependencies": {
     "react": "^16.8.1",

@@ -7,13 +7,13 @@
     "test": "jest"
   },
   "dependencies": {
-    "nanoevents": "^2.0.0",
     "react": "16.8.6",
-    "react-native": "0.60.5"
+    "react-native": "0.60.5",
+    "react-native-feed-media-audio-player": "file:../package"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.0",
-    "@babel/runtime": "^7.5.0",
+    "@babel/core": "^7.7.7",
+    "@babel/runtime": "^7.7.6",
     "@react-native-community/eslint-config": "^0.0.3",
     "babel-jest": "^24.1.0",
     "jest": "^24.1.0",

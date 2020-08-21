@@ -1,8 +1,9 @@
 PODS:
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.6)
-  - FeedMedia (4.3.6):
-    - MarqueeLabel (~> 3.1.4)
+  - FeedMedia (4.4.3-beta1):
+    - FeedMedia/Core (= 4.4.3-beta1)
+  - FeedMedia/Core (4.4.3-beta1)
   - Folly (2018.10.22.00):
     - boost-for-react-native
     - DoubleConversion
@@ -13,9 +14,6 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - MarqueeLabel (3.1.6):
-    - MarqueeLabel/ObjC (= 3.1.6)
-  - MarqueeLabel/ObjC (3.1.6)
   - React (0.60.5):
     - React-Core (= 0.60.5)
     - React-DevSupport (= 0.60.5)
@@ -61,8 +59,8 @@ PODS:
     - React-cxxreact (= 0.60.5)
     - React-jsi (= 0.60.5)
   - React-jsinspector (0.60.5)
-  - react-native-feed-media-audio-player (2.4.0):
-    - FeedMedia
+  - react-native-feed-media-audio-player (3.0.0-beta2):
+    - FeedMedia (= 4.4.3-beta1)
     - React
   - React-RCTActionSheet (0.60.5):
     - React-Core (= 0.60.5)
@@ -117,7 +115,6 @@ SPEC REPOS:
   trunk:
     - boost-for-react-native
     - FeedMedia
-    - MarqueeLabel
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -168,10 +165,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
-  FeedMedia: 3e93f1cd6e6df459c1512367a0862d714e16498b
+  FeedMedia: 6298c9b2914f117653f291ebaebd1daa9a72bc39
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
-  MarqueeLabel: 0c41f08ef5773e29c0f71064a8fa788a2fd8b365
   React: 53c53c4d99097af47cf60594b8706b4e3321e722
   React-Core: ba421f6b4f4cbe2fb17c0b6fc675f87622e78a64
   React-cxxreact: 8384287780c4999351ad9b6e7a149d9ed10a2395
@@ -179,7 +175,7 @@ SPEC CHECKSUMS:
   React-jsi: 4d8c9efb6312a9725b18d6fc818ffc103f60fec2
   React-jsiexecutor: 90ad2f9db09513fc763bc757fdc3c4ff8bde2a30
   React-jsinspector: e08662d1bf5b129a3d556eb9ea343a3f40353ae4
-  react-native-feed-media-audio-player: bcc0aff44283118bc94391bdd9a1c2aca277144e
+  react-native-feed-media-audio-player: 82bd2f2f7034591d024531a0aafe3cd25ad8065c
   React-RCTActionSheet: b0f1ea83f4bf75fb966eae9bfc47b78c8d3efd90
   React-RCTAnimation: 359ba1b5690b1e87cc173558a78e82d35919333e
   React-RCTBlob: 5e2b55f76e9a1c7ae52b826923502ddc3238df24
@@ -192,6 +188,6 @@ SPEC CHECKSUMS:
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
-PODFILE CHECKSUM: 54eb0fd240f6134c7b39890d98d74d8d96f35989
+PODFILE CHECKSUM: 10f1db53106fec587148f3e1299b1a5051153628
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.3

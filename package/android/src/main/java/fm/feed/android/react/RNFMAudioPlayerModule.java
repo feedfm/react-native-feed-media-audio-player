@@ -22,6 +22,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,14 +31,21 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import fm.feed.android.playersdk.AvailabilityListener;
+import fm.feed.android.playersdk.ClientIdListener;
 import fm.feed.android.playersdk.FeedAudioPlayer;
 import fm.feed.android.playersdk.FeedPlayerService;
+import fm.feed.android.playersdk.PlayListener;
+import fm.feed.android.playersdk.SkipListener;
+import fm.feed.android.playersdk.State;
+import fm.feed.android.playersdk.StateListener;
+import fm.feed.android.playersdk.StationChangedListener;
 import fm.feed.android.playersdk.models.Play;
 import fm.feed.android.playersdk.models.Station;
 
 
-public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements FeedAudioPlayer.StateListener,
-        FeedAudioPlayer.StationChangedListener, FeedAudioPlayer.PlayListener, FeedAudioPlayer.SkipListener{
+public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements StateListener,
+        StationChangedListener, PlayListener, SkipListener {
 
   public final static String TAG = RNFMAudioPlayerModule.class.getName();
 
@@ -72,7 +80,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
 
   @ReactMethod
   public void createNewClientID() {
-    mFeedAudioPlayer.createNewClientId(new FeedAudioPlayer.ClientIdListener() {
+    mFeedAudioPlayer.createNewClientId(new ClientIdListener() {
       @Override
       public void onClientId(String s) {
         WritableMap params = Arguments.createMap();
@@ -90,7 +98,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
   @ReactMethod
   public void initializeWithToken(String token, String secret, boolean enableBackgroundMusic) {
 
-    FeedAudioPlayer.AvailabilityListener listener = new FeedAudioPlayer.AvailabilityListener() {
+     AvailabilityListener listener = new AvailabilityListener() {
       @Override
       public void onPlayerAvailable(FeedAudioPlayer feedAudioPlayer) {
         WritableMap params = Arguments.createMap();
@@ -125,10 +133,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
       FeedPlayerService.getInstance(listener);
 
     } else {
-      mFeedAudioPlayer = new FeedAudioPlayer.Builder()
-        .setToken(token)
-        .setSecret(secret)
-        .setContext(reactContext)
+      mFeedAudioPlayer = new FeedAudioPlayer.Builder(reactContext, token, secret)
         .setAvailabilityListener(listener)
         .build();
     }
@@ -159,7 +164,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
 
       if(st.getId().toString().equals(station.toString()))
       {
-        mFeedAudioPlayer.setActiveStation(st);
+        mFeedAudioPlayer.setActiveStation(st, false);
         flag = true;
         break;
       }
@@ -317,30 +322,30 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
   @Override
   public Map<String, Object> getConstants() {
     final Map<String, Object> constants = new HashMap<>();
-    constants.put("audioPlayerPlaybackStateUnavailable" , FeedAudioPlayer.State.UNAVAILABLE.ordinal());
-    constants.put("audioPlayerPlaybackStateUninitialized", FeedAudioPlayer.State.UNINITIALIZED.ordinal());
-    constants.put("audioPlayerPlaybackStateWaitingForItem", FeedAudioPlayer.State.WAITING_FOR_ITEM.ordinal());
-    constants.put("audioPlayerPlaybackStateReadyToPlay", FeedAudioPlayer.State.READY_TO_PLAY.ordinal());
-    constants.put("audioPlayerPlaybackStatePlaying", FeedAudioPlayer.State.PLAYING.ordinal());
-    constants.put("audioPlayerPlaybackStatePaused", FeedAudioPlayer.State.PAUSED.ordinal());
-    constants.put("audioPlayerPlaybackStateStalled", FeedAudioPlayer.State.STALLED.ordinal());
-    constants.put("audioPlayerPlaybackStateOfflineOnly", FeedAudioPlayer.State.UNAVAILABLE.ordinal());
+    constants.put("audioPlayerPlaybackStateUnavailable" , State.UNAVAILABLE.ordinal());
+    constants.put("audioPlayerPlaybackStateUninitialized", State.UNINITIALIZED.ordinal());
+    constants.put("audioPlayerPlaybackStateWaitingForItem", State.WAITING_FOR_ITEM.ordinal());
+    constants.put("audioPlayerPlaybackStateReadyToPlay", State.READY_TO_PLAY.ordinal());
+    constants.put("audioPlayerPlaybackStatePlaying", State.PLAYING.ordinal());
+    constants.put("audioPlayerPlaybackStatePaused", State.PAUSED.ordinal());
+    constants.put("audioPlayerPlaybackStateStalled", State.STALLED.ordinal());
+    constants.put("audioPlayerPlaybackStateOfflineOnly", State.UNAVAILABLE.ordinal());
     return constants;
   }
 
   @Override
-  public void onStateChanged(FeedAudioPlayer.State state) {
+  public void onStateChanged(State state) {
     WritableMap params = Arguments.createMap();
     switch (state)
     {
-      case PAUSED:                 params.putInt("state",FeedAudioPlayer.State.PAUSED.ordinal()); break;
-      case PLAYING:                params.putInt("state",FeedAudioPlayer.State.PLAYING.ordinal()); break;
-      case STALLED:                params.putInt("state",FeedAudioPlayer.State.STALLED.ordinal()); break;
-      case UNAVAILABLE:            params.putInt("state",FeedAudioPlayer.State.UNAVAILABLE.ordinal()); break;
-      case READY_TO_PLAY:          params.putInt("state",FeedAudioPlayer.State.READY_TO_PLAY.ordinal()); break;
-      case UNINITIALIZED:          params.putInt("state",FeedAudioPlayer.State.UNINITIALIZED.ordinal()); break;
-      case WAITING_FOR_ITEM:       params.putInt("state",FeedAudioPlayer.State.WAITING_FOR_ITEM.ordinal()); break;
-      case AVAILABLE_OFFLINE_ONLY: params.putInt("state",FeedAudioPlayer.State.AVAILABLE_OFFLINE_ONLY.ordinal()); break;
+      case PAUSED:                 params.putInt("state",State.PAUSED.ordinal()); break;
+      case PLAYING:                params.putInt("state",State.PLAYING.ordinal()); break;
+      case STALLED:                params.putInt("state",State.STALLED.ordinal()); break;
+      case UNAVAILABLE:            params.putInt("state",State.UNAVAILABLE.ordinal()); break;
+      case READY_TO_PLAY:          params.putInt("state",State.READY_TO_PLAY.ordinal()); break;
+      case UNINITIALIZED:          params.putInt("state",State.UNINITIALIZED.ordinal()); break;
+      case WAITING_FOR_ITEM:       params.putInt("state",State.WAITING_FOR_ITEM.ordinal()); break;
+      case AVAILABLE_OFFLINE_ONLY: params.putInt("state",State.AVAILABLE_OFFLINE_ONLY.ordinal()); break;
     }
 
     sendEvent(reactContext, "state-change", params);
@@ -362,14 +367,14 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
   }
 
   @Override
-  public void onProgressUpdate(Play play, float v, float v1) {
+  public void onProgressUpdate(@NotNull Play play, float v, float v1) {
 
   }
 
   @Override
   public void onPlayStarted(Play play) {
 
-      String str  = toJson(play.getAudioFile().getOptions());
+      String str  = toJson(play.getAudioFile().getMetadata());
 
       try {
           JSONObject object = new JSONObject(str);

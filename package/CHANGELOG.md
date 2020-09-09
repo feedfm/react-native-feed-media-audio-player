@@ -1,4 +1,9 @@
 
+
+- v3.0.0 - library and RN updates
+  - update to Android library v6.0.1, with ExoPlayer 2.10.6
+  - update to iOS library v4.4.4
+
 - v2.4.0 - background music
   - offer 'enableBackgroundMusic:boolean' as initialization option
   - update to iOS library v4.3.2

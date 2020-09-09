@@ -221,11 +221,21 @@ export default class App extends Component {
         </View>
       );
 
-    //case 'UNINITIALIZED':
+    case 'UNINITIALIZED':
     // not reached, because player.state.available is not null at this point:
+      return (
+        <View style={styles.container}>
+          <Text style={styles.text}>no state available yet</Text>
+        </View>
+      );
 
-    //case 'OFFLINE':
+    case 'OFFLINE':
     // not yet exposed to react native clients
+      return (
+        <View style={styles.container}>
+          <Text style={styles.text}>offline playback only!</Text>
+        </View>
+      );
 
     }
 

@@ -27,10 +27,10 @@
     "react-native": ">0.60.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/runtime": "^7.7.7",
-    "react": "^16.8.3",
-    "react-native": "^0.60.5"
+    "@babel/core": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
+    "react": "^16.13.1",
+    "react-native": "^0.63.2"
   },
   "directories": {
     "lib": "lib"

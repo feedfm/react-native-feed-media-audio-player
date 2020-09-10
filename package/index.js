@@ -1,11 +1,15 @@
 
 import AudioPlayerService from './lib/audio-player-service.js';
+import { useSimulcastStreamer } from './lib/simulcast-streamer';
 
-export default AudioPlayerService;
+export {
+  useSimulcastStreamer,
+  AudioPlayerService
+};
 
 /**
  * class AudioPlayerService:
- * 
+ *
  * initialize({
  *   token: '',
  *   secret: '',
@@ -13,7 +17,7 @@ export default AudioPlayerService;
  *   onUnavailable: function() { },
  *   enableBackgroundMusic: false
  * })
- * 
+ *
  * create player = AudioPlayer instance (state = UNINITIALIZED)
  *   pass in all init options
   * native.init(token, secret)
@@ -35,7 +39,7 @@ export default AudioPlayerService;
  *    single function = node style response with (error, player)
  *    double function = onAvailable(player) or onUnavailable(error)
  *  used to get player after we've confirmed music is available
- * 
+ *
  * if player.available
  *   immediately call back
  * else add callback to list of listeners
@@ -48,44 +52,44 @@ export default AudioPlayerService;
  *   currentPlay = null
  *   activeStation = null
  *   skipListeners = []
- * 
+ *
  *   keeps internal copy of active play and station
  *   (watches native relayed events)
  *   store time player entered PLAY state, + elapsed time before that
- * 
+ *
  *   play - async
  *     native.play()
- * 
+ *
  *   pause - async
  *     native.pause()
- * 
+ *
  *   stop - async
  *     native.stop()
- * 
+ *
  *   skip(onFailure) - async
  *      native.skip()
  *      add onFailure to skipListeners
- * 
+ *
  *   getCurrentPlay() - return local copy
- * 
+ *
  *   setActiveStation(station) - async
  *   getActiveStation() - return local copy
- * 
+ *
  *   getElapsedTime() - compute elapsed
  *   getDuration() - return from play-started
- * 
+ *
  *   setSecondsOfCrossfade() - async config
  *   setCrossfadeInEnabled() - async config
- * 
+ *
  *   getStations() - return local copy
  *
  *   on(event, callback)
  *   off(event)
- * 
+ *
  *   _onAvailableUnavailable
  *     available = ?
  *     call listeners
- *   _onStateChange 
+ *   _onStateChange
  *      save state
  *      if playing, also save elapsed and begin time
  *   _onStationChange
@@ -96,22 +100,22 @@ export default AudioPlayerService;
  *   _onSkipFailed
  *      call listeners
  * }
- * 
+ *
  * events:
  *    play-started - pass play information
  *    state-changed
  *    station-changed
  *    skip-failed
- * 
+ *
  * by default, disable:
  *   command center
  *   notifications
- * 
- *    
+ *
+ *
  */
 /**
  * player states:
- * 
+ *
 
 FMAudioPlayerPlaybackStateOfflineOnly,
 AVAILABLE_OFFLINE_ONLY

@@ -1,3 +1,10 @@
+//
+//  RNFMSimulcastStreamer.h
+//  RNFMAudioPlayer
+//
+//  Created by Arveen kumar on 9/15/20.
+//  Copyright © 2020 Facebook. All rights reserved.
+//
 
 #if __has_include("RCTBridgeModule.h")
 //#import "RCTBridgeModule.h"
@@ -11,13 +18,11 @@
 
 #import "FeedMedia/FeedMediaCore.h"
 
+@interface RNFMSimulcastStreamer : RCTEventEmitter <RCTBridgeModule, FMSimulcastDelegate>
 
-@interface RNFMAudioPlayer : RCTEventEmitter <RCTBridgeModule> 
-
-@property (nonatomic, weak) FMAudioPlayer *player;
+@property (nonatomic, weak) FMSimulcastStreamer *streamer;
 
 + (BOOL)requiresMainQueueSetup;
 - (dispatch_queue_t)methodQueue;
 
 @end
-  

@@ -62,7 +62,7 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(initialize:(NSString *)token) {
  
-    streamer = [[FMSimulcastStreamer alloc] initSimulcastListenerWithToken:token withDelegate: self isPlayer:YES];
+    _streamer = [[FMSimulcastStreamer alloc] initSimulcastListenerWithToken:token withDelegate: self isPlayer:YES];
     
 }
 
@@ -86,19 +86,19 @@ RCT_EXPORT_METHOD(disconnect) {
             @"artist": item.artist,
             @"album": item.album,
             @"metadata": item.metadata,
-            @"duration": item.duration
+            @"duration": @(item.duration)
             }
     }];
 }
 
 - (void)stateChanged:(FMSimulcastPlaybackState)state {
     
-    [self sendEventWithName:@"stateChange" body:@{@"state":state}];
+    [self sendEventWithName:@"stateChange" body:@{@"state":@(state)}];
 }
 
 - (void)elapse:(CMTime)elapseTime {
-    RCTLogInfo(@"Elapsed seconds = %f", CMTimeGetSeconds(elapseTime));
-    [self sendEventWithName:@"elapse" body:@{@"elapsed":CMTimeGetSeconds(elapseTime)}];
+    long duration = lroundf(CMTimeGetSeconds(elapseTime));
+    [self sendEventWithName:@"elapse" body:@{@"elapsed":@(duration)}];
 }
 
 - (void)onError:(NSString * _Nullable)error {

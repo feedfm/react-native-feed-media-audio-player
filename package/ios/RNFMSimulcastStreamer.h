@@ -20,7 +20,7 @@
 
 @interface RNFMSimulcastStreamer : RCTEventEmitter <RCTBridgeModule, FMSimulcastDelegate>
 
-@property (nonatomic, weak) FMSimulcastStreamer *streamer;
+@property (nonatomic, strong) FMSimulcastStreamer *streamer;
 
 + (BOOL)requiresMainQueueSetup;
 - (dispatch_queue_t)methodQueue;

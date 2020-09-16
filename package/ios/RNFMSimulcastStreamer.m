@@ -12,25 +12,6 @@
 
 @implementation RCTConvert (FMSimulcastPlaybackState)
 
-SIMULCAST_STATE_IDLE,
-
-/**
- * Playing
- */
-SIMULCAST_STATE_PLAYING,
-/**
- * Playback has been stopped
- */
-SIMULCAST_STATE_STOPPED,
-/**
- * Player is stalled and waiting for data from the stream
- */
-SIMULCAST_STATE_STALLED,
-/**
- * Music unavailable and should not be played for this user.
- */
-SIMULCAST_STATE_MUSIC_UNAVAILABLE
-
 RCT_ENUM_CONVERTER(FMSimulcastPlaybackState, (@{
   @"SimulcastStateIdle": @(SIMULCAST_STATE_IDLE),
   @"SimulcastStatePlaying": @(SIMULCAST_STATE_PLAYING),
@@ -86,13 +67,13 @@ RCT_EXPORT_METHOD(initialize:(NSString *)token) {
 }
 
 RCT_EXPORT_METHOD(connect) {
-    [streamer connect];
+    [_streamer connect];
 }
 
 
 
 RCT_EXPORT_METHOD(disconnect) {
-    [streamer disconnect];
+    [_streamer disconnect];
 }
 
 
@@ -105,7 +86,7 @@ RCT_EXPORT_METHOD(disconnect) {
             @"artist": item.artist,
             @"album": item.album,
             @"metadata": item.metadata,
-            @"duration": @(duration)
+            @"duration": item.duration
             }
     }];
 }
@@ -129,13 +110,13 @@ RCT_EXPORT_METHOD(disconnect) {
 
 RCT_EXPORT_METHOD(setVolume: (float) volume)
 {
-    streamer.volume = volume;
+    _streamer.volume = volume;
 }
 
 
 - (void)stopObserving {
     
-    [streamer disconnect];
+    [_streamer disconnect];
     
 }
 

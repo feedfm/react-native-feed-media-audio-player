@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import { Platform, StyleSheet, Text, View, Button } from 'react-native'; // eslint-disable-line no-unused-vars
-import audioPlayerService from 'react-native-feed-media-audio-player';
+import { audioPlayerService } from 'react-native-feed-media-audio-player';
 
 // initialize the player as early in the app as possible
 audioPlayerService.initialize({ token: 'demo', secret: 'demo', debug: true, enableBackgroundMusic: false });

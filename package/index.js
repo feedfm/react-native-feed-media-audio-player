@@ -1,10 +1,10 @@
 
-import AudioPlayerService from './lib/audio-player-service.js';
+import audioPlayerService from './lib/audio-player-service.js';
 import { useSimulcastStreamer } from './lib/simulcast-streamer';
 
 export {
   useSimulcastStreamer,
-  AudioPlayerService
+  audioPlayerService
 };
 
 /**

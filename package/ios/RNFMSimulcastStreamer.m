@@ -61,25 +61,21 @@ RCT_EXPORT_MODULE()
 
 
 RCT_EXPORT_METHOD(initialize:(NSString *)token) {
- 
-    _streamer = [[FMSimulcastStreamer alloc] initSimulcastListenerWithToken:token withDelegate: self isPlayer:YES];
-    
+    // DOES NOT COMPILE:
+    _streamer = [[FMSimulcastStreamer alloc] initSimulcastListenerWithToken:token withDelegate: self playLocalStream:YES];
 }
 
 RCT_EXPORT_METHOD(connect) {
     [_streamer connect];
 }
 
-
-
 RCT_EXPORT_METHOD(disconnect) {
     [_streamer disconnect];
 }
 
 
-
 - (void)nextItemBegan:(FMAudioItem * _Nonnull)item {
-   [self sendEventWithName:@"nextItemBegan" body:@{
+   [self sendEventWithName:@"play-started" body:@{
     @"play": @{
             @"id": item.playId,
             @"title": item.name,
@@ -92,8 +88,7 @@ RCT_EXPORT_METHOD(disconnect) {
 }
 
 - (void)stateChanged:(FMSimulcastPlaybackState)state {
-    
-    [self sendEventWithName:@"stateChange" body:@{@"state":@(state)}];
+    [self sendEventWithName:@"stage-change" body:@{@"state":@(state)}];
 }
 
 - (void)elapse:(CMTime)elapseTime {
@@ -107,7 +102,6 @@ RCT_EXPORT_METHOD(disconnect) {
 }
 
 
-
 RCT_EXPORT_METHOD(setVolume: (float) volume)
 {
     _streamer.volume = volume;
@@ -115,9 +109,7 @@ RCT_EXPORT_METHOD(setVolume: (float) volume)
 
 
 - (void)stopObserving {
-    
     [_streamer disconnect];
-    
 }
 
 @end

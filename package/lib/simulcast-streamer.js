@@ -45,8 +45,8 @@ export default function useSimulcastStreamer(token) {
     // create new streamer object and subscribe to events
     const nativeEmitter = new NativeEventEmitter(RNFMSimulcastStreamer);
 
-    nativeEmitter.addListener('state-change', (state) => {
-      if (eventToken !== token) { return; }
+    const stateListener = nativeEmitter.addListener('state-change', ({ state }) => {
+      console.log("received state change", state);
 
       let readableState;
       switch (state) {
@@ -64,6 +64,8 @@ export default function useSimulcastStreamer(token) {
           readableState = 'UNINITIALIZED'
       }
 
+      console.log('readable state is', readableState);
+
       setStreamerState({
         ...streamerState,
 
@@ -71,25 +73,36 @@ export default function useSimulcastStreamer(token) {
       });
     });
 
-    nativeEmitter.addListener('play-started', (play) => {
-      if (eventToken !== token) { return; }
+    const playStartedListener = nativeEmitter.addListener('play-started', ({ play }) => {
+      if (play) {
+        console.log('play started', play);
 
-      setStreamerState({
-        ...streamerState,
+        setStreamerState({
+          ...streamerState,
 
-        currentPlay: { 
-          title: play.title,
-          artist: play.artist,
-          album: play.album,
-          duration: play.duration,
-          elapsed_seconds: 0
-        }
-      })
+          currentPlay: { 
+            title: play.title,
+            artist: play.artist,
+            album: play.album,
+            duration: play.duration,
+            elapsed_seconds: 0
+          }
+        })
+
+      } else {
+        console.log('null play started');
+
+        setStreamerState({
+          ...streamerState,
+
+          currentPlay: null
+        })
+      }
 
     });
 
-    nativeEmitter.addListener('elapse', (elapsed) => {
-      if (eventToken !== token) { return; }
+    const elapseListener = nativeEmitter.addListener('elapse', ({ elapsed }) => {
+      console.log('elapsed to ', elapsed);
 
       setStreamerState({
         ...streamerState,
@@ -101,20 +114,28 @@ export default function useSimulcastStreamer(token) {
       });
     });
 
-    nativeEmitter.addListener('error', ({ eventToken, error }) => {
-      if (eventToken !== token) { return; }
-
+    const errorListener = nativeEmitter.addListener('error', () => {
       // this is never triggered in current implementation (!!)
     });
 
     RNFMSimulcastStreamer.initialize(token);
 
+    console.log('initialized');
+
     return () => {
+      console.log('disconnecting');
+
+      errorListener.remove();
+      elapseListener.remove();
+      playStartedListener.remove();
+      stateListener.remove();
+
       RNFMSimulcastStreamer.disconnect(token);
     }
   }, [ ]);
 
   useEffect(() => {
+    console.log('setting volume to', streamerState.volume);
     RNFMSimulcastStreamer.setVolume(streamerState.volume);
 
   }, [ streamerState.volume ]);
@@ -124,6 +145,7 @@ export default function useSimulcastStreamer(token) {
     disconnect: () => { RNFMSimulcastStreamer.disconnect(); },
 
     setVolume: (volume) => { 
+      console.log('updating volume to', volume);
       setStreamerState({
           ...streamerState,
 

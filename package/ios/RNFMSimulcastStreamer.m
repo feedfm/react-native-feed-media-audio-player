@@ -67,10 +67,12 @@ RCT_EXPORT_METHOD(initialize:(NSString *)token) {
 }
 
 RCT_EXPORT_METHOD(connect) {
+    NSLog(@"connecting");
     [_streamer connect];
 }
 
 RCT_EXPORT_METHOD(disconnect) {
+    NSLog(@"disconnecting");
     [_streamer disconnect];
 }
 

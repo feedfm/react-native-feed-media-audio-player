@@ -22,21 +22,18 @@ const styles = StyleSheet.create({
 });
 
 export default () => {
-  const [streamerState, streamer] = useSimulcastStreamer('nsbZVn5qLahjCgHUvZJ2fy');
+  const [streamerState, streamer] = useSimulcastStreamer('8CRqKJ3AXxbMTF1ST3kynP');
 
-  switch (streamerState.state) {
-    case 'UNINITIALIZED':
-    case 'IDLE':
-    case 'PLAYING':
-    case 'STALLED':
-    case 'UNAVAILABLE':
-      // nada!
+  let nowPlaying = null;
 
+  if (streamerState.state === 'PLAYING') {
+    nowPlaying = <Text style={styles.text}>{streamerState.currentPlay.title} by {streamerState.currentPlay.artist} on {streamerState.currentPlay.album}</Text>;
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Current state: {streamerState.state}</Text>
+      {nowPlaying}
       <Button
         onPress={() => {
           streamer.connect();

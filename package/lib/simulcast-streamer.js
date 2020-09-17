@@ -150,7 +150,7 @@ export default function useSimulcastStreamer(token) {
 
   useEffect(() => {
     console.log('setting volume to', streamerState.volume);
-    //RNFMSimulcastStreamer.setVolume(streamerState.volume);
+    RNFMSimulcastStreamer.setVolume(streamerState.volume);
 
   }, [ streamerState.volume ]);
 

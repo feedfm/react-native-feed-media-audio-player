@@ -116,7 +116,7 @@ RCT_EXPORT_METHOD(setVolume: (float) volume)
 {
     NSLog(@"setting volume to %f", volume);
 
-    //_streamer.volume = volume;
+    _streamer.volume = volume;
 }
 
 

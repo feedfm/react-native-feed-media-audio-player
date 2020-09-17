@@ -129,12 +129,12 @@ class RNFMSimulcastStreamer extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void connect(){
-        streamer.play();
+        streamer.connect();
     }
 
     @ReactMethod
     public void disconnect() {
-        streamer.stop();
+        streamer.disconnect();
     }
 
 }

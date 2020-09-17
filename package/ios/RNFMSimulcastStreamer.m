@@ -62,6 +62,7 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(initialize:(NSString *)token) {
     NSLog(@"initializing");
+
     _streamer = [[FMSimulcastStreamer alloc] initSimulcastListenerWithToken:token withDelegate: self isPlayer:YES];
 }
 

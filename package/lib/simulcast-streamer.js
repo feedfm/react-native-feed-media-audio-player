@@ -48,14 +48,10 @@ export default function useSimulcastStreamer(token) {
   let [streamerState, setStreamerState] = useState({ state: 'UNINITIALIZED', currentPlay: null, volume: 1 });
 
   useEffect(() => {
-    console.log('initializing streamer');
-
     // create new streamer object and subscribe to events
     const nativeEmitter = new NativeEventEmitter(RNFMSimulcastStreamer);
 
     const stateListener = nativeEmitter.addListener('state-change', ({ state }) => {
-      console.log("received state change", state);
-
       let readableState;
       switch (state) {
         case RNFMSimulcastStreamer.SimulcastStateIdle:
@@ -69,11 +65,8 @@ export default function useSimulcastStreamer(token) {
         case RNFMSimulcastStreamer.SimulcastStateUnavailable:
           readableState = 'UNAVAILABLE'; break;
         default: 
-          console.log('unknown state value:', state);
           readableState = 'UNINITIALIZED'
       }
-
-      console.log('readable state is', readableState);
 
       setStreamerState((streamerState) => ({
         ...streamerState,
@@ -84,8 +77,6 @@ export default function useSimulcastStreamer(token) {
 
     const playStartedListener = nativeEmitter.addListener('play-started', ({ play }) => {
       if (play) {
-        console.log('play started', play);
-
         setStreamerState((streamerState) => ({
           ...streamerState,
 
@@ -99,8 +90,6 @@ export default function useSimulcastStreamer(token) {
         }));
 
       } else {
-        console.log('null play started');
-
         setStreamerState((streamerState) => ({
           ...streamerState,
 
@@ -111,8 +100,6 @@ export default function useSimulcastStreamer(token) {
     });
 
     const elapseListener = nativeEmitter.addListener('elapse', ({ elapsed }) => {
-      console.log('elapsed to ', elapsed);
-
       setStreamerState((streamerState) => ({
         ...streamerState,
 
@@ -137,8 +124,6 @@ export default function useSimulcastStreamer(token) {
     }));
 
     return () => {
-      console.log('disconnecting');
-
       errorListener.remove();
       elapseListener.remove();
       playStartedListener.remove();
@@ -149,7 +134,6 @@ export default function useSimulcastStreamer(token) {
   }, [ ]);
 
   useEffect(() => {
-    console.log('setting volume to', streamerState.volume);
     RNFMSimulcastStreamer.setVolume(streamerState.volume);
 
   }, [ streamerState.volume ]);
@@ -159,7 +143,6 @@ export default function useSimulcastStreamer(token) {
     disconnect: () => { RNFMSimulcastStreamer.disconnect(); },
 
     setVolume: (volume) => { 
-      console.log('updating volume to', volume);
       setStreamerState((streamerState) => ({
           ...streamerState,
 

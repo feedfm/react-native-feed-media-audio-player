@@ -14,7 +14,7 @@ import com.facebook.react.bridge.JavaScriptModule;
 public class RNFMAudioPlayerPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-      return Arrays.<NativeModule>asList(new RNFMAudioPlayerModule(reactContext));
+      return Arrays.<NativeModule>asList(new RNFMAudioPlayerModule(reactContext), new RNFMSimulcastStreamer(reactContext));
     }
 
     // Deprecated from RN 0.47

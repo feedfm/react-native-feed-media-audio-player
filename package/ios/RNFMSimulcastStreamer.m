@@ -61,8 +61,8 @@ RCT_EXPORT_MODULE()
 
 
 RCT_EXPORT_METHOD(initialize:(NSString *)token) {
-    // DOES NOT COMPILE:
-    _streamer = [[FMSimulcastStreamer alloc] initSimulcastListenerWithToken:token withDelegate: self playLocalStream:YES];
+    
+    _streamer = [[FMSimulcastStreamer alloc] initSimulcastListenerWithToken:token withDelegate: self isPlayer:YES];
 }
 
 RCT_EXPORT_METHOD(connect) {

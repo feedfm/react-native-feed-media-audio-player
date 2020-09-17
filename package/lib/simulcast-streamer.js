@@ -8,7 +8,7 @@ const { RNFMSimulcastStreamer } = NativeModules;
  * The state looks like:
  * 
  * {
- *   state: 'UNINITIALIZED|IDLE|PLAYING|STALLED|UNAVAILABLE',
+ *   state: 'UNINITIALIZED|IDLE|PLAYING|STOPPED|STALLED|UNAVAILABLE',
  *   currentPlay: null or {
  *     title: 'song title',
  *     artist: 'performer',
@@ -18,6 +18,14 @@ const { RNFMSimulcastStreamer } = NativeModules;
  *   },
  *   volume: 0..1,
  * }
+ *
+ * The state values are:
+ *    UNINITIALIZED - the player hasn't been initialized yet
+ *    IDLE - the player isn't playing anything
+ *    PLAYING - music is playing, and 'currentPlay' is not null
+ *    STOPPED - the stream is still live, but music has ended (effectively it is IDLE)
+ *    STALLED - the stream is buffering
+ *    UNAVAILABLE - the stream is not available, for any number of reasons
  * 
  * The returned state modifier has three methods:
  * 
@@ -55,12 +63,13 @@ export default function useSimulcastStreamer(token) {
         case RNFMSimulcastStreamer.SimulcastStatePlaying:
           readableState = 'PLAYING'; break;
         case RNFMSimulcastStreamer.SimulcastStateStopped:
-          readableState = 'IDLE'; break;
+          readableState = 'STOPPED'; break;
         case RNFMSimulcastStreamer.SimulcastStateStalled:
           readableState = 'STALLED'; break;
         case RNFMSimulcastStreamer.SimulcastStateUnavailable:
           readableState = 'UNAVAILABLE'; break;
         default: 
+          console.log('unknown state value:', state);
           readableState = 'UNINITIALIZED'
       }
 
@@ -114,8 +123,9 @@ export default function useSimulcastStreamer(token) {
       }));
     });
 
-    const errorListener = nativeEmitter.addListener('error', () => {
+    const errorListener = nativeEmitter.addListener('error', (params) => {
       // this is never triggered in current implementation (!!)
+      console.log('error!', params);
     });
 
     RNFMSimulcastStreamer.initialize(token);
@@ -140,7 +150,7 @@ export default function useSimulcastStreamer(token) {
 
   useEffect(() => {
     console.log('setting volume to', streamerState.volume);
-    RNFMSimulcastStreamer.setVolume(streamerState.volume);
+    //RNFMSimulcastStreamer.setVolume(streamerState.volume);
 
   }, [ streamerState.volume ]);
 

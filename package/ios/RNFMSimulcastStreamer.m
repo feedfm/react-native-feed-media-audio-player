@@ -61,8 +61,8 @@ RCT_EXPORT_MODULE()
 
 
 RCT_EXPORT_METHOD(initialize:(NSString *)token) {
-    // DOES NOT COMPILE:
-    _streamer = [[FMSimulcastStreamer alloc] initSimulcastListenerWithToken:token withDelegate: self playLocalStream:YES];
+    NSLog(@"initializing");
+    _streamer = [[FMSimulcastStreamer alloc] initSimulcastListenerWithToken:token withDelegate: self isPlayer:YES];
 }
 
 RCT_EXPORT_METHOD(connect) {
@@ -75,20 +75,28 @@ RCT_EXPORT_METHOD(disconnect) {
 
 
 - (void)nextItemBegan:(FMAudioItem * _Nonnull)item {
-   [self sendEventWithName:@"play-started" body:@{
-    @"play": @{
-            @"id": item.playId,
-            @"title": item.name,
-            @"artist": item.artist,
-            @"album": item.album,
-            @"metadata": item.metadata,
-            @"duration": @(item.duration)
-            }
-    }];
+    NSLog(@"next item began: %@", item);
+    
+    if (item == NULL || item.id == NULL) {
+        [self sendEventWithName:@"play-started" body:@{ @"play": [NSNull null] }];
+
+    } else {
+       [self sendEventWithName:@"play-started" body:@{
+        @"play": @{
+                @"title": item.name,
+                @"artist": item.artist,
+                @"album": item.album,
+                @"metadata": item.metadata,
+                @"duration": @(item.duration)
+                }
+        }];
+    }
 }
 
 - (void)stateChanged:(FMSimulcastPlaybackState)state {
-    [self sendEventWithName:@"stage-change" body:@{@"state":@(state)}];
+    NSLog(@"state change to %ld", state);
+    
+    [self sendEventWithName:@"state-change" body:@{@"state":@(state)}];
 }
 
 - (void)elapse:(CMTime)elapseTime {
@@ -101,10 +109,11 @@ RCT_EXPORT_METHOD(disconnect) {
     [self sendEventWithName:@"error" body:@{@"error":error}];
 }
 
-
 RCT_EXPORT_METHOD(setVolume: (float) volume)
 {
-    _streamer.volume = volume;
+    NSLog(@"setting volume to %f", volume);
+
+    //_streamer.volume = volume;
 }
 
 

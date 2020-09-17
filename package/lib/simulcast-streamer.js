@@ -66,18 +66,18 @@ export default function useSimulcastStreamer(token) {
 
       console.log('readable state is', readableState);
 
-      setStreamerState({
+      setStreamerState((streamerState) => ({
         ...streamerState,
 
         state: readableState,
-      });
+      }));
     });
 
     const playStartedListener = nativeEmitter.addListener('play-started', ({ play }) => {
       if (play) {
         console.log('play started', play);
 
-        setStreamerState({
+        setStreamerState((streamerState) => ({
           ...streamerState,
 
           currentPlay: { 
@@ -87,16 +87,16 @@ export default function useSimulcastStreamer(token) {
             duration: play.duration,
             elapsed_seconds: 0
           }
-        })
+        }));
 
       } else {
         console.log('null play started');
 
-        setStreamerState({
+        setStreamerState((streamerState) => ({
           ...streamerState,
 
           currentPlay: null
-        })
+        }));
       }
 
     });
@@ -104,14 +104,14 @@ export default function useSimulcastStreamer(token) {
     const elapseListener = nativeEmitter.addListener('elapse', ({ elapsed }) => {
       console.log('elapsed to ', elapsed);
 
-      setStreamerState({
+      setStreamerState((streamerState) => ({
         ...streamerState,
 
         currentPlay: {
           ...streamerState.currentPlay,
           elapsed_seconds: elapsed
         }
-      });
+      }));
     });
 
     const errorListener = nativeEmitter.addListener('error', () => {
@@ -120,7 +120,11 @@ export default function useSimulcastStreamer(token) {
 
     RNFMSimulcastStreamer.initialize(token);
 
-    console.log('initialized');
+    setStreamerState((streamerState) => ({
+        ...streamerState,
+
+        state: 'IDLE'
+    }));
 
     return () => {
       console.log('disconnecting');
@@ -146,11 +150,11 @@ export default function useSimulcastStreamer(token) {
 
     setVolume: (volume) => { 
       console.log('updating volume to', volume);
-      setStreamerState({
+      setStreamerState((streamerState) => ({
           ...streamerState,
 
           volume: volume
-      });
+      }));
     }
   }];
 }

@@ -15,7 +15,7 @@
 RCT_ENUM_CONVERTER(FMSimulcastPlaybackState, (@{
   @"SimulcastStateIdle": @(SIMULCAST_STATE_IDLE),
   @"SimulcastStatePlaying": @(SIMULCAST_STATE_PLAYING),
-  @"PlaybackStateStopped": @(SIMULCAST_STATE_STOPPED),
+  @"SimulcastStateStopped": @(SIMULCAST_STATE_STOPPED),
   @"SimulcastStateStalled": @(SIMULCAST_STATE_STALLED),
   @"SimulcastStateUnavailable": @(SIMULCAST_STATE_MUSIC_UNAVAILABLE),
   }), FMAudioPlayerPlaybackStateUninitialized, integerValue)
@@ -44,7 +44,7 @@ RCT_EXPORT_MODULE()
     return @{
           @"SimulcastStateIdle": @(SIMULCAST_STATE_IDLE),
           @"SimulcastStatePlaying": @(SIMULCAST_STATE_PLAYING),
-          @"PlaybackStateStopped": @(SIMULCAST_STATE_STOPPED),
+          @"SimulcastStateStopped": @(SIMULCAST_STATE_STOPPED),
           @"SimulcastStateStalled": @(SIMULCAST_STATE_STALLED),
           @"SimulcastStateUnavailable": @(SIMULCAST_STATE_MUSIC_UNAVAILABLE),
     };

@@ -40,7 +40,7 @@ class RNFMSimulcastStreamer extends ReactContextBaseJavaModule {
         final Map<String, Object> constants = new HashMap<>();
         constants.put("SimulcastStateIdle" , SimulcastPlaybackState.Idle.ordinal());
         constants.put("SimulcastStatePlaying", SimulcastPlaybackState.Playing.ordinal());
-        constants.put("PlaybackStateStopped", SimulcastPlaybackState.Stopped.ordinal());
+        constants.put("SimulcastStateStopped", SimulcastPlaybackState.Stopped.ordinal());
         constants.put("SimulcastStateStalled", SimulcastPlaybackState.Stalled.ordinal());
         constants.put("SimulcastStateUnavailable", SimulcastPlaybackState.Idle.ordinal());
         return constants;
@@ -59,9 +59,7 @@ class RNFMSimulcastStreamer extends ReactContextBaseJavaModule {
                 WritableMap options  = convertJsonToMap(object);
                 WritableMap playParams = Arguments.createMap();
                 playParams.putMap("metadata",options);
-                playParams.putString("id", play.getAudioFile().getId());
                 playParams.putString("title", play.getAudioFile().getTrack().getTitle());
-                playParams.putString("artist", play.getAudioFile().getArtist().getName());
                 playParams.putString("album", play.getAudioFile().getRelease().getTitle());
                 playParams.putString("artist", play.getAudioFile().getArtist().getName());
                 playParams.putInt("duration", (int)play.getAudioFile().getDurationInSeconds());
@@ -82,15 +80,15 @@ class RNFMSimulcastStreamer extends ReactContextBaseJavaModule {
 
             {
                 case Idle:
-                    params.putInt("State", SimulcastPlaybackState.Idle.ordinal()); break;
+                    params.putInt("state", SimulcastPlaybackState.Idle.ordinal()); break;
                 case Playing:
-                    params.putInt("State", SimulcastPlaybackState.Playing.ordinal());
+                    params.putInt("state", SimulcastPlaybackState.Playing.ordinal());
                     break;
                 case Stalled:
-                    params.putInt("State", SimulcastPlaybackState.Stalled.ordinal());
+                    params.putInt("state", SimulcastPlaybackState.Stalled.ordinal());
                     break;
                 case Stopped:
-                    params.putInt("State", SimulcastPlaybackState.Stopped.ordinal());
+                    params.putInt("state", SimulcastPlaybackState.Stopped.ordinal());
                     break;
             }
 

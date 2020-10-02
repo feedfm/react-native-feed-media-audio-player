@@ -17,7 +17,7 @@ RCT_ENUM_CONVERTER(FMSimulcastPlaybackState, (@{
   @"SimulcastStatePlaying": @(SIMULCAST_STATE_PLAYING),
   @"SimulcastStateStopped": @(SIMULCAST_STATE_STOPPED),
   @"SimulcastStateStalled": @(SIMULCAST_STATE_STALLED),
-  @"SimulcastStateAvailable": @(SIMULCAST_STATE_MUSIC_AVAILABLE),
+  @"SimulcastStateAvailable": @(SIMULCAST_STATE_AVAILABLE),
   @"SimulcastStateUnavailable": @(SIMULCAST_STATE_MUSIC_UNAVAILABLE),
   @"SimulcastStateUninitalized": @(SIMULCAST_STATE_UNINITIALIZED),
   }), SIMULCAST_STATE_UNINITIALIZED, integerValue)
@@ -49,7 +49,7 @@ RCT_EXPORT_MODULE()
           @"SimulcastStateStopped": @(SIMULCAST_STATE_STOPPED),
           @"SimulcastStateStalled": @(SIMULCAST_STATE_STALLED),
           @"SimulcastStateUnavailable": @(SIMULCAST_STATE_MUSIC_UNAVAILABLE),
-          @"SimulcastStateAvailable": @(SIMULCAST_STATE_MUSIC_AVAILABLE),
+          @"SimulcastStateAvailable": @(SIMULCAST_STATE_AVAILABLE),
           @"SimulcastStateUninitalized": @(SIMULCAST_STATE_UNINITIALIZED),
     };
 };
@@ -67,7 +67,7 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(initialize:(NSString *)token) {
     NSLog(@"initializing");
 
-    _streamer = [[FMSimulcastStreamer alloc] initSimulcastListenerWithToken:token withDelegate: self];
+    _streamer = [[FMSimulcastStreamer alloc] initSimulcastWithToken:token withDelegate: self];
 }
 
 RCT_EXPORT_METHOD(connect) {

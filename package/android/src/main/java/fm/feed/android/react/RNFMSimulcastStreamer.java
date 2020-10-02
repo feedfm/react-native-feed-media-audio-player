@@ -53,8 +53,6 @@ class RNFMSimulcastStreamer extends ReactContextBaseJavaModule {
         @Override
         public void onPlayItemBeganPlayback(@NotNull Play play) {
 
-
-
             String str  = toJson(play.getAudioFile().getMetadata());
 
             try {
@@ -128,24 +126,50 @@ class RNFMSimulcastStreamer extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void initialize(String token){
+        if (streamer != null) {
+            streamer.disconnect();
+            streamer = null;
+        }
 
         streamer = new FeedSimulcastStreamer(reactContext,token,listener );
     }
 
     @ReactMethod
     public void setVolume(float volume){
+        if (streamer == null) {
+            return;
+        }
+
         streamer.setVolume(volume);
     }
 
 
     @ReactMethod
     public void connect(){
+        if (streamer == null) {
+            return;
+        }
+
         streamer.connect();
     }
 
     @ReactMethod
     public void disconnect() {
+        if (streamer == null) {
+            return;
+        }
+
         streamer.disconnect();
+    }
+
+    @ReactMethod
+    public void onHostDestroy() {
+        if (streamer == null) {
+            return;
+        }
+
+        streamer.disconnect();
+        streamer = null;
     }
 
 }

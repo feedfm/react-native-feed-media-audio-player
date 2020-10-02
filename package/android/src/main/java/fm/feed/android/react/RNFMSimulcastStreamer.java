@@ -42,7 +42,10 @@ class RNFMSimulcastStreamer extends ReactContextBaseJavaModule {
         constants.put("SimulcastStatePlaying", SimulcastPlaybackState.Playing.ordinal());
         constants.put("SimulcastStateStopped", SimulcastPlaybackState.Stopped.ordinal());
         constants.put("SimulcastStateStalled", SimulcastPlaybackState.Stalled.ordinal());
-        constants.put("SimulcastStateUnavailable", SimulcastPlaybackState.Idle.ordinal());
+        constants.put("SimulcastStateUninitialized", SimulcastPlaybackState.Unintialized.ordinal());
+        constants.put("SimulcastStateUnavailable", SimulcastPlaybackState.Unavailable.ordinal());
+        constants.put("SimulcastStateAvailable", SimulcastPlaybackState.Available.ordinal());
+
         return constants;
     }
 
@@ -90,6 +93,14 @@ class RNFMSimulcastStreamer extends ReactContextBaseJavaModule {
                 case Stopped:
                     params.putInt("state", SimulcastPlaybackState.Stopped.ordinal());
                     break;
+                case Available:
+                    params.putInt("state", SimulcastPlaybackState.Available.ordinal());
+                    break;
+                case Unavailable:
+                    params.putInt("state", SimulcastPlaybackState.Unavailable.ordinal());
+                    break;
+                case Unintialized:
+                    params.putInt("state", SimulcastPlaybackState.Unintialized.ordinal());
             }
 
             sendEvent(reactContext, "state-change", params);
@@ -118,7 +129,7 @@ class RNFMSimulcastStreamer extends ReactContextBaseJavaModule {
     @ReactMethod
     public void initialize(String token){
 
-        streamer = new FeedSimulcastStreamer(reactContext,token,true,listener );
+        streamer = new FeedSimulcastStreamer(reactContext,token,listener );
     }
 
     @ReactMethod

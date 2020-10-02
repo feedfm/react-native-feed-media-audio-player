@@ -92,6 +92,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
      AvailabilityListener listener = new AvailabilityListener() {
       @Override
       public void onPlayerAvailable(FeedAudioPlayer feedAudioPlayer) {
+
         WritableMap params = Arguments.createMap();
         params.putBoolean("available", true);
         String strStations = toJson(mFeedAudioPlayer.getStationList());
@@ -128,7 +129,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
         .setAvailabilityListener(listener)
         .build();
     }
-
+    mFeedAudioPlayer.setDisableAudioFocus(true);
     mFeedAudioPlayer.addPlayListener(RNFMAudioPlayerModule.this);
     mFeedAudioPlayer.addSkipListener(RNFMAudioPlayerModule.this);
     mFeedAudioPlayer.addStationChangedListener(RNFMAudioPlayerModule.this);

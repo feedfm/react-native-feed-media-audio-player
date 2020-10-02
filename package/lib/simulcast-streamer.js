@@ -54,36 +54,41 @@ export default function useSimulcastStreamer(token = null) {
     const nativeEmitter = new NativeEventEmitter(RNFMSimulcastStreamer);
 
     const stateListener = nativeEmitter.addListener('state-change', ({ state }) => {
-      let readableState;
-      switch (state) {
-        case RNFMSimulcastStreamer.SimulcastStateAvailable:
-          readableState = 'IDLE'; break;
-        case RNFMSimulcastStreamer.SimulcastStateUnavailable:
-          readableState = 'UNAVAILABLE'; break;
-        case RNFMSimulcastStreamer.Uninitialized:
-          readableState = 'UNINITIALIZED'; break;
-        case RNFMSimulcastStreamer.SimulcastStateIdle:
-          readableState = 'IDLE'; break;
-        case RNFMSimulcastStreamer.SimulcastStatePlaying:
-          readableState = 'PLAYING'; break;
-        case RNFMSimulcastStreamer.SimulcastStateStopped:
-          readableState = 'STOPPED'; break;
-        case RNFMSimulcastStreamer.SimulcastStateStalled:
-          readableState = 'STALLED'; break;
-        default:
-          readableState = 'UNINITIALIZED'
-      }
-      console.log('state-change event', state, readableState);
+      setStreamerState((streamerState) => {
+        let readableState;
+        let currentPlay = streamerState.currentPlay;
 
-      setStreamerState((streamerState) => ({
-        ...streamerState,
+        switch (state) {
+          case RNFMSimulcastStreamer.SimulcastStateAvailable:
+            readableState = 'IDLE'; currentPlay = null; break;
+          case RNFMSimulcastStreamer.SimulcastStateUnavailable:
+            readableState = 'UNAVAILABLE'; currentPlay = null; break;
+          case RNFMSimulcastStreamer.Uninitialized:
+            readableState = 'UNINITIALIZED'; currentPlay = null; break;
+          case RNFMSimulcastStreamer.SimulcastStateIdle:
+            readableState = 'IDLE'; currentPlay = null; break;
+          case RNFMSimulcastStreamer.SimulcastStatePlaying:
+            readableState = 'PLAYING'; break;
+          case RNFMSimulcastStreamer.SimulcastStateStopped:
+            readableState = 'IDLE'; currentPlay = null; break;
+          case RNFMSimulcastStreamer.SimulcastStateStalled:
+            readableState = 'STALLED'; break;
+          default:
+            readableState = 'UNINITIALIZED'
+        }
+        console.log('state-change event', state, readableState, currentPlay);
 
-        state: readableState,
-      }));
+        return {
+          ...streamerState,
+
+          currentPlay: currentPlay,
+          state: readableState,
+        }
+      });
     });
 
     const playStartedListener = nativeEmitter.addListener('play-started', ({ play }) => {
-      console.log('play-started event');
+      console.log('play-started event', play);
 
       if (play) {
         setStreamerState((streamerState) => ({
@@ -109,14 +114,20 @@ export default function useSimulcastStreamer(token = null) {
     });
 
     const elapseListener = nativeEmitter.addListener('elapse', ({ elapsed }) => {
-      setStreamerState((streamerState) => ({
-        ...streamerState,
+      setStreamerState((streamerState) => {
+        if (streamerState.currentPlay) {
+          return {
+            ...streamerState,
 
-        currentPlay: {
-          ...streamerState.currentPlay,
-          elapsed_seconds: elapsed
+            currentPlay: {
+              ...streamerState.currentPlay,
+              elapsed_seconds: elapsed
+            }
+          };
+        } else {
+          return streamerState;
         }
-      }));
+      });
     });
 
     const errorListener = nativeEmitter.addListener('error', (params) => {
@@ -146,6 +157,8 @@ export default function useSimulcastStreamer(token = null) {
     }
 
     return () => {
+      console.log('quitting');
+
       errorListener.remove();
       elapseListener.remove();
       playStartedListener.remove();
@@ -183,7 +196,7 @@ export default function useSimulcastStreamer(token = null) {
         RNFMSimulcastStreamer.initialize(token);
         RNFMSimulcastStreamer.connect();
 
-      } else if (streamerState.state !== 'UNINITIALIZED') {
+      } else if (streamerState.state === 'IDLE') {
         console.log('just connecting');
         RNFMSimulcastStreamer.connect();
 

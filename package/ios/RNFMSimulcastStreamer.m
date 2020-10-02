@@ -17,7 +17,7 @@ RCT_ENUM_CONVERTER(FMSimulcastPlaybackState, (@{
   @"SimulcastStatePlaying": @(SIMULCAST_STATE_PLAYING),
   @"SimulcastStateStopped": @(SIMULCAST_STATE_STOPPED),
   @"SimulcastStateStalled": @(SIMULCAST_STATE_STALLED),
-  @"SimulcastStateAvailable": @(SIMULCAST_STATE_MUSIC_AVAILABLE),
+  @"SimulcastStateAvailable": @(SIMULCAST_STATE_AVAILABLE),
   @"SimulcastStateUnavailable": @(SIMULCAST_STATE_MUSIC_UNAVAILABLE),
   @"SimulcastStateUninitalized": @(SIMULCAST_STATE_UNINITIALIZED),
   }), SIMULCAST_STATE_UNINITIALIZED, integerValue)
@@ -49,7 +49,7 @@ RCT_EXPORT_MODULE()
           @"SimulcastStateStopped": @(SIMULCAST_STATE_STOPPED),
           @"SimulcastStateStalled": @(SIMULCAST_STATE_STALLED),
           @"SimulcastStateUnavailable": @(SIMULCAST_STATE_MUSIC_UNAVAILABLE),
-          @"SimulcastStateAvailable": @(SIMULCAST_STATE_MUSIC_AVAILABLE),
+          @"SimulcastStateAvailable": @(SIMULCAST_STATE_AVAILABLE),
           @"SimulcastStateUninitalized": @(SIMULCAST_STATE_UNINITIALIZED),
     };
 };
@@ -67,16 +67,27 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(initialize:(NSString *)token) {
     NSLog(@"initializing");
 
-    _streamer = [[FMSimulcastStreamer alloc] initSimulcastListenerWithToken:token withDelegate: self];
+    if (_streamer) {
+        [_streamer disconnect];
+        _streamer = nil;
+    }
+
+    _streamer = [[FMSimulcastStreamer alloc] initSimulcastWithToken:token withDelegate: self];
 }
 
 RCT_EXPORT_METHOD(connect) {
-    NSLog(@"connecting");
-    [_streamer connect];
+    if (_streamer != nil) {
+        NSLog(@"connecting");
+        [_streamer connect];
+    } else {
+        NSLog(@"connect attempt, but no streamer is active");
+    }
 }
 
 RCT_EXPORT_METHOD(disconnect) {
     NSLog(@"disconnecting");
+    if (!_streamer) { return; }
+
     [_streamer disconnect];
 }
 
@@ -84,6 +95,8 @@ RCT_EXPORT_METHOD(disconnect) {
 - (void)nextItemBegan:(FMAudioItem * _Nonnull)item {
     NSLog(@"next item began: %@", item);
     
+    if (!_streamer) { return; }
+
     if (item == NULL || item.id == NULL) {
         [self sendEventWithName:@"play-started" body:@{ @"play": [NSNull null] }];
 
@@ -102,11 +115,14 @@ RCT_EXPORT_METHOD(disconnect) {
 
 - (void)stateChanged:(FMSimulcastPlaybackState)state {
     NSLog(@"state change to %ld", state);
+    if (!_streamer) { return; }
     
     [self sendEventWithName:@"state-change" body:@{@"state":@(state)}];
 }
 
 - (void)elapse:(CMTime)elapseTime {
+    if (!_streamer) { return; }
+
     long duration = lroundf(CMTimeGetSeconds(elapseTime));
     [self sendEventWithName:@"elapse" body:@{@"elapsed":@(duration)}];
 }
@@ -116,16 +132,18 @@ RCT_EXPORT_METHOD(disconnect) {
     [self sendEventWithName:@"error" body:@{@"error":error}];
 }
 
-RCT_EXPORT_METHOD(setVolume: (float) volume)
-{
+RCT_EXPORT_METHOD(setVolume: (float) volume) {
     NSLog(@"setting volume to %f", volume);
+    if (!_streamer) { return; }
 
     _streamer.volume = volume;
 }
 
 
 - (void)stopObserving {
+    
     [_streamer disconnect];
+    _streamer = nil;
 }
 
 @end

@@ -41,11 +41,13 @@ const { RNFMSimulcastStreamer } = NativeModules;
  * ** note ** - This streamer currently only supports the 'simulcast overlay'
  * style of streaming.
  * 
- * @param {string} token String token that identifies the simulcast stream
+ * @param {string} token? String token that identifies the simulcast stream
  */
 
-export default function useSimulcastStreamer(token) {
-  let [streamerState, setStreamerState] = useState({ state: 'UNINITIALIZED', currentPlay: null, volume: 1 });
+
+
+export default function useSimulcastStreamer(token = null) {
+  let [streamerState, setStreamerState] = useState({ state: 'UNINITIALIZED', token: token, currentPlay: null, volume: 1 });
 
   useEffect(() => {
     // create new streamer object and subscribe to events
@@ -54,6 +56,12 @@ export default function useSimulcastStreamer(token) {
     const stateListener = nativeEmitter.addListener('state-change', ({ state }) => {
       let readableState;
       switch (state) {
+        case RNFMSimulcastStreamer.SimulcastStateAvailable:
+          readableState = 'IDLE'; break;
+        case RNFMSimulcastStreamer.SimulcastStateUnavailable:
+          readableState = 'UNAVAILABLE'; break;
+        case RNFMSimulcastStreamer.Uninitialized:
+          readableState = 'UNINITIALIZED'; break;
         case RNFMSimulcastStreamer.SimulcastStateIdle:
           readableState = 'IDLE'; break;
         case RNFMSimulcastStreamer.SimulcastStatePlaying:
@@ -62,11 +70,10 @@ export default function useSimulcastStreamer(token) {
           readableState = 'STOPPED'; break;
         case RNFMSimulcastStreamer.SimulcastStateStalled:
           readableState = 'STALLED'; break;
-        case RNFMSimulcastStreamer.SimulcastStateUnavailable:
-          readableState = 'UNAVAILABLE'; break;
-        default: 
+        default:
           readableState = 'UNINITIALIZED'
       }
+      console.log('state-change event', state, readableState);
 
       setStreamerState((streamerState) => ({
         ...streamerState,
@@ -76,11 +83,13 @@ export default function useSimulcastStreamer(token) {
     });
 
     const playStartedListener = nativeEmitter.addListener('play-started', ({ play }) => {
+      console.log('play-started event');
+
       if (play) {
         setStreamerState((streamerState) => ({
           ...streamerState,
 
-          currentPlay: { 
+          currentPlay: {
             title: play.title,
             artist: play.artist,
             album: play.album,
@@ -113,15 +122,28 @@ export default function useSimulcastStreamer(token) {
     const errorListener = nativeEmitter.addListener('error', (params) => {
       // this is never triggered in current implementation (!!)
       console.log('error!', params);
+
+      // HACK: iOS code should set state to UNAVILABLE, not emit error
+      if (params && params.error && params.error.includes('Code=19')) {
+        setStreamerState((streamerState) => ({
+          ...streamerState,
+
+          state: 'UNAVAILABLE'
+        }));
+      }
     });
 
-    RNFMSimulcastStreamer.initialize(token);
+    if (token) {
+      console.log("initializing with token", token);
 
-    setStreamerState((streamerState) => ({
+      setStreamerState((streamerState) => ({
         ...streamerState,
 
-        state: 'IDLE'
-    }));
+        state: 'INITIALIZING'
+      }));
+
+      RNFMSimulcastStreamer.initialize(token);
+    }
 
     return () => {
       errorListener.remove();
@@ -129,24 +151,80 @@ export default function useSimulcastStreamer(token) {
       playStartedListener.remove();
       stateListener.remove();
 
-      RNFMSimulcastStreamer.disconnect(token);
+      RNFMSimulcastStreamer.disconnect();
     }
-  }, [ ]);
+  }, []);
 
   useEffect(() => {
+    if (streamerState.state === 'UNAVAILABLE') {
+      return;
+    }
+
     RNFMSimulcastStreamer.setVolume(streamerState.volume);
 
-  }, [ streamerState.volume ]);
+  }, [streamerState.volume]);
 
   return [streamerState, {
-    connect: () => { RNFMSimulcastStreamer.connect(); },
-    disconnect: () => { RNFMSimulcastStreamer.disconnect(); },
+    connect: (token) => {
+      if (!token && (streamerState === 'UNAVAILABLE')) {
+        return;
+      }
 
-    setVolume: (volume) => { 
-      setStreamerState((streamerState) => ({
+      console.log('connecting', token);
+      if (token && (token !== streamerState.token)) {
+        console.log('switching tokens');
+        setStreamerState((streamerState) => ({
           ...streamerState,
 
-          volume: volume
+          token: token,
+          state: 'INITIALIZING'
+        }));
+
+        RNFMSimulcastStreamer.initialize(token);
+        RNFMSimulcastStreamer.connect();
+
+      } else if (streamerState.state !== 'UNINITIALIZED') {
+        console.log('just connecting');
+        RNFMSimulcastStreamer.connect();
+
+      } else {
+        console.log('connect doing nothing');
+      }
+    },
+
+    switchStream: (token) => {
+      if (streamerState.token === token) {
+        return;
+      }
+
+      const state = streamerState.state;
+
+      setStreamerState((streamerState) => ({
+        ...streamerState,
+
+        token: token,
+        state: 'INITIALIZING'
+      }));
+
+      RNFMSimulcastStreamer.initialize(token);
+
+      if ((state !== 'IDLE') && (state !== 'UNINITIALIZED')) {
+        RNFMSimulcastStreamer.connect();
+      }
+    },
+
+    disconnect: () => {
+      console.log('disconnecting');
+      if ((streamerState.state !== 'UNINITIALIZED') && (streamerState.state !== 'UNAVAILABLE')) {
+        RNFMSimulcastStreamer.disconnect();
+      }
+    },
+
+    setVolume: (volume) => {
+      setStreamerState((streamerState) => ({
+        ...streamerState,
+
+        volume: volume
       }));
     }
   }];

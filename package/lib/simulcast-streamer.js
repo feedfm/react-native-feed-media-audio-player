@@ -195,7 +195,7 @@ export default function useSimulcastStreamer(token = null) {
 
       //console.log('connecting', token);
       if (token && (token !== streamerState.token)) {
-        //console.log('switching tokens');
+        //console.log('switching tokens for connect');
         setStreamerState((streamerState) => ({
           ...streamerState,
 

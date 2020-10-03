@@ -8,7 +8,7 @@ const { RNFMSimulcastStreamer } = NativeModules;
  * The state looks like:
  * 
  * {
- *   state: 'UNINITIALIZED|IDLE|PLAYING|STOPPED|STALLED|UNAVAILABLE',
+ *   state: 'UNINITIALIZED|IDLE|PLAYING|STALLED|UNAVAILABLE',
  *   currentPlay: null or {
  *     title: 'song title',
  *     artist: 'performer',
@@ -20,23 +20,33 @@ const { RNFMSimulcastStreamer } = NativeModules;
  * }
  *
  * The state values are:
- *    UNINITIALIZED - the player hasn't been initialized yet
+ *    UNINITIALIZED - the player hasn't been initialized yet. The player
+ *       enters this state whenever it is given a new streaming token
+ *       (via useState(token) or switchStream(token) or (connect(token)))
  *    IDLE - the player isn't playing anything
  *    PLAYING - music is playing, and 'currentPlay' is not null
- *    STOPPED - the stream is still live, but music has ended (effectively it is IDLE)
  *    STALLED - the stream is buffering
- *    UNAVAILABLE - the stream is not available, for any number of reasons
+ *    UNAVAILABLE - the stream is not available, for any number of reasons,
+ *       but most likely due to the device being outside of countries
+ *       that the music is licensed for.
  * 
- * The returned state modifier has three methods:
+ * The default state is UNINITIALIZED. The player will transition to IDLE or
+ * UNAVAILABLE very shortly after being provided with a token identifying
+ * a stream (via either useSimulcastStreamer(token) or connect(token) or (switchStream(token))).
+ * The 'UNAVAILABLE' state is specific to the current stream.
  * 
- * - connect() - connect to streaming server and try to being playback (this 
- *               see below)
+ * The returned state modifier has a couple methods:
+ * 
+ * - connect(token?) - connect to streaming server and try to being playback of
+ *               the current stream. An optional simulcast identier can be
+ *               passed to the method to switch to a different stream before
+ *               starting playback).
  * - disconnect() - disconnect from streaming server and stop playback
  * - setVolume(xx) - adjust the playback volume from 0..1
- * 
- * A call to 'connect()' is ignored while in the 'UNINITALIZED' state, so
- * the 'connectAfterInitialized' parameter schedules an automatic
- * 'connect()' call as soon as the streamer is initialized.
+ * - switchStream(token) - disconnect from the current stream and switch
+ *               to a new one. If music was playing while switchStream()
+ *               is called, then an automatic 'connect()' will be called after
+ *               switching to the new stream.
  * 
  * ** note ** - This streamer currently only supports the 'simulcast overlay'
  * style of streaming.
@@ -76,7 +86,7 @@ export default function useSimulcastStreamer(token = null) {
           default:
             readableState = 'UNINITIALIZED'
         }
-        console.log('state-change event', state, readableState, currentPlay);
+        //console.log('state-change event', state, readableState, currentPlay);
 
         return {
           ...streamerState,
@@ -88,7 +98,7 @@ export default function useSimulcastStreamer(token = null) {
     });
 
     const playStartedListener = nativeEmitter.addListener('play-started', ({ play }) => {
-      console.log('play-started event', play);
+      //console.log('play-started event', play);
 
       if (play) {
         setStreamerState((streamerState) => ({
@@ -132,7 +142,7 @@ export default function useSimulcastStreamer(token = null) {
 
     const errorListener = nativeEmitter.addListener('error', (params) => {
       // this is never triggered in current implementation (!!)
-      console.log('error!', params);
+      //console.log('error!', params);
 
       // HACK: iOS code should set state to UNAVILABLE, not emit error
       if (params && params.error && params.error.includes('Code=19')) {
@@ -145,7 +155,7 @@ export default function useSimulcastStreamer(token = null) {
     });
 
     if (token) {
-      console.log("initializing with token", token);
+      //console.log("initializing with token", token);
 
       setStreamerState((streamerState) => ({
         ...streamerState,
@@ -157,7 +167,7 @@ export default function useSimulcastStreamer(token = null) {
     }
 
     return () => {
-      console.log('quitting');
+      //console.log('quitting');
 
       errorListener.remove();
       elapseListener.remove();
@@ -183,9 +193,9 @@ export default function useSimulcastStreamer(token = null) {
         return;
       }
 
-      console.log('connecting', token);
+      //console.log('connecting', token);
       if (token && (token !== streamerState.token)) {
-        console.log('switching tokens');
+        //console.log('switching tokens');
         setStreamerState((streamerState) => ({
           ...streamerState,
 
@@ -197,11 +207,11 @@ export default function useSimulcastStreamer(token = null) {
         RNFMSimulcastStreamer.connect();
 
       } else if (streamerState.state === 'IDLE') {
-        console.log('just connecting');
+        //console.log('just connecting');
         RNFMSimulcastStreamer.connect();
 
       } else {
-        console.log('connect doing nothing');
+        //console.log('connect doing nothing');
       }
     },
 
@@ -227,7 +237,7 @@ export default function useSimulcastStreamer(token = null) {
     },
 
     disconnect: () => {
-      console.log('disconnecting');
+      //console.log('disconnecting');
       if ((streamerState.state !== 'UNINITIALIZED') && (streamerState.state !== 'UNAVAILABLE')) {
         RNFMSimulcastStreamer.disconnect();
       }

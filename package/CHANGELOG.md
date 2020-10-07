@@ -1,4 +1,5 @@
-
+- v3.1.1
+  - Simulcast streaming support
 
 - v3.0.0 - library and RN updates
   - update to Android library v6.0.1, with ExoPlayer 2.10.6

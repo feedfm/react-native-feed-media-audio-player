@@ -47,7 +47,7 @@ export default () => {
       />
       <Button
         onPress={() => {
-          streamer.disconnect();
+          streamer.disconnect(true);
         }}
         title="disconnect"
       />

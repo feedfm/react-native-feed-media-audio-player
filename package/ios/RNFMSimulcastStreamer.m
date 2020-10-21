@@ -84,11 +84,15 @@ RCT_EXPORT_METHOD(connect) {
     }
 }
 
-RCT_EXPORT_METHOD(disconnect) {
+RCT_EXPORT_METHOD(disconnect:(BOOL) force) {
     NSLog(@"disconnecting");
     if (!_streamer) { return; }
 
     [_streamer disconnect];
+    
+    if (force) {
+        _streamer = nil;
+    }
 }
 
 

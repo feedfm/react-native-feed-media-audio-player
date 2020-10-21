@@ -41,7 +41,15 @@ const { RNFMSimulcastStreamer } = NativeModules;
  *               the current stream. An optional simulcast identier can be
  *               passed to the method to switch to a different stream before
  *               starting playback).
- * - disconnect() - disconnect from streaming server and stop playback
+ * - disconnect(force?) - disconnect from streaming server and stop playback.
+ *               optionally pass 'true' as an argument to cause the player to
+ *               completely be reset. Resetting the player causes the next
+ *               connect() call to re-validate the user's location before
+ *               playing music. It also resets the 'token' value, so the next
+ *               call to connect() requires a token argument.
+ *               If you don't expect users to be switching IP addresses, then
+ *               not setting this argument to 'true' can speed up music start
+ *               time after a connect() call.
  * - setVolume(xx) - adjust the playback volume from 0..1
  * - switchStream(token) - disconnect from the current stream and switch
  *               to a new one. If music was playing while switchStream()
@@ -57,7 +65,7 @@ const { RNFMSimulcastStreamer } = NativeModules;
 
 
 export default function useSimulcastStreamer(token = null) {
-  let [streamerState, setStreamerState] = useState({ state: 'UNINITIALIZED', token: token, currentPlay: null, volume: 1 });
+  let [streamerState, setStreamerState] = useState({ state: 'UNINITIALIZED', tryingToPlay: false, token: token, currentPlay: null, volume: 1 });
 
   useEffect(() => {
     // create new streamer object and subscribe to events
@@ -67,12 +75,13 @@ export default function useSimulcastStreamer(token = null) {
       setStreamerState((streamerState) => {
         let readableState;
         let currentPlay = streamerState.currentPlay;
+        let tryingToPlay = streamerState.tryingToPlay;
 
         switch (state) {
           case RNFMSimulcastStreamer.SimulcastStateAvailable:
             readableState = 'IDLE'; currentPlay = null; break;
           case RNFMSimulcastStreamer.SimulcastStateUnavailable:
-            readableState = 'UNAVAILABLE'; currentPlay = null; break;
+            readableState = 'UNAVAILABLE'; currentPlay = null; tryingToPlay = false; break;
           case RNFMSimulcastStreamer.Uninitialized:
             readableState = 'UNINITIALIZED'; currentPlay = null; break;
           case RNFMSimulcastStreamer.SimulcastStateIdle:
@@ -86,11 +95,19 @@ export default function useSimulcastStreamer(token = null) {
           default:
             readableState = 'UNINITIALIZED'
         }
-        //console.log('state-change event', state, readableState, currentPlay);
+
+        if (streamerState.tryingToPlay && (readableState === 'IDLE')) {
+          //console.log('we are trying to connect!');
+          readableState = 'STALLED';
+          RNFMSimulcastStreamer.connect();
+        }
+
+        //console.log('state-change event', state, readableState, streamerState);
 
         return {
           ...streamerState,
 
+          tryingToPlay,
           currentPlay: currentPlay,
           state: readableState,
         }
@@ -189,29 +206,49 @@ export default function useSimulcastStreamer(token = null) {
 
   return [streamerState, {
     connect: (token) => {
-      if (!token && (streamerState === 'UNAVAILABLE')) {
+      token = token || streamerState.token
+
+      if (!token) {
+        console.log('no token provided to connect to');
+        return;
+      }
+
+      if (streamerState.state === 'UNAVAILABLE') {
+        console.log('not starting playback due to UNAVAILABLE state');
         return;
       }
 
       //console.log('connecting', token);
-      if (token && (token !== streamerState.token)) {
+      if (token !== streamerState.token) {
         //console.log('switching tokens for connect');
         setStreamerState((streamerState) => ({
           ...streamerState,
 
           token: token,
+          tryingToPlay: true,
           state: 'INITIALIZING'
         }));
 
+        //console.log('trying to play should be true');
+
         RNFMSimulcastStreamer.initialize(token);
-        RNFMSimulcastStreamer.connect();
 
-      } else if (streamerState.state === 'IDLE') {
-        //console.log('just connecting');
-        RNFMSimulcastStreamer.connect();
+      } else if ((streamerState.state === 'IDLE') || (streamerState.state === 'AVAILABLE')) {
+          //console.log('just connecting');
+          setStreamerState((streamerState) => ({
+            ...streamerState,
+            tryingToPlay: true,
+            state: 'STALLED'
+          }));
+          RNFMSimulcastStreamer.connect();
 
-      } else {
-        //console.log('connect doing nothing');
+      } else if (streamerState === 'INITIALIZING') {
+        setStreamerState((streamerState) => ({
+          ...streamerState,
+
+          token: token,
+          tryingToConnect: true
+        }));
       }
     },
 
@@ -219,8 +256,6 @@ export default function useSimulcastStreamer(token = null) {
       if (streamerState.token === token) {
         return;
       }
-
-      const state = streamerState.state;
 
       setStreamerState((streamerState) => ({
         ...streamerState,
@@ -230,16 +265,21 @@ export default function useSimulcastStreamer(token = null) {
       }));
 
       RNFMSimulcastStreamer.initialize(token);
-
-      if ((state !== 'IDLE') && (state !== 'UNINITIALIZED')) {
-        RNFMSimulcastStreamer.connect();
-      }
     },
 
-    disconnect: () => {
+    disconnect: (force = false) => {
       //console.log('disconnecting');
       if ((streamerState.state !== 'UNINITIALIZED') && (streamerState.state !== 'UNAVAILABLE')) {
-        RNFMSimulcastStreamer.disconnect();
+        setStreamerState((streamerState) => ({
+          ...streamerState,
+
+          currentPlay: null,
+          token: (force ? null : streamerState.token),
+          state: (force ? 'UNINITIALIZED' : 'IDLE'),
+          tryingToPlay: false
+        }));
+
+        RNFMSimulcastStreamer.disconnect(force);
       }
     },
 

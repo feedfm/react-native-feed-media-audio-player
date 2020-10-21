@@ -1,5 +1,8 @@
 package fm.feed.android.react;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -12,8 +15,11 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
+import fm.feed.android.playersdk.FMLog;
 import fm.feed.android.playersdk.FeedSimulcastStreamer;
+import fm.feed.android.playersdk.LogLevel;
 import fm.feed.android.playersdk.SimulcastEventListener;
 import fm.feed.android.playersdk.SimulcastPlaybackState;
 import fm.feed.android.playersdk.State;
@@ -26,6 +32,7 @@ import static fm.feed.android.react.Utils.toJson;
 class RNFMSimulcastStreamer extends ReactContextBaseJavaModule {
 
     public final static String TAG = RNFMSimulcastStreamer.class.getName();
+    Handler mainHandler = new Handler(Looper.getMainLooper());
 
     private final ReactApplicationContext reactContext;
     private FeedSimulcastStreamer streamer;
@@ -100,9 +107,7 @@ class RNFMSimulcastStreamer extends ReactContextBaseJavaModule {
                 case Unintialized:
                     params.putInt("state", SimulcastPlaybackState.Unintialized.ordinal());
             }
-
             sendEvent(reactContext, "state-change", params);
-
         }
 
         @Override
@@ -127,49 +132,68 @@ class RNFMSimulcastStreamer extends ReactContextBaseJavaModule {
     @ReactMethod
     public void initialize(String token){
         if (streamer != null) {
-            streamer.disconnect();
-            streamer = null;
+            disconnect(true);
         }
 
         streamer = new FeedSimulcastStreamer(reactContext,token,listener );
     }
 
     @ReactMethod
-    public void setVolume(float volume){
-        if (streamer == null) {
+    public void setVolume(final float volume){
+        final FeedSimulcastStreamer localStreamer = streamer;
+
+        if (localStreamer == null) {
             return;
         }
 
-        streamer.setVolume(volume);
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                localStreamer.setVolume(volume);
+            }
+        });
     }
 
 
     @ReactMethod
     public void connect(){
-        if (streamer == null) {
+        final FeedSimulcastStreamer localStreamer = streamer;
+
+        if (localStreamer == null) {
             return;
         }
 
-        streamer.connect();
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                localStreamer.connect();
+            }
+        });
     }
 
     @ReactMethod
-    public void disconnect() {
-        if (streamer == null) {
+    public void disconnect(boolean force) {
+        final FeedSimulcastStreamer localStreamer = streamer;
+
+        if (localStreamer == null) {
             return;
         }
 
-        streamer.disconnect();
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                localStreamer.disconnect();
+            }
+        });
+
+        if (force) {
+            streamer = null;
+        }
     }
 
     @ReactMethod
     public void onHostDestroy() {
-        if (streamer == null) {
-            return;
-        }
-
-        streamer.disconnect();
-        streamer = null;
+        disconnect(true);
     }
 
 }

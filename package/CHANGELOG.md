@@ -1,3 +1,10 @@
+
+- v3.1.3
+  - ensure Exoplayer runs in main thread
+  - fix bad disconnect call
+  - add 'invalid' handler to gracefully deal with live reload
+  - update to iOS library v4.4.10
+
 - v3.1.1
   - Simulcast streaming support
 

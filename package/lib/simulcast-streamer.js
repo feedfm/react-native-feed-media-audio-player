@@ -191,7 +191,7 @@ export default function useSimulcastStreamer(token = null) {
       playStartedListener.remove();
       stateListener.remove();
 
-      RNFMSimulcastStreamer.disconnect();
+      RNFMSimulcastStreamer.disconnect(true);
     }
   }, []);
 

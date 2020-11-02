@@ -65,7 +65,7 @@ RCT_EXPORT_MODULE()
 
 
 RCT_EXPORT_METHOD(initialize:(NSString *)token) {
-    NSLog(@"initializing");
+    NSLog(@"RNFM: initializing");
 
     if (_streamer) {
         [_streamer disconnect];
@@ -77,7 +77,7 @@ RCT_EXPORT_METHOD(initialize:(NSString *)token) {
 
 RCT_EXPORT_METHOD(connect) {
     if (_streamer != nil) {
-        NSLog(@"connecting");
+        NSLog(@"RNFM: connect");
         [_streamer connect];
     } else {
         NSLog(@"connect attempt, but no streamer is active");
@@ -85,7 +85,8 @@ RCT_EXPORT_METHOD(connect) {
 }
 
 RCT_EXPORT_METHOD(disconnect:(BOOL) force) {
-    NSLog(@"disconnecting");
+    NSLog(@"RNFM: disconnect");
+
     if (!_streamer) { return; }
 
     [_streamer disconnect];
@@ -97,7 +98,7 @@ RCT_EXPORT_METHOD(disconnect:(BOOL) force) {
 
 
 - (void)nextItemBegan:(FMAudioItem * _Nonnull)item {
-    NSLog(@"next item began: %@", item);
+    NSLog(@"RNFM: next item began: %@", item);
     
     if (!_streamer) { return; }
 
@@ -118,7 +119,8 @@ RCT_EXPORT_METHOD(disconnect:(BOOL) force) {
 }
 
 - (void)stateChanged:(FMSimulcastPlaybackState)state {
-    NSLog(@"state change to %ld", state);
+    NSLog(@"RNFM: state change to %ld", state);
+
     if (!_streamer) { return; }
     
     [self sendEventWithName:@"state-change" body:@{@"state":@(state)}];
@@ -128,7 +130,9 @@ RCT_EXPORT_METHOD(disconnect:(BOOL) force) {
     if (!_streamer) { return; }
 
     long duration = lroundf(CMTimeGetSeconds(elapseTime));
-    [self sendEventWithName:@"elapse" body:@{@"elapsed":@(duration)}];
+    if ([self bridge] != nil) {
+        [self sendEventWithName:@"elapse" body:@{@"elapsed":@(duration)}];
+    }
 }
 
 - (void)onError:(NSString * _Nullable)error {
@@ -137,15 +141,18 @@ RCT_EXPORT_METHOD(disconnect:(BOOL) force) {
 }
 
 RCT_EXPORT_METHOD(setVolume: (float) volume) {
-    NSLog(@"setting volume to %f", volume);
     if (!_streamer) { return; }
 
     _streamer.volume = volume;
 }
 
+- (void) invalidate {
+    // Live reload doesn't call normal cleanup functions, so this is our backup
+    [_streamer disconnect];
+    _streamer = nil;
+}
 
 - (void)stopObserving {
-    
     [_streamer disconnect];
     _streamer = nil;
 }

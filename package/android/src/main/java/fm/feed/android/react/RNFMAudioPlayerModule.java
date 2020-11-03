@@ -129,7 +129,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
         .setAvailabilityListener(listener)
         .build();
     }
-    mFeedAudioPlayer.setDisableAudioFocus(true);
+    FeedAudioPlayer.disableAudioFocus = true;
     mFeedAudioPlayer.addPlayListener(RNFMAudioPlayerModule.this);
     mFeedAudioPlayer.addSkipListener(RNFMAudioPlayerModule.this);
     mFeedAudioPlayer.addStationChangedListener(RNFMAudioPlayerModule.this);

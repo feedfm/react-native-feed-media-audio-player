@@ -1,4 +1,7 @@
 
+- v3.1.4
+  - fix improper Java call to disable audio focus
+
 - v3.1.3
   - ensure Exoplayer runs in main thread
   - fix bad disconnect call

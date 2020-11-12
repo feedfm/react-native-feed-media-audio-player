@@ -1,4 +1,7 @@
 
+- v3.1.5
+  - update to iOS library v4.4.11
+
 - v3.1.4
   - fix improper Java call to disable audio focus
 

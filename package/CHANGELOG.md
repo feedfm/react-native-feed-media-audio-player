@@ -1,4 +1,7 @@
 
+- v3.1.6
+  - update to iOS library v4.4.12
+
 - v3.1.5
   - update to iOS library v4.4.11
 

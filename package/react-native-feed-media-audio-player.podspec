@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React"
-  s.dependency 'FeedMedia', '= 4.4.11'
+  s.dependency 'FeedMedia', '= 4.4.12'
 
 
   # ...

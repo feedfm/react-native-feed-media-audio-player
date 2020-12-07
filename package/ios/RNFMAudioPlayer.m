@@ -83,7 +83,7 @@ RCT_EXPORT_METHOD(initializeWithToken:(NSString *)token secret:(NSString *)secre
     _player.disableSongStartNotifications = YES;
 
     if (!enableBackgroundMusic) {
-        _player.disableAudioSession = YES;
+        _player.disableAVAudioSession = YES;
     }
     
     [FMAudioPlayer setClientToken:token secret:secret];

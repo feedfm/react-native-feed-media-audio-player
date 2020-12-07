@@ -1,4 +1,8 @@
 
+- v3.1.7
+  - when 'enableBackgroundMusic' is false in iOS, don't attempt to 
+    get an AVAudioSession (that is, set disableAudioSession = TRUE)
+
 - v3.1.6
   - update to iOS library v4.4.12
 

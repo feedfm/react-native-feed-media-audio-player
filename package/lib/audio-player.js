@@ -46,7 +46,7 @@ class AudioPlayer {
 
     // register to get notices from native event emitters
     const nativeEmitter = new NativeEventEmitter(RNFMAudioPlayer);
-    this.newCliendIDSubscription = nativeEmitter.addListener('newClientID', this.onNewClientID.bind(this));
+    this.newClientIDSubscription = nativeEmitter.addListener('newClientID', this.onNewClientID.bind(this));
     this.availabilitySubscription = nativeEmitter.addListener('availability', this.onAvailability.bind(this));
     this.stateChangeSubscription = nativeEmitter.addListener('state-change', this.onStateChange.bind(this));
     this.onStationChangeSubscription = nativeEmitter.addListener('station-change', this.onStationChange.bind(this));

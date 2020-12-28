@@ -56,7 +56,7 @@ class AudioPlayer {
 
   log() {
     if (this._debug) {
-      var args = [ 'feed.fm: ' + arguments[0], ... Array.prototype.slice.call(arguments, 1) ];
+      var args = ['feed.fm: ' + arguments[0], ...Array.prototype.slice.call(arguments, 1)];
       console.log.apply(console.log, args);
     }
   }
@@ -190,15 +190,15 @@ class AudioPlayer {
 
   get playbackState() {
     switch (this._state) {
-    case RNFMAudioPlayer.audioPlayerPlaybackStateUninitialized : return 'UNINITIALIZED';
-    case RNFMAudioPlayer.audioPlayerPlaybackStateOfflineOnly: return 'OFFLINE';
-    case RNFMAudioPlayer.audioPlayerPlaybackStateUnavailable: return 'UNAVAILABLE';
-    case RNFMAudioPlayer.audioPlayerPlaybackStateWaitingForItem: return 'WAITING_FOR_ITEM';
-    case RNFMAudioPlayer.audioPlayerPlaybackStateReadyToPlay: return 'READY_TO_PLAY';
-    case RNFMAudioPlayer.audioPlayerPlaybackStatePlaying: return 'PLAYING';
-    case RNFMAudioPlayer.audioPlayerPlaybackStatePaused: return 'PAUSED';
-    case RNFMAudioPlayer.audioPlayerPlaybackStateStalled: return 'STALLED';
-    default: return 'UNINITIALIZED';
+      case RNFMAudioPlayer.audioPlayerPlaybackStateUninitialized: return 'UNINITIALIZED';
+      case RNFMAudioPlayer.audioPlayerPlaybackStateOfflineOnly: return 'OFFLINE';
+      case RNFMAudioPlayer.audioPlayerPlaybackStateUnavailable: return 'UNAVAILABLE';
+      case RNFMAudioPlayer.audioPlayerPlaybackStateWaitingForItem: return 'WAITING_FOR_ITEM';
+      case RNFMAudioPlayer.audioPlayerPlaybackStateReadyToPlay: return 'READY_TO_PLAY';
+      case RNFMAudioPlayer.audioPlayerPlaybackStatePlaying: return 'PLAYING';
+      case RNFMAudioPlayer.audioPlayerPlaybackStatePaused: return 'PAUSED';
+      case RNFMAudioPlayer.audioPlayerPlaybackStateStalled: return 'STALLED';
+      default: return 'UNINITIALIZED';
     }
   }
 

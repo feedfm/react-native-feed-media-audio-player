@@ -66,6 +66,7 @@ RCT_EXPORT_MODULE()
         [outStations addObject:@{
                  @"id": station.identifier,
                  @"name": station.name,
+                 @"hasNewMusic": station.hasNewMusic,
                  @"options": station.options
              }];
     }

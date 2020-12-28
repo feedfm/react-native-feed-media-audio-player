@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableMap;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -95,11 +96,17 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
 
         WritableMap params = Arguments.createMap();
         params.putBoolean("available", true);
-        String strStations = toJson(mFeedAudioPlayer.getStationList());
 
         try {
-          JSONArray jsArray = new JSONArray(strStations);
-          WritableArray wArray = convertJsonToArray(jsArray);
+          WritableArray wArray = new WritableNativeArray();
+
+          for (Station station: mFeedAudioPlayer.getStationList()) {
+            JSONObject jsonStation = new JSONObject(toJson(station));
+            jsonStation.put("hasNewMusic", station.hasNewMusic());
+
+            wArray.pushMap(convertJsonToMap(jsonStation));
+          }
+
           params.putArray("stations", wArray);
           params.putInt("activeStationId", mFeedAudioPlayer.getActiveStation().getId());
           sendEvent(reactContext, "availability", params);

@@ -1,4 +1,8 @@
 
+- v3.2.7
+  - new getMaxSeekableLengthInSeconds and seekCurrentStationBy methods
+  - new hasNewMusic property of Stations
+
 - v3.1.7
   - when 'enableBackgroundMusic' is false in iOS, don't attempt to 
     get an AVAudioSession (that is, set disableAudioSession = TRUE)

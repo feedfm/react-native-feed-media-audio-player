@@ -55,7 +55,8 @@ RCT_EXPORT_MODULE()
              @"state-change",
              @"station-change",
              @"play-started",
-             @"skip-failed"
+             @"skip-failed",
+             @"elapse"
      ];
 }
 
@@ -66,7 +67,7 @@ RCT_EXPORT_MODULE()
         [outStations addObject:@{
                  @"id": station.identifier,
                  @"name": station.name,
-                 @"hasNewMusic": station.hasNewMusic,
+                 @"hasNewMusic": [NSNumber numberWithBool: station.hasNewMusic],
                  @"options": station.options
              }];
     }
@@ -115,7 +116,9 @@ RCT_EXPORT_METHOD(initializeWithToken:(NSString *)token secret:(NSString *)secre
              selector:@selector(onCurrentItemDidBeginPlaybackNotification:) name:FMAudioPlayerCurrentItemDidBeginPlaybackNotification object:_player];
     [[NSNotificationCenter defaultCenter] addObserver:self
                  selector:@selector(onSkipFailedNotification:) name:FMAudioPlayerSkipFailedNotification object:_player];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                              selector:@selector(onElapsedNotification:) name:FMAudioPlayerTimeElapseNotification
+                                                object:_player];
 }
 
 RCT_EXPORT_METHOD(setActiveStation:(NSString *)id)
@@ -163,6 +166,17 @@ RCT_EXPORT_METHOD(setVolume: (float) volume)
     player.mixVolume = volume;
 }
 
+RCT_REMAP_METHOD(maxSeekableLengthInSeconds, maxSeekableLengthInSecondsWithResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    resolve([NSNumber numberWithDouble: FMAudioPlayer.sharedPlayer.maxSeekableLength]);
+}
+
+RCT_EXPORT_METHOD(seekCurrentStationBy: (float) seconds)
+{
+    FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
+    [player seekStationBy:seconds];
+}
+
 RCT_EXPORT_METHOD(requestClientId)
 {
     FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
@@ -170,7 +184,7 @@ RCT_EXPORT_METHOD(requestClientId)
     [self sendEventWithName:@"newClientID" body:@{@"ClientID":str}];
 }
 
-RCT_EXPORT_METHOD(setClientId: (NSString*)cid )
+RCT_EXPORT_METHOD(setClientID: (NSString*)cid )
 {
     FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
     [player setClientId:cid];
@@ -196,6 +210,12 @@ RCT_EXPORT_METHOD(createNewClientID)
     if(str != nil){
         [self sendEventWithName:@"newClientID" body:@{@"ClientID":str}];
     }
+}
+
+- (void) onElapsedNotification: (NSNotification*)notification  {
+    [self sendEventWithName:@"elapse" body:@{
+        @"elapsed": [NSNumber numberWithDouble: _player.currentPlaybackTime]
+    }];
 }
 
 - (void) onSkipFailedNotification: (NSNotification *)notification {

@@ -52,6 +52,7 @@ class AudioPlayer {
     this.onStationChangeSubscription = nativeEmitter.addListener('station-change', this.onStationChange.bind(this));
     this.onPlayStartedSubscription = nativeEmitter.addListener('play-started', this.onPlayStarted.bind(this));
     this.onSkipFailedSubscription = nativeEmitter.addListener('skip-failed', this.onSkipFailed.bind(this));
+    this.elapseSubscription = nativeEmitter.addListener('elapse', this.onElapse.bind(this));
   }
 
   log() {
@@ -87,6 +88,8 @@ class AudioPlayer {
     this.log('initializing with token "' + token + '" and secret "' + secret + '"');
 
     RNFMAudioPlayer.initializeWithToken(token, secret, handleRemoteCommands);
+
+    let seconds = this._elapsedPlayTime;
 
     if (availability) {
       this.whenAvailable(availability);
@@ -174,6 +177,22 @@ class AudioPlayer {
   }
 
   /**
+   * Return promise with the number of seconds the player can jump ahead in the current station.
+   */
+
+  getMaxSeekableLengthInSeconds() {
+    return RNFMAudioPlayer.maxSeekableLengthInSeconds();
+  }
+
+  /**
+   * Seek into the current station by the given number of seconds.
+   */
+
+  seekCurrentStationBy(seconds) {
+    RNFMAudioPlayer.seekCurrentStationBy(seconds);
+  }
+
+  /**
    * Return the current state of the music player. Possible states are:
    *
    * UNINITIALIED - player is contacting feed.fm servers for configuration
@@ -244,14 +263,11 @@ class AudioPlayer {
   }
 
   /**
-   * The number of seconds of elapsed playback of the current play.
+   * Return number of seconds of elapsed playback of the current play.
    */
   get elapsedTime() {
     let seconds = this._elapsedPlayTime;
 
-    if (this._state === RNFMAudioPlayer.audioPlayerPlaybackStatePlaying) {
-      seconds += Math.floor((Date.now() - this._enteredPlayStateAt) / 1000);
-    }
     return seconds;
   }
 
@@ -298,6 +314,11 @@ class AudioPlayer {
     return this._stations;
   }
 
+  onElapse({ elapsed }) {
+    this._elapsedPlayTime = elapsed;
+    this._emitter.emit('elapsed', elapsed);
+  }
+
   /**
    * Receives 'availability' event from native player. This event includes the
    * list of stations the player has received and the currently active station.
@@ -306,7 +327,7 @@ class AudioPlayer {
    *
    * {
    *   available: true|false,
-   *   stations: [ { ... }, ... ]
+   *   stations: [ { ... }, ... ],
    *   activeStationId: XX
    * }
    *
@@ -354,18 +375,6 @@ class AudioPlayer {
 
     const state = this._state = props.state;
 
-    // keep track of the amount of time we are in PLAYING state
-    if (state === RNFMAudioPlayer.audioPlayerPlaybackStatePlaying) {
-      // we entered the PLAYING state
-      this._enteredPlayStateAt = Date.now();
-
-    } else if (this._enteredPlayStateAt) {
-      // we left the PLAYING state
-      this._elapsedPlayTime += Math.round((Date.now() - this._enteredPlayStateAt) / 1000);
-
-      delete this._enteredPlayStateAt;
-    }
-
     this.log('player state changed to ' + this.playbackState);
     this._emitter.emit('state-change', this.playbackState, this);
   }
@@ -409,7 +418,6 @@ class AudioPlayer {
     this._currentPlay = play;
     // reset elapsed time counters
     this._elapsedPlayTime = 0;
-    this._enteredPlayStateAt = Date.now();
     this._emitter.emit('play-started', this._currentPlay, this);
   }
 

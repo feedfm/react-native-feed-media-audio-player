@@ -4,6 +4,7 @@ package fm.feed.android.react;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -189,7 +190,15 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
     mFeedAudioPlayer.setVolume(volume);
   }
 
+  @ReactMethod
+  public void maxSeekableLengthInSeconds(Promise promise) {
+    promise.resolve(mFeedAudioPlayer.maxSeekableLengthInSeconds());
+  }
 
+  @ReactMethod
+  public void seekCurrentStationBy(float seconds) {
+    mFeedAudioPlayer.seekCurrentStationBy(seconds);
+  }
 
   @Override
   public Map<String, Object> getConstants() {
@@ -240,7 +249,9 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
 
   @Override
   public void onProgressUpdate(@NotNull Play play, float v, float v1) {
-
+    WritableMap params = Arguments.createMap();
+    params.putDouble("elapsed",v);
+    sendEvent(reactContext, "elapse", params);
   }
 
   @Override

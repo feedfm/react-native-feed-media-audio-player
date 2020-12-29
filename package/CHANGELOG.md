@@ -1,5 +1,5 @@
 
-- v3.2.7
+- v3.2.0
   - new getMaxSeekableLengthInSeconds and seekCurrentStationBy methods
   - new hasNewMusic property of Stations
 

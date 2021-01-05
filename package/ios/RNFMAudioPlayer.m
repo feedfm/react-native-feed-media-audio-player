@@ -253,6 +253,7 @@ RCT_EXPORT_METHOD(createNewClientID)
                                                            @"album": current.album,
                                                            @"metadata": current.metadata,
                                                            @"canSkip": @(_player.canSkip),
+                                                           @"station_id": current.station.identifier,
                                                            @"duration": @(duration)
                                                            }
                                                    }];

@@ -36,9 +36,8 @@ import static fm.feed.android.react.Utils.convertJsonToMap;
 import static fm.feed.android.react.Utils.sendEvent;
 import static fm.feed.android.react.Utils.toJson;
 
-
-public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements StateListener,
-        StationChangedListener, PlayListener, SkipListener {
+public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
+    implements StateListener, StationChangedListener, PlayListener, SkipListener {
 
   public final static String TAG = RNFMAudioPlayerModule.class.getName();
 
@@ -55,21 +54,18 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
     return "RNFMAudioPlayer";
   }
 
-
   @ReactMethod
-  public void setClientID(String clientID){
+  public void setClientID(String clientID) {
     mFeedAudioPlayer.setClientId(clientID);
   }
 
-
   @ReactMethod
-  public void requestClientId(){
+  public void requestClientId() {
     String str = mFeedAudioPlayer.getClientId();
     WritableMap params = Arguments.createMap();
     params.putString("ClientID", str);
     sendEvent(reactContext, "newClientID", params);
   }
-
 
   @ReactMethod
   public void createNewClientID() {
@@ -91,7 +87,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
   @ReactMethod
   public void initializeWithToken(String token, String secret, boolean enableBackgroundMusic) {
 
-     AvailabilityListener listener = new AvailabilityListener() {
+    AvailabilityListener listener = new AvailabilityListener() {
       @Override
       public void onPlayerAvailable(FeedAudioPlayer feedAudioPlayer) {
 
@@ -101,7 +97,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
         try {
           WritableArray wArray = new WritableNativeArray();
 
-          for (Station station: mFeedAudioPlayer.getStationList()) {
+          for (Station station : mFeedAudioPlayer.getStationList()) {
             JSONObject jsonStation = new JSONObject(toJson(station));
             jsonStation.put("hasNewMusic", station.hasNewMusic());
 
@@ -111,9 +107,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
           params.putArray("stations", wArray);
           params.putInt("activeStationId", mFeedAudioPlayer.getActiveStation().getId());
           sendEvent(reactContext, "availability", params);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
           e.printStackTrace();
         }
       }
@@ -133,9 +127,8 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
       FeedPlayerService.getInstance(listener);
 
     } else {
-      mFeedAudioPlayer = new FeedAudioPlayer.Builder(reactContext, token, secret)
-        .setAvailabilityListener(listener)
-        .build();
+      mFeedAudioPlayer = new FeedAudioPlayer.Builder(reactContext, token, secret).setAvailabilityListener(listener)
+          .build();
     }
     FeedAudioPlayer.disableAudioFocus = true;
     mFeedAudioPlayer.addPlayListener(RNFMAudioPlayerModule.this);
@@ -144,9 +137,8 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
     mFeedAudioPlayer.addStateListener(RNFMAudioPlayerModule.this);
   }
 
-
   @ReactMethod
-  public void play(){
+  public void play() {
     mFeedAudioPlayer.play();
   }
 
@@ -158,20 +150,18 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
   @ReactMethod
   public void setActiveStation(Integer station) {
 
-    //Log.i(TAG, "Station id ="+station.toString());
+    // Log.i(TAG, "Station id ="+station.toString());
     boolean flag = false;
-    for (Station st: mFeedAudioPlayer.getStationList()) {
+    for (Station st : mFeedAudioPlayer.getStationList()) {
 
-      if(st.getId().toString().equals(station.toString()))
-      {
+      if (st.getId().toString().equals(station.toString())) {
         mFeedAudioPlayer.setActiveStation(st, false);
         flag = true;
         break;
       }
     }
-    if(!flag)
-    {
-      Log.e(TAG, "Cannot set active station to "+station+" because no station found with that id");
+    if (!flag) {
+      Log.e(TAG, "Cannot set active station to " + station + " because no station found with that id");
     }
   }
 
@@ -203,7 +193,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
   @Override
   public Map<String, Object> getConstants() {
     final Map<String, Object> constants = new HashMap<>();
-    constants.put("audioPlayerPlaybackStateUnavailable" , State.UNAVAILABLE.ordinal());
+    constants.put("audioPlayerPlaybackStateUnavailable", State.UNAVAILABLE.ordinal());
     constants.put("audioPlayerPlaybackStateUninitialized", State.UNINITIALIZED.ordinal());
     constants.put("audioPlayerPlaybackStateWaitingForItem", State.WAITING_FOR_ITEM.ordinal());
     constants.put("audioPlayerPlaybackStateReadyToPlay", State.READY_TO_PLAY.ordinal());
@@ -217,16 +207,31 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
   @Override
   public void onStateChanged(State state) {
     WritableMap params = Arguments.createMap();
-    switch (state)
-    {
-      case PAUSED:                 params.putInt("state",State.PAUSED.ordinal()); break;
-      case PLAYING:                params.putInt("state",State.PLAYING.ordinal()); break;
-      case STALLED:                params.putInt("state",State.STALLED.ordinal()); break;
-      case UNAVAILABLE:            params.putInt("state",State.UNAVAILABLE.ordinal()); break;
-      case READY_TO_PLAY:          params.putInt("state",State.READY_TO_PLAY.ordinal()); break;
-      case UNINITIALIZED:          params.putInt("state",State.UNINITIALIZED.ordinal()); break;
-      case WAITING_FOR_ITEM:       params.putInt("state",State.WAITING_FOR_ITEM.ordinal()); break;
-      case AVAILABLE_OFFLINE_ONLY: params.putInt("state",State.AVAILABLE_OFFLINE_ONLY.ordinal()); break;
+    switch (state) {
+      case PAUSED:
+        params.putInt("state", State.PAUSED.ordinal());
+        break;
+      case PLAYING:
+        params.putInt("state", State.PLAYING.ordinal());
+        break;
+      case STALLED:
+        params.putInt("state", State.STALLED.ordinal());
+        break;
+      case UNAVAILABLE:
+        params.putInt("state", State.UNAVAILABLE.ordinal());
+        break;
+      case READY_TO_PLAY:
+        params.putInt("state", State.READY_TO_PLAY.ordinal());
+        break;
+      case UNINITIALIZED:
+        params.putInt("state", State.UNINITIALIZED.ordinal());
+        break;
+      case WAITING_FOR_ITEM:
+        params.putInt("state", State.WAITING_FOR_ITEM.ordinal());
+        break;
+      case AVAILABLE_OFFLINE_ONLY:
+        params.putInt("state", State.AVAILABLE_OFFLINE_ONLY.ordinal());
+        break;
     }
 
     sendEvent(reactContext, "state-change", params);
@@ -250,44 +255,45 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule implements
   @Override
   public void onProgressUpdate(@NotNull Play play, float v, float v1) {
     WritableMap params = Arguments.createMap();
-    params.putDouble("elapsed",v);
+    params.putDouble("elapsed", v);
     sendEvent(reactContext, "elapse", params);
   }
 
   @Override
   public void onPlayStarted(Play play) {
 
-      String str  = toJson(play.getAudioFile().getMetadata());
+    String str = toJson(play.getAudioFile().getMetadata());
 
-      try {
-          JSONObject object = new JSONObject(str);
-          WritableMap options  = convertJsonToMap(object);
-          WritableMap playParams = Arguments.createMap();
-          playParams.putMap("metadata",options);
-          playParams.putString("id", play.getAudioFile().getId());
-          playParams.putString("title", play.getAudioFile().getTrack().getTitle());
-          playParams.putString("artist", play.getAudioFile().getArtist().getName());
-          playParams.putString("album", play.getAudioFile().getRelease().getTitle());
-          playParams.putString("artist", play.getAudioFile().getArtist().getName());
-          playParams.putBoolean("canSkip", mFeedAudioPlayer.canSkip());
-          playParams.putInt("duration", (int)play.getAudioFile().getDurationInSeconds());
-          WritableMap params = Arguments.createMap();
-          params.putMap("play", playParams);
-          sendEvent(reactContext, "play-started", params);
+    try {
+      JSONObject object = new JSONObject(str);
+      WritableMap options = convertJsonToMap(object);
+      WritableMap playParams = Arguments.createMap();
+      playParams.putMap("metadata", options);
+      playParams.putString("id", play.getAudioFile().getId());
+      playParams.putString("title", play.getAudioFile().getTrack().getTitle());
+      playParams.putString("artist", play.getAudioFile().getArtist().getName());
+      playParams.putString("album", play.getAudioFile().getRelease().getTitle());
+      playParams.putString("artist", play.getAudioFile().getArtist().getName());
+      playParams.putBoolean("canSkip", mFeedAudioPlayer.canSkip());
+      playParams.putInt("duration", (int) play.getAudioFile().getDurationInSeconds());
+      playParams.putInt("station_id", play.getStation().getId());
+      WritableMap params = Arguments.createMap();
+      params.putMap("play", playParams);
+      sendEvent(reactContext, "play-started", params);
 
-      } catch (JSONException e) {
-          e.printStackTrace();
-      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
 
   }
 
   // Skip
   @Override
   public void requestCompleted(boolean b) {
-      if(!b) {
-          WritableMap params = Arguments.createMap();
-          sendEvent(reactContext, "skip-failed", params);
-      }
+    if (!b) {
+      WritableMap params = Arguments.createMap();
+      sendEvent(reactContext, "skip-failed", params);
+    }
 
   }
 }

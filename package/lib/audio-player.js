@@ -414,8 +414,17 @@ class AudioPlayer {
   onPlayStarted(props) {
     const play = props.play;
 
-    this.log('play has started', play);
     this._currentPlay = play;
+
+    if (play.station_id) {
+      const station = this._stations.find((station) => station.id === play.station_id);
+      if (station) {
+        station.hasNewMusic = false;
+      }
+
+      delete play.station_id;
+    }
+
     // reset elapsed time counters
     this._elapsedPlayTime = 0;
     this._emitter.emit('play-started', this._currentPlay, this);

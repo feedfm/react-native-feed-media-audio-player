@@ -1,6 +1,7 @@
 
 - v3.2.1
   - update Station.hasNewMusic property after every play
+  - update Android library to 6.0.8
 
 - v3.2.0
   - new getMaxSeekableLengthInSeconds and seekCurrentStationBy methods

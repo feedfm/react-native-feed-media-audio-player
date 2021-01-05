@@ -1,4 +1,7 @@
 
+- v3.2.1
+  - update Station.hasNewMusic property after every play
+
 - v3.2.0
   - new getMaxSeekableLengthInSeconds and seekCurrentStationBy methods
   - new hasNewMusic property of Stations

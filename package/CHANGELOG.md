@@ -1,4 +1,7 @@
 
+- v3.2.2
+  - fish renamed java variable/accessor causing crash
+
 - v3.2.1
   - update Station.hasNewMusic property after every play
   - update Android library to 6.0.8

@@ -1,5 +1,5 @@
 
-import { NativeModules, NativeEventEmitter } from 'react-native';
+import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
 import NanoEvents from 'nanoevents';
 const { RNFMAudioPlayer } = NativeModules;
 
@@ -139,6 +139,17 @@ class AudioPlayer {
       callback.apply(this, arguments);
     });
     return unbind;
+  }
+
+  /**
+   * Enable/disable AVAudiosession for iOS only
+   */
+
+  enableiOSAudiosession(enable) {
+    this.log('client called enableAudiosession =' +enable);
+    if(Platform.OS === 'ios') {
+      RNFMAudioPlayer.enableAudioSession(enable);
+    }
   }
 
   /**

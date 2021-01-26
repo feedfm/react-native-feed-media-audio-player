@@ -135,6 +135,12 @@ RCT_EXPORT_METHOD(setActiveStation:(NSString *)id)
     _player.activeStation = _player.stationList[index];
 }
 
+RCT_EXPORT_METHOD(enableAudioSession: (BOOL) session) {
+    FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
+    player.disableAVAudioSession = session;
+}
+
+
 RCT_EXPORT_METHOD(play)
 {
     FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];

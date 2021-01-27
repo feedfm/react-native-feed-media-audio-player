@@ -23,6 +23,9 @@ const { RNFMAudioPlayer } = NativeModules;
  * the player emits a number of events that can be subscribed to with the `on()`
  * method:
  *
+ * elapsed - time has elapsed during playback
+ * session-updated - the client id of the current user has changed (in response
+ *    to a setClientID or createNewClientID call)
  * play-started - a new song has started playback
  * state-change - the player's state has changed
  * station-change - the current station has changed
@@ -46,8 +49,8 @@ class AudioPlayer {
 
     // register to get notices from native event emitters
     const nativeEmitter = new NativeEventEmitter(RNFMAudioPlayer);
-    this.newClientIDSubscription = nativeEmitter.addListener('newClientID', this.onNewClientID.bind(this));
     this.availabilitySubscription = nativeEmitter.addListener('availability', this.onAvailability.bind(this));
+    this.updatedSessionSubscription = nativeEmitter.addListener('session-updated', this.onSessionUpdated.bind(this));
     this.stateChangeSubscription = nativeEmitter.addListener('state-change', this.onStateChange.bind(this));
     this.onStationChangeSubscription = nativeEmitter.addListener('station-change', this.onStationChange.bind(this));
     this.onPlayStartedSubscription = nativeEmitter.addListener('play-started', this.onPlayStarted.bind(this));
@@ -83,13 +86,12 @@ class AudioPlayer {
    * @param {boolean} [handleRemoteCommands] - when true, the audio player should
    *       integrate with lock screen controls (iOS) or notification controls (Android)
    *       to support background audio playback and control.
+   * @param {boolean} [enableAudioSession] - enable or disable the SDK creating an AVAudioSession on iOS
    */
   initialize(token, secret, availability, handleRemoteCommands) {
     this.log('initializing with token "' + token + '" and secret "' + secret + '"');
 
     RNFMAudioPlayer.initializeWithToken(token, secret, handleRemoteCommands);
-
-    let seconds = this._elapsedPlayTime;
 
     if (availability) {
       this.whenAvailable(availability);
@@ -145,9 +147,10 @@ class AudioPlayer {
    * Enable/disable AVAudiosession for iOS only
    */
 
-  enableiOSAudiosession(enable) {
-    this.log('client called enableAudiosession =' +enable);
-    if(Platform.OS === 'ios') {
+  enableiOSAudioSession(enable) {
+    this.log('client called enableAudiosession =' + enable);
+
+    if (Platform.OS === 'ios') {
       RNFMAudioPlayer.enableAudioSession(enable);
     }
   }
@@ -283,40 +286,53 @@ class AudioPlayer {
   }
 
   /**
-   * Set the client id, this must be a valid client id.
+   * Return the client id that the Feed.fm SDK uses to identify the user.
+   * This value will not be defined until the player has announced that 
+   * it is available.n
    */
-  setclientID(id) {
-    this.log('client setting clientd id to ' + id);
-    RNFMAudioPlayer.setClientID(id);
+  get clientID() {
+    return this._clientID;
   }
 
   /**
-   * Get the current user client ID 
+   * Set the client id, this must be a valid client id. This will trigger
+   * a reinitialization of the audio player, so you need to wait for an
+   * availability callback before the player can be used again. You can provide
+   * the availability function here as a second argument, or use the `whenAvailable()`
+   * method to register later.
    */
-  requestClientID() {
-    RNFMAudioPlayer.requestClientId();
+  setClientID(id, onSessionUpdated) {
+    console.log('assigning id to', id);
 
+    if ((Platform.OS === 'ios') && (id.startsWith('fmcidv1:'))) {
+      // bug in iOS SDK - it ignores assignment with prefix
+      RNFMAudioPlayer.setClientID(id.substring('fmcidv1:'.length));
+    } else {
+      RNFMAudioPlayer.setClientID(id);
+    }
+
+    if (onSessionUpdated) {
+      this.once('session-updated', onSessionUpdated);
+    }
   }
 
-  createNewClientID() {
+  /**
+   * Ask the SDK to create a new client id and update the list of
+   * available stations. This triggers a 'session-updated' event
+   * that can registered for via player.on('session-updated') or
+   * the event handler can be passed to this method.
+   *
+   * @param {*} onSessionUpdated 
+   */
+
+  createNewClientID(onSessionUpdated) {
     RNFMAudioPlayer.createNewClientID();
+
+    if (onSessionUpdated) {
+      this.once('session-updated', onSessionUpdated);
+    }
   }
 
-  /*
-  set secondsOfCrossfade(seconds) {
-
-  }
-
-  set crossfadeInEnabled(enabled) {
-
-  }
-  */
-
-  onNewClientID(props) {
-    this.log('received client id "' + props.ClientID + '" from server');
-    this.ClientID = props.ClientID
-    this._emitter.emit('requestedClientIdAvaialable', this.ClientID, this);
-  }
   /**
    * Return the list of available music stations to pull music from. This
    * will be undefined until the player has announce that it is available.
@@ -351,6 +367,7 @@ class AudioPlayer {
     if (available) {
       this._stations = props.stations;
       this._activeStation = props.stations.find((station) => station.id === props.activeStationId);
+      this._clientID = props.clientID;
     }
 
     while (this._availabilityCallbacks.length > 0) {
@@ -358,6 +375,14 @@ class AudioPlayer {
 
       callback(available);
     }
+  }
+
+  onSessionUpdated(props) {
+    this._stations = props.stations;
+    this._activeStation = props.stations.find((station) => station.id === props.activeStationId);
+    this._clientID = props.clientID;
+
+    this._emitter.emit('session-updated', props.clientID, this);
   }
 
   /**

@@ -7,6 +7,7 @@ import { Platform, StyleSheet, Text, View, Button } from 'react-native'; // esli
 import { audioPlayerService } from 'react-native-feed-media-audio-player';
 
 // initialize the player as early in the app as possible
+console.log('initializing!');
 audioPlayerService.initialize({ token: 'demo', secret: 'demo', debug: true, enableBackgroundMusic: false });
 
 // If you want to test transitions between songs, try using 'counting'
@@ -22,14 +23,13 @@ export default class App extends Component {
       // music is available (true), not available (false), or undetermined (null)
       available: null,
     };
-    this.cID = null;
     this.player = audioPlayerService.player;
   }
 
   componentDidMount() {
     // Make sure music is available for playback before registering event listeners
     this.player.whenAvailable((available) => {
-      
+
       // no music is available
       if (!available) {
         this.setState({ available: false });
@@ -37,7 +37,7 @@ export default class App extends Component {
       }
 
       const player = this.player;
-      player.enableiOSAudiosession(true);
+      player.enableiOSAudioSession(true);
       // music is available!
       this.setState({
         available: true,
@@ -56,12 +56,6 @@ export default class App extends Component {
           });
         }
       }, 1000);
-      
-      this.cidChangeUnbind = player.on('requestedClientIdAvaialable', (ClientID) => {
-        console.log('Client id 2 ='+ ClientID);
-        this.cID = ClientID;
-        this.setState(this.state);
-      });
 
       this.stateChangeUnbind = player.on('state-change', (state) => {
         this.setState({ playbackState: state });
@@ -84,6 +78,13 @@ export default class App extends Component {
           play: { ...this.state.play, canSkip: false }
         });
       });
+
+      this.sessionUpdatedUnbind = player.on('session-updated', () => {
+        this.setState({
+          station: player.activeStation,
+          stations: player.stations
+        })
+      })
     });
   }
 
@@ -93,6 +94,7 @@ export default class App extends Component {
       this.stationChangeUnbind();
       this.playStartedUnbind();
       this.skipFailedUnbind();
+      this.sessionUpdatedUnbind();
       clearInterval(this.elapsedTimer);
     }
   }
@@ -108,8 +110,8 @@ export default class App extends Component {
 
     return [
       (
-        <View key="cid"  style={styles.container}>
-          <Text style={styles.text}>CID={this.cID}</Text>
+        <View key="cid" style={styles.container}>
+          <Text style={styles.text}>CID={this.player.clientID}</Text>
         </View>
       ),
       <Button
@@ -120,19 +122,32 @@ export default class App extends Component {
       <Button
         key="GetCID"
         onPress={() => {
-          audioPlayerService.player.requestClientID();
+          console.log('client id is', audioPlayerService.player.clientID);
         }} title={'Request client id'} />,
 
       <Button
         key="CreateCID"
         onPress={() => {
-          audioPlayerService.player.createNewClientID();
+          audioPlayerService.player.createNewClientID(() => {
+            console.log('all ready with new client id!', audioPlayerService.player.clientID);
+            console.log('with new stations!', audioPlayerService.player.stations);
+          });
         }} title={'Create new client id'} />,
+
+      <Button
+        key="SetCID"
+        onPress={() => {
+          audioPlayerService.player.setClientID('kkerxjsj:2bj:0cc7obvv0m', () => {
+            console.log('returned to old client id', audioPlayerService.player.clientID);
+            console.log('stations are now', audioPlayerService.player.stations);
+          });
+        }} title={'Assign old client id'} />,
+
       ...this.state.stations.map(station =>
         <Button
-          key = {'key' + station.id}
+          key={'key' + station.id}
           onPress={() => {
-            audioPlayerService.player.activeStation = station ;
+            audioPlayerService.player.activeStation = station;
           }} title={'click to Set ' + station.name} />
       )
     ];
@@ -157,85 +172,88 @@ export default class App extends Component {
         </View>
       );
     }
+
     // music is available!
-
     switch (this.state.playbackState) {
-    case 'READY_TO_PLAY':
-      return (
-        <View style={styles.container}>
-          { this.renderButtons() }
-        </View>
+      case 'READY_TO_PLAY':
+        return (
+          <View style={styles.container}>
+            { this.renderButtons()}
+          </View>
 
-      );
+        );
 
-    case 'WAITING_FOR_ITEM':
-    case 'STALLED':
-      return (
-        <View style={styles.container}>
-          <Text style={styles.text}>waiting for music..</Text>
-        </View>
-      );
+      case 'WAITING_FOR_ITEM':
+      case 'STALLED':
+        return (
+          <View style={styles.container}>
+            <Text style={styles.text}>waiting for music..</Text>
+          </View>
+        );
 
-    case 'PLAYING':
-      return (
-        <View style={styles.container}>
-          <Text style={styles.text}>{this.state.play.title}</Text>
-          <Text style={styles.text}>by {this.state.play.artist}</Text>
-          <Text style={styles.text}>on {this.state.play.album}</Text>
-          <Text style={styles.text}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
-          <Button onPress={() => {
-            audioPlayerService.player.pause();
-          }} title="pause" />
-          {
-            this.state.requestingSkip ?
-              (<Text style={styles.text}>(trying to skip)</Text>) :
-              (<Button onPress={() => { this.skip(); }} title="skip" />)
-          }
-          <Button onPress={() => {
-            audioPlayerService.player.volume = 0;
-          }} title="vol 0" />
-          <Button onPress={() => {
-            audioPlayerService.player.volume = 0.5;
-          }} title="vol 0.5" />
-          <Button onPress={() => {
-            audioPlayerService.player.volume = 1;
-          }} title="vol 1" />
-        </View>
-      );
-
-    case 'PAUSED':
-      return (
-        <View style={styles.container}>
-          <Text style={styles.text}>{this.state.play.title}</Text>
-          <Text style={styles.text}>by {this.state.play.artist}</Text>
-          <Text style={styles.text}>on {this.state.play.album}</Text>
-          <Text style={styles.text}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
-          <Button onPress={() => {
-            audioPlayerService.player.play();
-          }} title="play" />
-          {
-            !this.state.play.canSkip ? (<Text style={styles.text}>(youre temporarily out of skips)</Text>) :
-              this.state.requestingSkip ? (<Text style={styles.text}>(trying to skip)</Text>) :
+      case 'PLAYING':
+        return (
+          <View style={styles.container}>
+            <Text style={styles.text}>{this.state.play.title}</Text>
+            <Text style={styles.text}>by {this.state.play.artist}</Text>
+            <Text style={styles.text}>on {this.state.play.album}</Text>
+            <Text style={styles.text}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
+            <Button onPress={() => {
+              audioPlayerService.player.pause();
+            }} title="pause" />
+            {
+              this.state.requestingSkip ?
+                (<Text style={styles.text}>(trying to skip)</Text>) :
                 (<Button onPress={() => { this.skip(); }} title="skip" />)
-          }
-        </View>
-      );
+            }
+            <Button onPress={() => {
+              audioPlayerService.player.volume = 0;
+            }} title="vol 0" />
+            <Button onPress={() => {
+              audioPlayerService.player.volume = 0.5;
+            }} title="vol 0.5" />
+            <Button onPress={() => {
+              audioPlayerService.player.volume = 1;
+            }} title="vol 1" />
+          </View>
+        );
 
-    case 'UNINITIALIZED':
-    // not reached, because player.state.available is not null at this point:
-      return (
-        <View style={styles.container}>
-          <Text style={styles.text}>no state available yet</Text>
-        </View>
-      );
+      case 'PAUSED':
+        return (
+          <View style={styles.container}>
+            <Text style={styles.text}>{this.state.play.title}</Text>
+            <Text style={styles.text}>by {this.state.play.artist}</Text>
+            <Text style={styles.text}>on {this.state.play.album}</Text>
+            <Text style={styles.text}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
+            <Button onPress={() => {
+              audioPlayerService.player.play();
+            }} title="play" />
+            {
+              !this.state.play.canSkip ? (<Text style={styles.text}>(youre temporarily out of skips)</Text>) :
+                this.state.requestingSkip ? (<Text style={styles.text}>(trying to skip)</Text>) :
+                  (<Button onPress={() => { this.skip(); }} title="skip" />)
+            }
+            <Button onPress={() => {
+              audioPlayerService.player.stop();
+            }} title="stop" />
+          </View>
+        );
 
-    case 'OFFLINE':
-    // not yet exposed to react native clients
-      return (
-        <View style={styles.container}>
-          <Text style={styles.text}>offline playback only!</Text>
-        </View>
-      );
+      case 'UNINITIALIZED':
+        // not reached, because player.state.available is not null at this point:
+        return (
+          <View style={styles.container}>
+            <Text style={styles.text}>no state available yet</Text>
+          </View>
+        );
+
+      case 'OFFLINE':
+        // not yet exposed to react native clients
+        return (
+          <View style={styles.container}>
+            <Text style={styles.text}>offline playback only!</Text>
+          </View>
+        );
 
     }
 

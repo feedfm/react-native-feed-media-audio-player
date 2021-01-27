@@ -56,7 +56,8 @@ RCT_EXPORT_MODULE()
              @"station-change",
              @"play-started",
              @"skip-failed",
-             @"elapse"
+             @"elapse",
+             @"session-updated"
      ];
 }
 
@@ -77,10 +78,8 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(initializeWithToken:(NSString *)token secret:(NSString *)secret enableBackgroundMusic:(BOOL)enableBackgroundMusic)
 {
-    //RCTLogDebug(@"initializing feed.fm audio");
-
     FMLogSetLevel(FMLogLevelDebug);
-    
+
     _player = FMAudioPlayer.sharedPlayer;
     _player.disableSongStartNotifications = YES;
 
@@ -99,7 +98,8 @@ RCT_EXPORT_METHOD(initializeWithToken:(NSString *)token secret:(NSString *)secre
         [self sendEventWithName:@"availability" body:@{
                                            @"available": @YES,
                                            @"stations": [self mapStationListToDictionary:self->_player.stationList],
-                                           @"activeStationId": station.identifier
+                                           @"activeStationId": station.identifier,
+                                           @"clientID": [self->_player getClientId]
                                            }];
     } notAvailable:^{
         [self sendEventWithName:@"availability" body:@{
@@ -121,6 +121,7 @@ RCT_EXPORT_METHOD(initializeWithToken:(NSString *)token secret:(NSString *)secre
                                                 object:_player];
 }
 
+    
 RCT_EXPORT_METHOD(setActiveStation:(NSString *)id)
 {
     NSUInteger index = [_player.stationList indexOfObjectPassingTest:^BOOL(FMStation *station, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -135,9 +136,9 @@ RCT_EXPORT_METHOD(setActiveStation:(NSString *)id)
     _player.activeStation = _player.stationList[index];
 }
 
-RCT_EXPORT_METHOD(enableAudioSession: (BOOL) session) {
+RCT_EXPORT_METHOD(enableAudioSession: (BOOL) enable) {
     FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
-    player.disableAVAudioSession = session;
+    player.disableAVAudioSession = !enable;
 }
 
 
@@ -183,25 +184,33 @@ RCT_EXPORT_METHOD(seekCurrentStationBy: (float) seconds)
     [player seekStationBy:seconds];
 }
 
-RCT_EXPORT_METHOD(requestClientId)
-{
-    FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
-    NSString *str = [player getClientId];
-    [self sendEventWithName:@"newClientID" body:@{@"ClientID":str}];
-}
-
 RCT_EXPORT_METHOD(setClientID: (NSString*)cid )
 {
     FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
+    
+    [player stop];
     [player setClientId:cid];
+    
+    [self.player updateSession:^{
+        FMStation *station = [self->_player.stationList firstObject];
+
+        [self sendEventWithName:@"session-updated" body:@{
+            @"stations": [self mapStationListToDictionary:self->_player.stationList],
+            @"activeStationId": station.identifier,
+            @"clientID": [self->_player getClientId]
+
+        }];
+    }];
 }
 
 RCT_EXPORT_METHOD(createNewClientID)
 {
     FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
+    
+    [player stop];
     [player createNewClientId];
 }
-
+     
 - (void)stopObserving {
     // make sure to unsubscribe, or we might get 'Bridge is not set!' crashes
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -211,11 +220,18 @@ RCT_EXPORT_METHOD(createNewClientID)
 }
 
 - (void) onNewClientIDGenerated: (NSNotification*)notification  {
-    
-    NSString *str = [notification.userInfo valueForKey:@"client_id"];
-    if(str != nil){
-        [self sendEventWithName:@"newClientID" body:@{@"ClientID":str}];
-    }
+    // once we get a new id, restart things so we get an updated list
+    // of stations and associated metadata
+    [self.player updateSession:^{
+        FMStation *station = [self->_player.stationList firstObject];
+
+        [self sendEventWithName:@"session-updated" body:@{
+            @"stations": [self mapStationListToDictionary:self->_player.stationList],
+            @"activeStationId": station.identifier,
+            @"clientID": [self->_player getClientId]
+
+        }];
+    }];
 }
 
 - (void) onElapsedNotification: (NSNotification*)notification  {

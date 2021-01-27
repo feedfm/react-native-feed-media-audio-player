@@ -1,4 +1,14 @@
 
+- v3.3.1
+  - update iOS Feed SDK to 4.4.15 to resolve bugs
+  - replace `requestClientId()` async call with simple `clientID` property
+    that is initialized when player becomes available, and updated
+    when the client id changes.
+  - `setClientID()` and `createNewClientID()` updated to re-retrieve
+    station listings and trigger `session-updated` event.
+  - expose `enableiOSAudioSession` method to force creation of
+    AVAudioSession on iOS
+
 - v3.2.2
   - fish renamed java variable/accessor causing crash
 

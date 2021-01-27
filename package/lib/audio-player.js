@@ -302,12 +302,7 @@ class AudioPlayer {
    * method to register later.
    */
   setClientID(id, onSessionUpdated) {
-    if ((Platform.OS === 'ios') && (id.startsWith('fmcidv1:'))) {
-      // bug in iOS SDK - it ignores assignment with prefix
-      RNFMAudioPlayer.setClientID(id.substring('fmcidv1:'.length));
-    } else {
-      RNFMAudioPlayer.setClientID(id);
-    }
+    RNFMAudioPlayer.setClientID(id);
 
     if (onSessionUpdated) {
       this.once('session-updated', onSessionUpdated);

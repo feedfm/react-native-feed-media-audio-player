@@ -120,12 +120,6 @@ export default class App extends Component {
           audioPlayerService.player.play();
         }} title={'click to play '} />,
       <Button
-        key="GetCID"
-        onPress={() => {
-          console.log('client id is', audioPlayerService.player.clientID);
-        }} title={'Request client id'} />,
-
-      <Button
         key="CreateCID"
         onPress={() => {
           audioPlayerService.player.createNewClientID(() => {

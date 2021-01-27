@@ -25,7 +25,8 @@ const { RNFMAudioPlayer } = NativeModules;
  *
  * elapsed - time has elapsed during playback
  * session-updated - the client id of the current user has changed (in response
- *    to a setClientID or createNewClientID call)
+ *    to a setClientID or createNewClientID call), and possibly the list of
+ *    available stations has updated as well
  * play-started - a new song has started playback
  * state-change - the player's state has changed
  * station-change - the current station has changed
@@ -288,18 +289,19 @@ class AudioPlayer {
   /**
    * Return the client id that the Feed.fm SDK uses to identify the user.
    * This value will not be defined until the player has announced that 
-   * it is available.n
+   * music is available.
    */
   get clientID() {
     return this._clientID;
   }
 
   /**
-   * Set the client id, this must be a valid client id. This will trigger
-   * a reinitialization of the audio player, so you need to wait for an
-   * availability callback before the player can be used again. You can provide
-   * the availability function here as a second argument, or use the `whenAvailable()`
-   * method to register later.
+   * Set the client id. This must be a valid client id, or it will be
+   * ignored. This will trigger a re-request of the available stations.
+   * The player will emit a 'session-updated' event after assigning the
+   * new client ID and retrieving the list of stations. The `onSessionUpdated`
+   * callback here is optional, and is equivalent to calling
+   * `player.once('session-updated', onSessionupdated)`
    */
   setClientID(id, onSessionUpdated) {
     RNFMAudioPlayer.setClientID(id);
@@ -312,8 +314,10 @@ class AudioPlayer {
   /**
    * Ask the SDK to create a new client id and update the list of
    * available stations. This triggers a 'session-updated' event
-   * that can registered for via player.on('session-updated') or
-   * the event handler can be passed to this method.
+   * The player will emit a 'session-updated' event after assigning the
+   * new client ID and retrieving the list of stations. The `onSessionUpdated`
+   * callback here is optional, and is equivalent to calling
+   * `player.once('session-updated', onSessionupdated)`
    *
    * @param {*} onSessionUpdated 
    */

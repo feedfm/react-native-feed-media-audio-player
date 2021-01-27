@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fm.feed.android.playersdk.AvailabilityListener;
+import fm.feed.android.playersdk.SessionUpdateListener;
 import fm.feed.android.playersdk.ClientIdListener;
 import fm.feed.android.playersdk.FeedAudioPlayer;
 import fm.feed.android.playersdk.FeedPlayerService;
@@ -54,27 +55,51 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
     return "RNFMAudioPlayer";
   }
 
-  @ReactMethod
-  public void setClientID(String clientID) {
-    mFeedAudioPlayer.setClientId(clientID);
+  private void updateSession() {
+    mFeedAudioPlayer.updateSession(new SessionUpdateListener() {
+      @Override
+      public void onUpdatedSessionAvailable() {
+        WritableMap params = Arguments.createMap();
+
+        params.putString("clientID", mFeedAudioPlayer.getClientId());
+
+        WritableArray wArray = new WritableNativeArray();
+        for (Station station : mFeedAudioPlayer.getStationList()) {
+          try {
+            JSONObject jsonStation = new JSONObject(toJson(station));
+            jsonStation.put("hasNewMusic", station.hasNewMusic());
+
+            wArray.pushMap(convertJsonToMap(jsonStation));
+          } catch (Exception e) {
+            // ignore
+          }
+        }
+
+        params.putArray("stations", wArray);
+        params.putInt("activeStationId", mFeedAudioPlayer.getActiveStation().getId());
+
+        Log.i(TAG, "generating a new session");
+
+        sendEvent(reactContext, "session-updated", params);
+      }
+    });
   }
 
   @ReactMethod
-  public void requestClientId() {
-    String str = mFeedAudioPlayer.getClientId();
-    WritableMap params = Arguments.createMap();
-    params.putString("ClientID", str);
-    sendEvent(reactContext, "newClientID", params);
+  public void setClientID(String clientID) {
+    Log.i(TAG, "assigning old client ID: " + clientID);
+    mFeedAudioPlayer.setClientId(clientID);
+
+    updateSession();
   }
 
   @ReactMethod
   public void createNewClientID() {
+    Log.i(TAG, "creating new client ID");
     mFeedAudioPlayer.createNewClientId(new ClientIdListener() {
       @Override
-      public void onClientId(String s) {
-        WritableMap params = Arguments.createMap();
-        params.putString("ClientID", s);
-        sendEvent(reactContext, "newClientID", params);
+      public void onClientId(String newClientID) {
+        updateSession();
       }
 
       @Override
@@ -94,22 +119,23 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
         WritableMap params = Arguments.createMap();
         params.putBoolean("available", true);
 
-        try {
-          WritableArray wArray = new WritableNativeArray();
+        WritableArray wArray = new WritableNativeArray();
 
-          for (Station station : mFeedAudioPlayer.getStationList()) {
+        for (Station station : mFeedAudioPlayer.getStationList()) {
+          try {
             JSONObject jsonStation = new JSONObject(toJson(station));
             jsonStation.put("hasNewMusic", station.hasNewMusic());
 
             wArray.pushMap(convertJsonToMap(jsonStation));
+          } catch (Exception e) {
+            e.printStackTrace();
           }
-
-          params.putArray("stations", wArray);
-          params.putInt("activeStationId", mFeedAudioPlayer.getActiveStation().getId());
-          sendEvent(reactContext, "availability", params);
-        } catch (Exception e) {
-          e.printStackTrace();
         }
+
+        params.putArray("stations", wArray);
+        params.putInt("activeStationId", mFeedAudioPlayer.getActiveStation().getId());
+        params.putString("clientID", mFeedAudioPlayer.getClientId());
+        sendEvent(reactContext, "availability", params);
       }
 
       @Override

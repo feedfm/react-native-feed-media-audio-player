@@ -137,7 +137,7 @@ export default class App extends Component {
       <Button
         key="SetCID"
         onPress={() => {
-          audioPlayerService.player.setClientID('kkerxjsj:2bj:0cc7obvv0m', () => {
+          audioPlayerService.player.setClientID('fmcidv1:kkerxjsj:2bj:0cc7obvv0m', () => {
             console.log('returned to old client id', audioPlayerService.player.clientID);
             console.log('stations are now', audioPlayerService.player.stations);
           });

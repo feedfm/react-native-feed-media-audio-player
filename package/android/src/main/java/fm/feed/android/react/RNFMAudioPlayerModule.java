@@ -114,14 +114,14 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
 
     AvailabilityListener listener = new AvailabilityListener() {
       @Override
-      public void onPlayerAvailable(FeedAudioPlayer feedAudioPlayer) {
-
+      public void onPlayerAvailable(@NotNull FeedAudioPlayer feedAudioPlayer) {
+        mFeedAudioPlayer = feedAudioPlayer;
         WritableMap params = Arguments.createMap();
         params.putBoolean("available", true);
 
         WritableArray wArray = new WritableNativeArray();
 
-        for (Station station : mFeedAudioPlayer.getStationList()) {
+        for (Station station : feedAudioPlayer.getStationList()) {
           try {
             JSONObject jsonStation = new JSONObject(toJson(station));
             jsonStation.put("hasNewMusic", station.hasNewMusic());
@@ -133,8 +133,8 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
         }
 
         params.putArray("stations", wArray);
-        params.putInt("activeStationId", mFeedAudioPlayer.getActiveStation().getId());
-        params.putString("clientID", mFeedAudioPlayer.getClientId());
+        params.putInt("activeStationId", feedAudioPlayer.getActiveStation().getId());
+        params.putString("clientID", feedAudioPlayer.getClientId());
         sendEvent(reactContext, "availability", params);
       }
 
@@ -148,9 +148,9 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
 
     if (enableBackgroundMusic) {
       FeedPlayerService.initialize(reactContext, token, secret);
-
       mFeedAudioPlayer = FeedPlayerService.getInstance();
       FeedPlayerService.getInstance(listener);
+
 
     } else {
       mFeedAudioPlayer = new FeedAudioPlayer.Builder(reactContext, token, secret).setAvailabilityListener(listener)

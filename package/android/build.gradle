@@ -2,6 +2,7 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
         google()
     }
 
@@ -36,6 +37,6 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'fm.feed.android:player-sdk:6.0.8'
+    implementation 'fm.feed.android:player-sdk:6.1.3'
 }
   

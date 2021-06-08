@@ -1,4 +1,8 @@
 
+
+- v3.3.3
+  - bump Android SDK to 6.1.3
+
 - v3.3.1
   - update iOS Feed SDK to 4.4.15 to resolve bugs
   - replace `requestClientId()` async call with simple `clientID` property

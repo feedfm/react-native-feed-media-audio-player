@@ -37,6 +37,6 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'fm.feed.android:player-sdk:6.1.3'
+    implementation 'fm.feed.android:player-sdk-exo2118:6.1.3'
 }
   

@@ -166,11 +166,6 @@ class AudioPlayer {
     RNFMAudioPlayer.play();
   }
 
-  prepare() {
-    this.log('client called prepare()');
-    RNFMAudioPlayer.prepare();
-  }
-
   /**
    * Pause music playback
    */

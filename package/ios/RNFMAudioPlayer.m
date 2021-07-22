@@ -49,7 +49,7 @@ RCT_EXPORT_MODULE()
 };
 
 - (NSArray<NSString *> *)supportedEvents {
-    return @[
+    return @[@"musicQueued",
              @"newClientID",
              @"availability",
              @"state-change",
@@ -116,6 +116,8 @@ RCT_EXPORT_METHOD(initializeWithToken:(NSString *)token secret:(NSString *)secre
              selector:@selector(onCurrentItemDidBeginPlaybackNotification:) name:FMAudioPlayerCurrentItemDidBeginPlaybackNotification object:_player];
     [[NSNotificationCenter defaultCenter] addObserver:self
                  selector:@selector(onSkipFailedNotification:) name:FMAudioPlayerSkipFailedNotification object:_player];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                 selector:@selector(onMusicQueued:) name:FMAudioPlayerMusicQueuedNotification object:_player];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                               selector:@selector(onElapsedNotification:) name:FMAudioPlayerTimeElapseNotification
                                                 object:_player];
@@ -211,6 +213,12 @@ RCT_EXPORT_METHOD(createNewClientID)
     [player createNewClientId];
 }
      
+-(void) onMusicQueued: (NSNotification *)notification  {
+    
+    [self sendEventWithName:@"musicQueued" body:@{}];
+    
+}
+
 - (void)stopObserving {
     // make sure to unsubscribe, or we might get 'Bridge is not set!' crashes
     [[NSNotificationCenter defaultCenter] removeObserver:self];

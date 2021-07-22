@@ -57,6 +57,7 @@ class AudioPlayer {
     this.onPlayStartedSubscription = nativeEmitter.addListener('play-started', this.onPlayStarted.bind(this));
     this.onSkipFailedSubscription = nativeEmitter.addListener('skip-failed', this.onSkipFailed.bind(this));
     this.elapseSubscription = nativeEmitter.addListener('elapse', this.onElapse.bind(this));
+    this.prepareSubscription = nativeEmitter.addListener('musicQueued', this.onMusicQueued.bind(this));
   }
 
   log() {
@@ -163,6 +164,11 @@ class AudioPlayer {
   play() {
     this.log('client called play()');
     RNFMAudioPlayer.play();
+  }
+
+  prepare() {
+    this.log('client called prepare()');
+    RNFMAudioPlayer.prepare();
   }
 
   /**
@@ -372,6 +378,11 @@ class AudioPlayer {
 
       callback(available);
     }
+  }
+
+  onMusicQueued(props) {
+    this.log('Music is queued');
+    this._emitter.emit('musicQueued');
   }
 
   onSessionUpdated(props) {

@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fm.feed.android.playersdk.AvailabilityListener;
+import fm.feed.android.playersdk.MusicQueuedListener;
 import fm.feed.android.playersdk.SessionUpdateListener;
 import fm.feed.android.playersdk.ClientIdListener;
 import fm.feed.android.playersdk.FeedAudioPlayer;
@@ -182,6 +183,10 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
 
       if (st.getId().toString().equals(station.toString())) {
         mFeedAudioPlayer.setActiveStation(st, false);
+        mFeedAudioPlayer.prepareToPlay(st, () -> {
+          WritableMap params = Arguments.createMap();
+          sendEvent(reactContext, "musicQueued", params);
+        });
         flag = true;
         break;
       }

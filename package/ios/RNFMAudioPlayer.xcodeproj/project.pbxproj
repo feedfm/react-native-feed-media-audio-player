@@ -77,6 +77,8 @@
 			dependencies = (
 			);
 			name = RNFMAudioPlayer;
+			packageProductDependencies = (
+			);
 			productName = RCTDataManager;
 			productReference = 134814201AA4EA6300B7C361 /* libRNFMAudioPlayer.a */;
 			productType = "com.apple.product-type.library.static";
@@ -104,6 +106,8 @@
 				Base,
 			);
 			mainGroup = 58B511D21A9E6C8500147676;
+			packageReferences = (
+			);
 			productRefGroup = 58B511D21A9E6C8500147676;
 			projectDirPath = "";
 			projectRoot = "";

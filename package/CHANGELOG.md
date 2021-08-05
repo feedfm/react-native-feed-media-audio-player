@@ -1,10 +1,12 @@
 
+- v3.3.5
+  - revert back to pods for iOS library
+
 - v3.3.4
   - update min android SDK to 21
   - update gradle
   - upgrade to react native 0.64.2
   - propagate `musicQueued` event to the player
-
 
 - v3.3.3
   - bump Android SDK to 6.1.3

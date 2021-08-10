@@ -1,4 +1,7 @@
 
+- v3.3.6
+  - add java 1.8 compatibility
+
 - v3.3.5
   - revert back to pods for iOS library
 

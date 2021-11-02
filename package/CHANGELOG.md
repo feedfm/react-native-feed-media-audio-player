@@ -1,4 +1,8 @@
 
+- v3.4.0
+  - update to 5.1.2 of iOS Pod for AirPlay work
+  - update to 6.1.6 of Android package for bugfixes
+
 - v3.3.6
   - add java 1.8 compatibility
 

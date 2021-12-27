@@ -8,6 +8,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableMap;
@@ -198,7 +199,12 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
 
   @ReactMethod
   public void skip() {
-    mFeedAudioPlayer.skip();
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        mFeedAudioPlayer.skip();
+      }
+    });
   }
 
   @ReactMethod

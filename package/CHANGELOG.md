@@ -1,4 +1,7 @@
-
+- v3.4.1
+  - update to 6.2.0 of Android package and update exoplayer version to 2.13.1 
+  - update react version to 0.64.1
+  
 - v3.4.0
   - update to 5.1.2 of iOS Pod for AirPlay work
   - update to 6.1.6 of Android package for bugfixes

@@ -223,7 +223,7 @@ export default class App extends Component {
               audioPlayerService.player.play();
             }} title="play" />
             {
-              !this.state.play.canSkip ? (<Text style={styles.text}>(youre temporarily out of skips)</Text>) :
+              !audioPlayerService.player.canSkip ? (<Text style={styles.text}>(Skipping not allowed)</Text>) :
                 this.state.requestingSkip ? (<Text style={styles.text}>(trying to skip)</Text>) :
                   (<Button onPress={() => { this.skip(); }} title="skip" />)
             }

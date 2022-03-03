@@ -3,7 +3,7 @@ import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
 import NanoEvents from 'nanoevents';
 const { RNFMAudioPlayer } = NativeModules;
 
-/**
+/* 
  * AudioPlayer is the bridge to a native FMAudioPlayer instance. This class tries
  * to keep track of the state of the native player and forward on events to javascript
  * listeners.
@@ -88,7 +88,6 @@ class AudioPlayer {
    * @param {boolean} [handleRemoteCommands] - when true, the audio player should
    *       integrate with lock screen controls (iOS) or notification controls (Android)
    *       to support background audio playback and control.
-   * @param {boolean} [enableAudioSession] - enable or disable the SDK creating an AVAudioSession on iOS
    */
   initialize(token, secret, availability, handleRemoteCommands) {
     this.log('initializing with token "' + token + '" and secret "' + secret + '"');
@@ -196,9 +195,19 @@ class AudioPlayer {
    * Return promise with the number of seconds the player can jump ahead in the current station.
    */
 
-  getMaxSeekableLengthInSeconds() {
+  get maxSeekableLengthInSeconds() {
     return RNFMAudioPlayer.maxSeekableLengthInSeconds();
   }
+
+
+  /**
+   * Return promise with int with 0 or 1 on whether skipping is allowed in current station at this time. 
+   */
+
+  get canSkip() {
+    return RNFMAudioPlayer.canSkip();
+  }
+
 
   /**
    * Seek into the current station by the given number of seconds.
@@ -443,7 +452,6 @@ class AudioPlayer {
      *     title: 'xx',
      *     artist: 'xx',
      *     track: 'xx',
-     *     canSkip: true|false,
      *     duration: xx, // duration in seconds
      *     metadata: { ... }
      *   }

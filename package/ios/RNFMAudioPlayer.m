@@ -163,6 +163,20 @@ RCT_EXPORT_METHOD(skip)
     [player skip];
 }
 
+RCT_REMAP_METHOD(canLike, canLikeResolver: (RCTPromiseResolveBlock)resolve
+     rejecter:(RCTPromiseRejectBlock)reject)
+{
+    FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
+    resolve([NSNumber numberWithBool:[player canLike]]);
+}
+
+RCT_REMAP_METHOD(canSkip, canSkipResolver: (RCTPromiseResolveBlock)resolve
+     rejecter:(RCTPromiseRejectBlock)reject)
+{
+    FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
+    
+    resolve([NSNumber numberWithBool:[player canSkip]]);
+}
 RCT_EXPORT_METHOD(stop)
 {
     FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
@@ -282,7 +296,6 @@ RCT_EXPORT_METHOD(createNewClientID)
                                                            @"artist": current.artist,
                                                            @"album": current.album,
                                                            @"metadata": current.metadata,
-                                                           @"canSkip": @(_player.canSkip),
                                                            @"station_id": current.station.identifier,
                                                            @"duration": @(duration)
                                                            }

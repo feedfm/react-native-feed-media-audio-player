@@ -10,9 +10,9 @@ PODS:
     - React-Core (= 0.66.2)
     - React-jsi (= 0.66.2)
     - ReactCommon/turbomodule/core (= 0.66.2)
-  - FeedMedia (5.1.5):
-    - FeedMedia/Core (= 5.1.5)
-  - FeedMedia/Core (5.1.5)
+  - FeedMedia (5.1.6):
+    - FeedMedia/Core (= 5.1.6)
+  - FeedMedia/Core (5.1.6)
   - Flipper (0.99.0):
     - Flipper-Folly (~> 2.6)
     - Flipper-RSocket (~> 1.4)
@@ -275,8 +275,8 @@ PODS:
   - React-jsinspector (0.66.2)
   - React-logger (0.66.2):
     - glog
-  - react-native-feed-media-audio-player (3.4.0):
-    - FeedMedia (= 5.1.5)
+  - react-native-feed-media-audio-player (3.4.1):
+    - FeedMedia (= 5.1.6)
     - React
   - React-perflogger (0.66.2)
   - React-RCTActionSheet (0.66.2):
@@ -491,7 +491,7 @@ SPEC CHECKSUMS:
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: 57a8b34460679fb69e1ce7d625b04dbd1596b1f1
   FBReactNativeSpec: 18438b1c04ce502ed681cd19db3f4508964c082a
-  FeedMedia: 65b57cf25ae792695a6044c54725a66b0f92dd0b
+  FeedMedia: cf2c81b7a275c8eff58e6c199c21ef55cf213735
   Flipper: 30e8eeeed6abdc98edaf32af0cda2f198be4b733
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
   Flipper-DoubleConversion: 57ffbe81ef95306cc9e69c4aa3aeeeeb58a6a28c
@@ -517,7 +517,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 573adf0d6ce5e05c55872dfde5b1589acb88a96f
   React-jsinspector: b08b2d5e86cef9dc4bb69f0aa0bbe6d210fb7da5
   React-logger: faee236598b0f7e1a5e3b68577016ac451f1f993
-  react-native-feed-media-audio-player: 74290c7ae29dc6ee6bea564789c1a504fa0048ee
+  react-native-feed-media-audio-player: 92ef5c5b7ad3f6f0c2a40a499860a81641356053
   React-perflogger: 5ab487cacfe6ec19bfe3d3f8072bf71eb07d63da
   React-RCTActionSheet: 03f25695e095fb5aa003828620943c74cc281fec
   React-RCTAnimation: eaf82da39f0c36fb0ef2a28df797c5f73a2a98ea

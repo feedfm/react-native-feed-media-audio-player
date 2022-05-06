@@ -20,6 +20,8 @@ pod install
 Look in the `example` dir in this repo to see an example app
 that uses the player.
 
+For help or bug reporting, please send an email to support@feed.fm.
+
 ## Overview 
 
 

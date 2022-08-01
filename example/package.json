@@ -10,8 +10,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "react": "17.0.2",
-    "react-native": "0.66.2",
+    "react": "18.0.0",
+    "react-native": "0.69.3",
     "react-native-feed-media-audio-player": "file:../package"
   },
   "devDependencies": {

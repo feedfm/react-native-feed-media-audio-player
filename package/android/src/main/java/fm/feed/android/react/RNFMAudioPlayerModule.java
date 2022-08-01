@@ -167,12 +167,25 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
 
   @ReactMethod
   public void play() {
-    mFeedAudioPlayer.play();
+
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+
+        mFeedAudioPlayer.play();
+      }
+    });
   }
 
   @ReactMethod
   public void pause() {
-    mFeedAudioPlayer.pause();
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+
+        mFeedAudioPlayer.pause();
+      }
+    });
   }
 
   @ReactMethod
@@ -222,7 +235,13 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
 
   @ReactMethod
   public void stop() {
-    mFeedAudioPlayer.stop();
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        mFeedAudioPlayer.stop();
+      }
+    });
+
   }
 
   @ReactMethod
@@ -232,12 +251,22 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
 
   @ReactMethod
   public void maxSeekableLengthInSeconds(Promise promise) {
-    promise.resolve(mFeedAudioPlayer.maxSeekableLengthInSeconds());
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        promise.resolve(mFeedAudioPlayer.maxSeekableLengthInSeconds());
+      }
+    });
   }
 
   @ReactMethod
   public void seekCurrentStationBy(float seconds) {
-    mFeedAudioPlayer.seekCurrentStationBy(seconds);
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+         mFeedAudioPlayer.seekCurrentStationBy(seconds);
+      }
+    });
   }
 
   @Override

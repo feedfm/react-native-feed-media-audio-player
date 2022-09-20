@@ -286,20 +286,21 @@ RCT_EXPORT_METHOD(createNewClientID)
 
 - (void) onCurrentItemDidBeginPlaybackNotification: (NSNotification *)notification {
     FMAudioItem *current = _player.currentItem;
-    
-    long duration = lroundf(_player.currentItemDuration);
-
-    [self sendEventWithName:@"play-started" body:@{
-                                                   @"play": @{
-                                                           @"id": current.playId,
-                                                           @"title": current.name,
-                                                           @"artist": current.artist,
-                                                           @"album": current.album,
-                                                           @"metadata": current.metadata,
-                                                           @"station_id": current.station.identifier,
-                                                           @"duration": @(duration)
-                                                           }
-                                                   }];
+    if(current != nil && current.station.identifier != nil) {
+        long duration = lroundf(_player.currentItemDuration);
+        [self sendEventWithName:@"play-started"
+                           body:@{
+                               @"play": @{
+                                       @"id": current.playId,
+                                       @"title": current.name,
+                                       @"artist": current.artist,
+                                       @"album": current.album,
+                                       @"metadata": current.metadata,
+                                       @"station_id": current.station.identifier,
+                                       @"duration": @(duration)
+                                       }
+                               }];
+    }
 }
 
 

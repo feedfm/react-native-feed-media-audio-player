@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "react-native-feed-media-audio-player": {
+      "signature": "8b0752e0b15277e7db17ed10f360e0d3",
+      "file": true,
+      "replaced": "3.5.3"
+    }
+  }
+}

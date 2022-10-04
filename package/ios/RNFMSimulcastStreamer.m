@@ -102,10 +102,7 @@ RCT_EXPORT_METHOD(disconnect:(BOOL) force) {
     
     if (!_streamer) { return; }
 
-    if (item == NULL || item.id == NULL) {
-        [self sendEventWithName:@"play-started" body:@{ @"play": [NSNull null] }];
-
-    } else {
+    if (item != NULL || item.id != NULL) {
        [self sendEventWithName:@"play-started" body:@{
         @"play": @{
                 @"title": item.name,

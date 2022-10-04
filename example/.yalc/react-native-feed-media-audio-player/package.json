@@ -1,0 +1,36 @@
+{
+  "name": "react-native-feed-media-audio-player",
+  "version": "3.5.3",
+  "description": "This is a React Native bridge for the Feed.fm iOS and Android SDKs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "music",
+    "audio"
+  ],
+  "contributors": [
+    {
+      "name": "Eric Lambrecht",
+      "email": "eric@feed.fm"
+    },
+    {
+      "name": "Arveen Kumar",
+      "email": "arveen@feed.fm"
+    }
+  ],
+  "license": "SEE LICENSE IN LICENSE.md",
+  "peerDependencies": {
+    "react": ">=16.8.1",
+    "react-native": ">0.60.5"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "nanoevents": "^2.0.0"
+  },
+  "yalcSig": "8b0752e0b15277e7db17ed10f360e0d3"
+}

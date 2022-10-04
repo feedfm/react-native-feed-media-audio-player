@@ -2,9 +2,10 @@
  * Sample React App that uses React Native Feed Media Audio Player
  */
 
-import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
-import { Platform, StyleSheet, Text, View, Button } from 'react-native'; // eslint-disable-line no-unused-vars
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { audioPlayerService } from 'react-native-feed-media-audio-player';
+import AudioPlayer from 'react-native-feed-media-audio-player/lib/audio-player';
 
 // initialize the player as early in the app as possible
 console.log('initializing!');
@@ -14,11 +15,50 @@ audioPlayerService.initialize({ token: 'demo', secret: 'demo', debug: true, enab
 // for both the token and secret values. Also try 'badgeo' for both
 // values to test out when no music is available.
 
+/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
+ * LTI update could not be added via codemod */
+
+type PlayerAvailability = boolean | null;
+
+interface Station {
+  id: number;
+  name: string;
+}
+
 export default class App extends Component {
+  player: AudioPlayer;
+
+  elapsedTimer: number;
+
+  state: {
+    playbackState: AudioPlayer['playbackState'];
+    available: PlayerAvailability;
+    requestingSkip: boolean;
+    play: {
+      title: string;
+      artist: string;
+      album: string;
+      elapsed: number;
+      duration: number;
+      elapsedTime: AudioPlayer['elapsedTime'];
+    };
+    stations: Station[];
+  };
+
+  stateChangeUnbind: Function;
+
+  stationChangeUnbind: Function;
+
+  playStartedUnbind: Function;
+
+  skipFailedUnbind: Function;
+
+  sessionUpdatedUnbind: Function;
 
   constructor(props) {
     super(props);
 
+    // @ts-ignore - Not initializing every property
     this.state = {
       // music is available (true), not available (false), or undetermined (null)
       available: null,
@@ -49,10 +89,10 @@ export default class App extends Component {
       });
 
 
-      this.elapsedTimer = setInterval(() => {
+      this.elapsedTimer = window.setInterval(() => {
         if ((this.state.playbackState === 'PLAYING') && (this.state.play)) {
           this.setState({
-            play: { ...this.state.play, elapsed: player.elapsedTime }
+            play: { ...this.state.play, elapsed: player.elapsedTime },
           });
         }
       }, 1000);
@@ -68,21 +108,21 @@ export default class App extends Component {
       this.playStartedUnbind = player.on('play-started', (play) => {
         this.setState({
           requestingSkip: false,
-          play: { ...play, elapsed: 0 }
+          play: { ...play, elapsed: 0 },
         });
       });
 
       this.skipFailedUnbind = player.on('skip-failed', () => {
         this.setState({
           requestingSkip: false,
-          play: { ...this.state.play, canSkip: false }
+          play: { ...this.state.play, canSkip: false },
         });
       });
 
       this.sessionUpdatedUnbind = player.on('session-updated', () => {
         this.setState({
           station: player.activeStation,
-          stations: player.stations
+          stations: player.stations,
         })
       })
     });
@@ -172,7 +212,7 @@ export default class App extends Component {
       case 'READY_TO_PLAY':
         return (
           <View style={styles.container}>
-            { this.renderButtons()}
+            {this.renderButtons()}
           </View>
 
         );
@@ -253,9 +293,6 @@ export default class App extends Component {
 
   }
 }
-
-
-
 
 const styles = StyleSheet.create({
   container: {

@@ -2,8 +2,8 @@
  * Sample React App that uses React Native Feed Media Audio Player
  */
 
-import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
-import { Platform, StyleSheet, Text, View, Button } from 'react-native'; // eslint-disable-line no-unused-vars
+import React, { Component } from 'react';
+import { Platform, StyleSheet, Text, View, Button } from 'react-native';
 import { useSimulcastStreamer } from 'react-native-feed-media-audio-player';
 
 

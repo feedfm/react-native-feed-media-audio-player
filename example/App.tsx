@@ -228,10 +228,10 @@ export default class App extends Component {
       case 'PLAYING':
         return (
           <View style={styles.container}>
-            <Text style={styles.text}>{this.state.play.title}</Text>
-            <Text style={styles.text}>by {this.state.play.artist}</Text>
-            <Text style={styles.text}>on {this.state.play.album}</Text>
-            <Text style={styles.text}>{this.state.play.elapsed} of {this.state.play.duration} seconds elapsed</Text>
+            <Text style={styles.text}>{this.state.play?.title}</Text>
+            <Text style={styles.text}>by {this.state.play?.artist}</Text>
+            <Text style={styles.text}>on {this.state.play?.album}</Text>
+            <Text style={styles.text}>{this.state.play?.elapsed} of {this.state.play?.duration} seconds elapsed</Text>
             <Button onPress={() => {
               audioPlayerService.player.pause();
             }} title="pause" />

@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "react-native-feed-media-audio-player": {
-      "signature": "ba9a1553116c09662277c99926628321",
+      "signature": "b21ca02f40e1408cf93a6033d8934838",
       "file": true,
       "replaced": "3.5.3"
     }

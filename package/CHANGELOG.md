@@ -1,3 +1,12 @@
+- v4.0.2
+  - Fix missing play-started android event.
+
+- v4.0.1
+  - Fix offline to online iOS crash.
+
+- v4.0.0
+  - update Example react version to 0.70.2
+
 - v3.4.1
   - update to 6.2.0 of Android package and update exoplayer version to 2.13.1 
   - update react version to 0.64.1

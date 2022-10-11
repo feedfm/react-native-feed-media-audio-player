@@ -79,7 +79,6 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(initializeWithToken:(NSString *)token secret:(NSString *)secret enableBackgroundMusic:(BOOL)enableBackgroundMusic)
 {
     FMLogSetLevel(FMLogLevelDebug);
-
     _player = FMAudioPlayer.sharedPlayer;
     _player.disableSongStartNotifications = YES;
 
@@ -89,6 +88,7 @@ RCT_EXPORT_METHOD(initializeWithToken:(NSString *)token secret:(NSString *)secre
     
     [FMAudioPlayer setClientToken:token secret:secret];
 
+    FMAudioPlayer.autoNetworkRetryEnabled = false;
     FMAudioPlayer.sharedPlayer.doesHandleRemoteCommands = enableBackgroundMusic;
 
     [FMAudioPlayer.sharedPlayer whenAvailable:^{

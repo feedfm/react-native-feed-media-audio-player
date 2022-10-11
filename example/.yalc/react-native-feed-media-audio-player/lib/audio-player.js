@@ -370,8 +370,9 @@ class AudioPlayer {
    */
   onAvailability(props) {
     let available = this._available = props.available;
-
+    
     if (available) {
+      this.log('Music is available');
       this._stations = props.stations;
       this._activeStation = props.stations.find((station) => station.id === props.activeStationId);
       this._clientID = props.clientID;
@@ -437,9 +438,11 @@ class AudioPlayer {
      */
 
   onStationChange(props) {
-    this._activeStation = this._stations.find((station) => station.id === props.activeStationId);
-    //console.log(this._activeStation);
-    this._emitter.emit('station-change', this._activeStation, this);
+    if(this._stations){
+      this._activeStation = this._stations.find((station) => station.id === props.activeStationId);
+      //console.log(this._activeStation);
+      this._emitter.emit('station-change', this._activeStation, this);
+    }
   }
 
   /**
@@ -463,7 +466,7 @@ class AudioPlayer {
 
     this._currentPlay = play;
 
-    if (play.station_id) {
+    if (play.station_id && this._stations) {
       const station = this._stations.find((station) => station.id === play.station_id);
       if (station) {
         station.hasNewMusic = false;

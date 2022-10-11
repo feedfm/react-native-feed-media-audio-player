@@ -340,7 +340,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
 
   @Override
   public void onPlayStarted(Play play) {
-    if (play == null || play.getStation() == null)
+    if (play == null || play.getStation() != null)
       return;
     String str = toJson(play.getAudioFile().getMetadata());
 

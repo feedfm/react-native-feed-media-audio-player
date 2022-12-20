@@ -12,7 +12,8 @@
   "dependencies": {
     "react": "18.1.0",
     "react-native": "0.70.1",
-    "react-native-feed-media-audio-player": "file:.yalc/react-native-feed-media-audio-player"
+    "react-native-feed-media-audio-player": "file:.yalc/react-native-feed-media-audio-player",
+    "react-native-video": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

@@ -1,0 +1,1583 @@
+{
+  "independentSegments" : false,
+  "parsedSegmentsCount" : 155,
+  "hasDiscSequenceTag" : false,
+  "gzipEncoded" : false,
+  "mimeType" : "application\/vnd.apple.mpegurl",
+  "discontinuities" : [
+    {
+      "segments" : [
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 1,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 0,
+          "url" : "playlist0.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 2,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 1,
+          "url" : "playlist1.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 3,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 2,
+          "url" : "playlist2.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 4,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 3,
+          "url" : "playlist3.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 5,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 4,
+          "url" : "playlist4.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 6,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 5,
+          "url" : "playlist5.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 7,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 6,
+          "url" : "playlist6.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 8,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 7,
+          "url" : "playlist7.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 9,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 8,
+          "url" : "playlist8.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 10,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 9,
+          "url" : "playlist9.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 11,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 10,
+          "url" : "playlist10.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 12,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 11,
+          "url" : "playlist11.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 13,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 12,
+          "url" : "playlist12.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 14,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 13,
+          "url" : "playlist13.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 15,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 14,
+          "url" : "playlist14.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 16,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 15,
+          "url" : "playlist15.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 17,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 16,
+          "url" : "playlist16.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 18,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 17,
+          "url" : "playlist17.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 19,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 18,
+          "url" : "playlist18.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 20,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 19,
+          "url" : "playlist19.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 21,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 20,
+          "url" : "playlist20.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 22,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 21,
+          "url" : "playlist21.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 23,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 22,
+          "url" : "playlist22.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 24,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 23,
+          "url" : "playlist23.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 25,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 24,
+          "url" : "playlist24.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 26,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 25,
+          "url" : "playlist25.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 27,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 26,
+          "url" : "playlist26.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 28,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 27,
+          "url" : "playlist27.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 29,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 28,
+          "url" : "playlist28.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 30,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 29,
+          "url" : "playlist29.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 31,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 30,
+          "url" : "playlist30.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 32,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 31,
+          "url" : "playlist31.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 33,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 32,
+          "url" : "playlist32.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 34,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 33,
+          "url" : "playlist33.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 35,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 34,
+          "url" : "playlist34.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 36,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 35,
+          "url" : "playlist35.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 37,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 36,
+          "url" : "playlist36.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 38,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 37,
+          "url" : "playlist37.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 39,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 38,
+          "url" : "playlist38.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 40,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 39,
+          "url" : "playlist39.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 41,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 40,
+          "url" : "playlist40.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 42,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 41,
+          "url" : "playlist41.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 43,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 42,
+          "url" : "playlist42.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 44,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 43,
+          "url" : "playlist43.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 45,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 44,
+          "url" : "playlist44.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 46,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 45,
+          "url" : "playlist45.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 47,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 46,
+          "url" : "playlist46.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 48,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 47,
+          "url" : "playlist47.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 49,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 48,
+          "url" : "playlist48.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 50,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 49,
+          "url" : "playlist49.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 51,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 50,
+          "url" : "playlist50.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 52,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 51,
+          "url" : "playlist51.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 53,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 52,
+          "url" : "playlist52.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 54,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 53,
+          "url" : "playlist53.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 55,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 54,
+          "url" : "playlist54.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 56,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 55,
+          "url" : "playlist55.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 57,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 56,
+          "url" : "playlist56.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 58,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 57,
+          "url" : "playlist57.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 59,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 58,
+          "url" : "playlist58.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 60,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 59,
+          "url" : "playlist59.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 61,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 60,
+          "url" : "playlist60.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 62,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 61,
+          "url" : "playlist61.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 63,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 62,
+          "url" : "playlist62.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 64,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 63,
+          "url" : "playlist63.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 65,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 64,
+          "url" : "playlist64.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 66,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 65,
+          "url" : "playlist65.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 67,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 66,
+          "url" : "playlist66.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 68,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 67,
+          "url" : "playlist67.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 69,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 68,
+          "url" : "playlist68.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 70,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 69,
+          "url" : "playlist69.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 71,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 70,
+          "url" : "playlist70.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 72,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 71,
+          "url" : "playlist71.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 73,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 72,
+          "url" : "playlist72.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 74,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 73,
+          "url" : "playlist73.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 75,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 74,
+          "url" : "playlist74.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 76,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 75,
+          "url" : "playlist75.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 77,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 76,
+          "url" : "playlist76.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 78,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 77,
+          "url" : "playlist77.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 79,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 78,
+          "url" : "playlist78.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 80,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 79,
+          "url" : "playlist79.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 81,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 80,
+          "url" : "playlist80.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 82,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 81,
+          "url" : "playlist81.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 83,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 82,
+          "url" : "playlist82.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 84,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 83,
+          "url" : "playlist83.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 85,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 84,
+          "url" : "playlist84.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 86,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 85,
+          "url" : "playlist85.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 87,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 86,
+          "url" : "playlist86.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 88,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 87,
+          "url" : "playlist87.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 89,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 88,
+          "url" : "playlist88.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 90,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 89,
+          "url" : "playlist89.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 91,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 90,
+          "url" : "playlist90.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 92,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 91,
+          "url" : "playlist91.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 93,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 92,
+          "url" : "playlist92.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 94,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 93,
+          "url" : "playlist93.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 95,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 94,
+          "url" : "playlist94.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 96,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 95,
+          "url" : "playlist95.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 97,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 96,
+          "url" : "playlist96.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 98,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 97,
+          "url" : "playlist97.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 99,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 98,
+          "url" : "playlist98.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 100,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 99,
+          "url" : "playlist99.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 101,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 100,
+          "url" : "playlist100.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 102,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 101,
+          "url" : "playlist101.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 103,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 102,
+          "url" : "playlist102.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 104,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 103,
+          "url" : "playlist103.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 105,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 104,
+          "url" : "playlist104.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 106,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 105,
+          "url" : "playlist105.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 107,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 106,
+          "url" : "playlist106.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 108,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 107,
+          "url" : "playlist107.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 109,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 108,
+          "url" : "playlist108.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 110,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 109,
+          "url" : "playlist109.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 111,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 110,
+          "url" : "playlist110.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 112,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 111,
+          "url" : "playlist111.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 113,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 112,
+          "url" : "playlist112.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 114,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 113,
+          "url" : "playlist113.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 115,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 114,
+          "url" : "playlist114.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 116,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 115,
+          "url" : "playlist115.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 117,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 116,
+          "url" : "playlist116.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 118,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 117,
+          "url" : "playlist117.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 119,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 118,
+          "url" : "playlist118.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 120,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 119,
+          "url" : "playlist119.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 121,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 120,
+          "url" : "playlist120.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 122,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 121,
+          "url" : "playlist121.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 123,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 122,
+          "url" : "playlist122.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 124,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 123,
+          "url" : "playlist123.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 125,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 124,
+          "url" : "playlist124.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 126,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 125,
+          "url" : "playlist125.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 127,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 126,
+          "url" : "playlist126.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 128,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 127,
+          "url" : "playlist127.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 129,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 128,
+          "url" : "playlist128.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 130,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 129,
+          "url" : "playlist129.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 131,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 130,
+          "url" : "playlist130.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 132,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 131,
+          "url" : "playlist131.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 133,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 132,
+          "url" : "playlist132.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 134,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 133,
+          "url" : "playlist133.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 135,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 134,
+          "url" : "playlist134.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 136,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 135,
+          "url" : "playlist135.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 137,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 136,
+          "url" : "playlist136.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 138,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 137,
+          "url" : "playlist137.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 139,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 138,
+          "url" : "playlist138.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 140,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 139,
+          "url" : "playlist139.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 141,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 140,
+          "url" : "playlist140.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 142,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 141,
+          "url" : "playlist141.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 143,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 142,
+          "url" : "playlist142.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 144,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 143,
+          "url" : "playlist143.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 145,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 144,
+          "url" : "playlist144.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 146,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 145,
+          "url" : "playlist145.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 147,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 146,
+          "url" : "playlist146.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 148,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 147,
+          "url" : "playlist147.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 149,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 148,
+          "url" : "playlist148.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 150,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 149,
+          "url" : "playlist149.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 151,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 150,
+          "url" : "playlist150.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 152,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 151,
+          "url" : "playlist151.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 153,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 152,
+          "url" : "playlist152.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 154,
+          "processed" : false,
+          "segmentDurationTag" : 4,
+          "mediaSequence" : 153,
+          "url" : "playlist153.ts"
+        },
+        {
+          "discontinuityDomain" : 0,
+          "segmentByteRangeLength" : 0,
+          "segmentByteRangeOffset" : 0,
+          "dataID" : 155,
+          "processed" : false,
+          "segmentDurationTag" : 1.4330000000000001,
+          "mediaSequence" : 154,
+          "url" : "playlist154.ts"
+        }
+      ],
+      "measurements" : {
+        "measuredMaxBitrate" : 0,
+        "measuredMeanBitrate" : 0,
+        "measuredSegments" : 0
+      },
+      "tracks" : [
+
+      ]
+    }
+  ],
+  "url" : "http:\/\/192.168.1.102:50512\/index.m3u8",
+  "playlistKind" : "media",
+  "dataID" : 0,
+  "sslContentDeliveredSecurely" : false,
+  "validatorTimestamp" : "2022-11-30T16:09:39.340Z",
+  "validatorVersion" : "1.9 (522.7-210603)",
+  "fetchCount" : 1,
+  "processedSegmentsCount" : 0,
+  "playlistTargetDuration" : 4,
+  "hasEndTag" : true,
+  "playlistType" : "VOD",
+  "dataVersion" : 1.1000000000000001
+}

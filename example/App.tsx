@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { audioPlayerService } from 'react-native-feed-media-audio-player';
 import AudioPlayer from 'react-native-feed-media-audio-player/lib/audio-player';
+import Video from 'react-native-video';
 
 // initialize the player as early in the app as possible
 console.log('initializing!');
@@ -27,7 +28,7 @@ interface Station {
 
 export default class App extends Component {
   player: AudioPlayer;
-
+  playerV: Video;
   elapsedTimer: number;
 
   state: {
@@ -193,6 +194,8 @@ export default class App extends Component {
     if (this.state.available === null) {
       return (
         <View style={styles.container}>
+
+
           <Text style={styles.text}>initializing...</Text>
         </View>
       );
@@ -212,6 +215,7 @@ export default class App extends Component {
       case 'READY_TO_PLAY':
         return (
           <View style={styles.container}>
+                      
             {this.renderButtons()}
           </View>
 
@@ -228,6 +232,16 @@ export default class App extends Component {
       case 'PLAYING':
         return (
           <View style={styles.container}>
+            <Video source={{uri: "https://cdn.jwplayer.com/manifests/BxgGjBH3.m3u8"}}   // Can be a URL or a local file.
+resizeMode={"contain"}
+
+       ref={(ref) => {
+          if(ref != null) {
+          ref.posterResizeMode="center"
+          this.playerV = ref
+          }
+       }} 
+       style={styles.backgroundVideo} />
             <Text style={styles.text}>{this.state.play?.title}</Text>
             <Text style={styles.text}>by {this.state.play?.artist}</Text>
             <Text style={styles.text}>on {this.state.play?.album}</Text>
@@ -249,6 +263,8 @@ export default class App extends Component {
             <Button onPress={() => {
               audioPlayerService.player.volume = 1;
             }} title="vol 1" />
+
+
           </View>
         );
 
@@ -303,7 +319,15 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: 'right',
     margin: 10,
+  },
+  backgroundVideo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 50,
+    right: 50,
+    
   }
 });

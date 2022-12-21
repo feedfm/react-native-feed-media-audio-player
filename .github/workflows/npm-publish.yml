@@ -1,0 +1,21 @@
+
+name: react-native-feed-media-audio-player Package
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  publish-npm:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PLAYER_NPM_PUBLISH}}

@@ -1,5 +1,5 @@
 
-name: react-native-feed-media-audio-player Package
+name: Npm publish package
 
 on:
   pull_request:

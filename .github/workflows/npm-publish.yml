@@ -1,5 +1,5 @@
 
-name: Npm publish package
+name: npm-publish
 
 on:
   pull_request:

@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: cd package
       - run: npm publish --dry-run
+        working-directory: package
         env:
           NODE_AUTH_TOKEN: ${{secrets.PLAYER_NPM_PUBLISH}}

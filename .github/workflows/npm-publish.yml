@@ -3,12 +3,12 @@ name: npm-publish
 
 on:
   pull_request:
-    types:
-      - closed
+  push:
+    branches: master
 
 jobs:
   publish-npm:
-    if: github.event.pull_request.merged == true && github.ref == 'refs/heads/master'
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

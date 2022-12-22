@@ -1,5 +1,5 @@
 
-name: Npm publish package
+name: npm-publish
 
 on:
   pull_request:
@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
+      - run: ls
       - run: cd package
       - run: npm publish --dry-run
         env:

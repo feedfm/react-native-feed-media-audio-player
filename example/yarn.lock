@@ -5654,7 +5654,7 @@
 
 "react-native-feed-media-audio-player@file:.yalc/react-native-feed-media-audio-player":
   "resolved" "file:.yalc/react-native-feed-media-audio-player"
-  "version" "3.5.3"
+  "version" "4.0.1"
   dependencies:
     "nanoevents" "^2.0.0"
 

@@ -22,6 +22,17 @@ that uses the player.
 
 For help or bug reporting, please send an email to support@feed.fm.
 
+---
+**NOTE**
+
+If your project also uses [react-native-jw-media-player](https://www.npmjs.com/package/react-native-jw-media-player) or [react-native-video](https://www.npmjs.com/package/react-native-video) you must use the following versions of each to avoid exoplayer related issues. 
+
+react-native-jw-media-player : 0.2.29
+
+react-native-video: v6.0.0-alpha.4 or above
+
+---
+
 ## Overview 
 
 

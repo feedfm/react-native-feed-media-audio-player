@@ -26,6 +26,7 @@ jobs:
           cache: 'npm'
 
       - name: Bump version and update CHANGELOG
+        working-directory: package
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions"

@@ -31,7 +31,7 @@ jobs:
           git config --global user.name "github-actions"
           npm run release
 
-          npm install
+          npm install --package-lock-only
           git commit --amend --no-edit package-lock.json
 
           git push --follow-tags origin main

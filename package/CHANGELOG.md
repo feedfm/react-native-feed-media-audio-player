@@ -1,3 +1,9 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### 4.0.3 (2023-02-06)
+
 - v4.0.2
   - Fix missing play-started android event.
 
@@ -116,4 +122,3 @@
 - v2.1.2 - *critical bugfix*
   - update to FeedMedia iOS SDK 4.2.1 to fix SDK not saving client id
   - fix 'skip failed' event not firing - thanks [@tnaughts](https://github.com/tnaughts)
-

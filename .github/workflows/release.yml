@@ -44,5 +44,5 @@ jobs:
         run: |
           npm --version
           echo '_authToken=${PLAYER_NPM_PUBLISH}' > .npmrc
-          npm run publish
+          npm publish
           rm .npmrc

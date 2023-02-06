@@ -32,5 +32,5 @@ jobs:
         run: |
           npm --version
           echo '_authToken=${PLAYER_NPM_PUBLISH}' > .npmrc
-          npm run publish --tag beta
+          npm publish --tag beta
           rm .npmrc

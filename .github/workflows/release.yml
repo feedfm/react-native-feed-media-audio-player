@@ -35,7 +35,7 @@ jobs:
           npm install --package-lock-only
           git commit --amend --no-edit package-lock.json
 
-          git push --follow-tags origin main
+          git push --follow-tags origin master
           node -e 'console.log("VERSION=" + require("./package.json").version)' >> $GITHUB_ENV
 
       - name: Publish npm package

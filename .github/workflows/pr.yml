@@ -38,4 +38,5 @@ jobs:
           | sed 's/[",]//g')
           echo '_authToken=${PLAYER_NPM_PUBLISH}' > .npmrc
           npm version $PACKAGE_VERSION-beta.${{ github.run_number }}.${{ github.run_attempt }}
+          npm publish --tag beta
           rm .npmrc

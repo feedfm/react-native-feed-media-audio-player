@@ -4,7 +4,8 @@
   "description": "This is a React Native bridge for the Feed.fm iOS and Android SDKs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "npx standard-version"
   },
   "keywords": [
     "react-native",

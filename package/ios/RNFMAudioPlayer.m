@@ -226,6 +226,13 @@ RCT_EXPORT_METHOD(createNewClientID)
     [player stop];
     [player createNewClientId];
 }
+
+RCT_EXPORT_METHOD(logEvent: (NSString*) event withParams:(NSDictionary*) params)
+{
+    FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
+    
+    [player logEvent:event withParameters:params];
+}
      
 -(void) onMusicQueued: (NSNotification *)notification  {
     

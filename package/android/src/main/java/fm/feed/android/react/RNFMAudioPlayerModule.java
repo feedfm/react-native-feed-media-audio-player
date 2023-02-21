@@ -12,6 +12,10 @@ import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.ReadableMap;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,6 +97,17 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
     mFeedAudioPlayer.setClientId(clientID);
 
     updateSession();
+  }
+
+  @ReactMethod
+  public void logEvent(String event, ReadableMap params) {
+    try {
+      JSONObject object = Utils.convertMapToJson(params);
+      Log.i(TAG, "Log event: " + event);
+      mFeedAudioPlayer.logEvent(event, object);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @ReactMethod

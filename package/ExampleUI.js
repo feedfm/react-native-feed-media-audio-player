@@ -103,7 +103,10 @@ export default class ExampleUI extends Component {
       <Button 
         key="play"
         onPress={() => {
+
           audioPlayerService.player.play();
+
+
         }} title={'click to play '} />,
 
       ...this.state.stations.map(station =>

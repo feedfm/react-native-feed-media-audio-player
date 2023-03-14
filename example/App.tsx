@@ -157,6 +157,11 @@ export default class App extends Component {
       <Button
         key="play"
         onPress={() => {
+          console.log('Log Play Event');
+          const text = '{"id":"John"}';
+          const obj = JSON.parse(text);
+          audioPlayerService.player.logEvent("Station event", obj);
+
           audioPlayerService.player.play();
         }} title={'click to play '} />,
       <Button

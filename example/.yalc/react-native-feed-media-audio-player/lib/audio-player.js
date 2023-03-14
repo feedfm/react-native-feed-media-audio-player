@@ -341,6 +341,21 @@ class AudioPlayer {
   }
 
   /**
+   *
+   * Log an event on feed.fm servers
+   * 
+   * @param {String} event Event name as String
+   * @param {JSONObject} params Parameters as JSONObject
+   */
+
+    logEvent(event, params) {
+      
+      this.log('Log Event');
+      RNFMAudioPlayer.logEvent(event, params);
+
+    }
+
+  /**
    * Return the list of available music stations to pull music from. This
    * will be undefined until the player has announce that it is available.
    */

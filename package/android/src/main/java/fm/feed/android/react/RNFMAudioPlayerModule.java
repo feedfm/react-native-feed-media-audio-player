@@ -129,10 +129,13 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
   @ReactMethod
   public void initializeWithToken(String token, String secret, boolean enableBackgroundMusic) {
 
+
+    FeedAudioPlayer.setDisableAudioFocus(true);
     AvailabilityListener listener = new AvailabilityListener() {
       @Override
       public void onPlayerAvailable(@NotNull FeedAudioPlayer feedAudioPlayer) {
         mFeedAudioPlayer = feedAudioPlayer;
+
         WritableMap params = Arguments.createMap();
         params.putBoolean("available", true);
 
@@ -173,7 +176,6 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
       mFeedAudioPlayer = new FeedAudioPlayer.Builder(reactContext, token, secret).setAvailabilityListener(listener)
           .build();
     }
-    FeedAudioPlayer.setDisableAudioFocus(true);
     mFeedAudioPlayer.addPlayListener(RNFMAudioPlayerModule.this);
     mFeedAudioPlayer.addSkipListener(RNFMAudioPlayerModule.this);
     mFeedAudioPlayer.addStationChangedListener(RNFMAudioPlayerModule.this);
@@ -211,11 +213,17 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
     for (Station st : mFeedAudioPlayer.getStationList()) {
 
       if (st.getId().toString().equals(station.toString())) {
-        mFeedAudioPlayer.setActiveStation(st, false);
-        mFeedAudioPlayer.prepareToPlay(st, () -> {
-          WritableMap params = Arguments.createMap();
-          sendEvent(reactContext, "musicQueued", params);
+        UiThreadUtil.runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            mFeedAudioPlayer.setActiveStation(st, false);
+            mFeedAudioPlayer.prepareToPlay(st, () -> {
+              WritableMap params = Arguments.createMap();
+              sendEvent(reactContext, "musicQueued", params);
+            });
+          }
         });
+
         flag = true;
         break;
       }

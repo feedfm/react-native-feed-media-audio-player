@@ -130,7 +130,7 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
   public void initializeWithToken(String token, String secret, boolean enableBackgroundMusic) {
 
 
-    FeedAudioPlayer.setDisableAudioFocus(true);
+    FeedAudioPlayer.setDisableAudioFocus(false);
     AvailabilityListener listener = new AvailabilityListener() {
       @Override
       public void onPlayerAvailable(@NotNull FeedAudioPlayer feedAudioPlayer) {

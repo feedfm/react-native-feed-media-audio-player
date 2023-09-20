@@ -80,7 +80,6 @@ RCT_EXPORT_METHOD(initializeWithToken:(NSString *)token secret:(NSString *)secre
 {
     FMLogSetLevel(FMLogLevelDebug);
     _player = FMAudioPlayer.sharedPlayer;
-    _player.disableSongStartNotifications = YES;
 
     if (!enableBackgroundMusic) {
         _player.disableAVAudioSession = YES;

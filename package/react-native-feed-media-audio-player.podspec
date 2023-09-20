@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 
   s.dependency "React"
   
-  s.dependency 'FeedMedia', '= 5.2.2'
+  s.dependency 'FeedMedia', '= 5.5.1'
   
   # ...
   # s.dependency "..."

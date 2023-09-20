@@ -3,9 +3,11 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 ### 4.0.5 (2023-08-30)
+  - Fix exoplayer threading issues. 
 
 ### 4.0.4 (2023-03-14)
-
+  - Add log-event method, update sdks
+  
 ### 4.0.3 (2023-02-06)
 
 - v4.0.2

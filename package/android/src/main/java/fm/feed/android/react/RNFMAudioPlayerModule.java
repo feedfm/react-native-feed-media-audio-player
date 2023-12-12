@@ -61,7 +61,8 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
     return "RNFMAudioPlayer";
   }
 
-  private void updateSession() {
+  @ReactMethod
+  public void updateSession() {
     mFeedAudioPlayer.updateSession(new SessionUpdateListener() {
       @Override
       public void onUpdatedSessionAvailable() {

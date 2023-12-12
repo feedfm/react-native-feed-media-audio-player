@@ -218,6 +218,23 @@ RCT_EXPORT_METHOD(setClientID: (NSString*)cid )
     }];
 }
 
+RCT_EXPORT_METHOD(updateSession)
+{
+    FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
+    
+    [player stop];
+    [self.player updateSession:^{
+        FMStation *station = [self->_player.stationList firstObject];
+
+        [self sendEventWithName:@"session-updated" body:@{
+            @"stations": [self mapStationListToDictionary:self->_player.stationList],
+            @"activeStationId": station.identifier,
+            @"clientID": [self->_player getClientId]
+
+        }];
+    }];
+}
+
 RCT_EXPORT_METHOD(createNewClientID)
 {
     FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];

@@ -68,8 +68,12 @@ export default class App extends Component {
 
   componentDidMount() {
     // Make sure music is available for playback before registering event listeners
+    console.log("Component");
+      
     this.player.whenAvailable((available) => {
-
+    
+      console.log("Session is available");
+      
       // no music is available
       if (!available) {
         this.setState({ available: false });
@@ -170,7 +174,15 @@ export default class App extends Component {
           audioPlayerService.player.updateSession(() => {
            console.log(' New Session with new stations!', audioPlayerService.player.stations);
           });
-        }} title={'Create new client id'} />,
+        }} title={'Update Session'} />,
+
+        <Button
+        key="newclientid"
+        onPress={() => {
+          audioPlayerService.player.createNewClientID(() => {
+           console.log(' New Session with new stations!', audioPlayerService.player.stations);
+          });
+        }} title={'Request new client id'} />,
 
       <Button
         key="SetCID"
@@ -194,6 +206,7 @@ export default class App extends Component {
 
   render() {
     // player still intializing
+    console.log(this.state.available)
     if (this.state.available === null) {
       return (
         <View style={styles.container}>

@@ -30,8 +30,8 @@
   "devDependencies": {
     "@babel/core": "latest",
     "@babel/runtime": "latest",
-    "react": "18.2.0",
-    "react-native": "0.73.0"
+    "react": "latest",
+    "react-native": "latest"
   },
   "directories": {
     "lib": "lib"

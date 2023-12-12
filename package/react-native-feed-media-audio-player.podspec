@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   # s.license    = { :type => "MIT", :file => "FILE_LICENSE" }
   s.authors      = { "Arveen Kumar" => "arveen@feed.fm", "Eric Lambrecht" => "eric@feed.fm" }
-  s.platforms    = { :ios => "12.4" }
+  s.platforms    = { :ios => "13.6" }
   s.source       = { :git => "https://github.com/feedfm/feed-media-audio-player.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,swift}"
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 
   s.dependency "React"
   
-  s.dependency 'FeedMedia', '= 5.5.1'
+  s.dependency 'FeedMedia', '= 5.5.4'
   
   # ...
   # s.dependency "..."

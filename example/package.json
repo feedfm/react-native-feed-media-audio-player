@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "postinstall": "cd ../package && npm link && cd ../example && npm link react-native-feed-media-audio-player"
   },
   "dependencies": {
     "react": "18.1.0",

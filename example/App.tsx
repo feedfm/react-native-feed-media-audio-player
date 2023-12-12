@@ -165,11 +165,10 @@ export default class App extends Component {
           audioPlayerService.player.play();
         }} title={'click to play '} />,
       <Button
-        key="CreateCID"
+        key="update Session"
         onPress={() => {
-          audioPlayerService.player.createNewClientID(() => {
-            console.log('all ready with new client id!', audioPlayerService.player.clientID);
-            console.log('with new stations!', audioPlayerService.player.stations);
+          audioPlayerService.player.updateSession(() => {
+           console.log(' New Session with new stations!', audioPlayerService.player.stations);
           });
         }} title={'Create new client id'} />,
 

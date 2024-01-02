@@ -296,6 +296,21 @@ class AudioPlayer {
     return seconds;
   }
 
+    /**
+   * This will trigger a re-request of the available stations.
+   * The player will emit a 'session-updated' event after fetching a new station and 
+   * retrieving the list of stations. The `onSessionUpdated`
+   * callback here is optional, and is equivalent to calling
+   * `player.once('session-updated', onSessionupdated)`
+   */
+    updateSession(onSessionUpdated) {
+      
+      RNFMAudioPlayer.updateSession();
+      if (onSessionUpdated) {
+        this.once('session-updated', onSessionUpdated);
+      }
+    }
+
   /**
    * Return the client id that the Feed.fm SDK uses to identify the user.
    * This value will not be defined until the player has announced that 

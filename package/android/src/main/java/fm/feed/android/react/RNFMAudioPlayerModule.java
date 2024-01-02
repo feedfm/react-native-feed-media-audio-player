@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fm.feed.android.playersdk.AvailabilityListener;
+import fm.feed.android.playersdk.FeedFMError;
 import fm.feed.android.playersdk.MusicQueuedListener;
 import fm.feed.android.playersdk.SessionUpdateListener;
 import fm.feed.android.playersdk.ClientIdListener;
@@ -42,6 +43,8 @@ import static fm.feed.android.react.Utils.convertJsonToArray;
 import static fm.feed.android.react.Utils.convertJsonToMap;
 import static fm.feed.android.react.Utils.sendEvent;
 import static fm.feed.android.react.Utils.toJson;
+
+import androidx.annotation.NonNull;
 
 public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
     implements StateListener, StationChangedListener, PlayListener, SkipListener {
@@ -61,8 +64,14 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
     return "RNFMAudioPlayer";
   }
 
-  private void updateSession() {
+  @ReactMethod
+  public void updateSession() {
     mFeedAudioPlayer.updateSession(new SessionUpdateListener() {
+      @Override
+      public void onSessionUpdateFailed() {
+        Log.e(TAG, "Error while updating session");
+      }
+
       @Override
       public void onUpdatedSessionAvailable() {
         WritableMap params = Arguments.createMap();
@@ -217,9 +226,18 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
           @Override
           public void run() {
             mFeedAudioPlayer.setActiveStation(st, false);
-            mFeedAudioPlayer.prepareToPlay(st, () -> {
-              WritableMap params = Arguments.createMap();
-              sendEvent(reactContext, "musicQueued", params);
+            mFeedAudioPlayer.prepareToPlay(st, new MusicQueuedListener() {
+              @Override
+              public void onError(@NonNull FeedFMError feedFMError) {
+                Log.e(TAG, "Error: failed to prepareToPlay"+ feedFMError.getMessage());
+              }
+
+              @Override
+              public void onMusicQueued() {
+                WritableMap params = Arguments.createMap();
+                sendEvent(reactContext, "musicQueued", params);
+              }
+
             });
           }
         });
@@ -398,5 +416,10 @@ public class RNFMAudioPlayerModule extends ReactContextBaseJavaModule
       sendEvent(reactContext, "skip-failed", params);
     }
 
+  }
+
+  @Override
+  public void onPlayerError(@NonNull FeedFMError feedFMError) {
+    Log.e(TAG, "Player error" + feedFMError.getMessage());
   }
 }

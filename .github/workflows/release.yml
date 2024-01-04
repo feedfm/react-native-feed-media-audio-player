@@ -37,7 +37,7 @@ jobs:
 
           git push --follow-tags origin master
           node -e 'console.log("VERSION=" + require("./package.json").version)' >> $GITHUB_ENV
-
+          
       - name: Publish npm package
         env:
           PLAYER_NPM_PUBLISH: ${{ secrets.PLAYER_NPM_PUBLISH }}
@@ -47,3 +47,13 @@ jobs:
           echo '_authToken=${PLAYER_NPM_PUBLISH}' > .npmrc
           npm publish
           rm .npmrc
+          
+      - name: slack-send
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          channel-id: sdk-releases
+          slack-message: |
+            New release: [React SDK Release:${{ env.VERSION }}](${{ github.event.release.html_url }})
+            Repository: ${{ github.repository }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

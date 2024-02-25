@@ -5943,7 +5943,7 @@ react-native-codegen@^0.70.5:
     nullthrows "^1.1.1"
 
 "react-native-feed-media-audio-player@file:.yalc/react-native-feed-media-audio-player":
-  version "4.0.1"
+  version "4.0.8"
   resolved "file:.yalc/react-native-feed-media-audio-player"
   dependencies:
     nanoevents "^2.0.0"

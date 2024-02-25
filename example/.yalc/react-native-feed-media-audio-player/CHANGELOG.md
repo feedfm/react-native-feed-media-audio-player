@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 4.0.8 (2023-09-28)
+
+### 4.0.7 (2023-09-28)
+  - Fix catch nil station change event
+    
+### 4.0.6 (2023-09-20)
+  - Fix for xcode 15 and iOS 17
+  
 ### 4.0.5 (2023-08-30)
   - Fix exoplayer threading issues. 
 

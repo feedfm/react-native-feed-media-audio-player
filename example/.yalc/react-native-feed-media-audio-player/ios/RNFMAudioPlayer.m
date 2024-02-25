@@ -273,8 +273,11 @@ RCT_EXPORT_METHOD(logEvent: (NSString*) event withParams:(NSDictionary*) params)
 }
 
 - (void) onActiveStationDidChangeNotification: (NSNotification *)notification {
-    [self sendEventWithName:@"station-change" body:@{
-                                       @"activeStationId": _player.activeStation.identifier }];
+    FMAudioPlayer *player = [FMAudioPlayer sharedPlayer];
+    if(player.activeStation.identifier != nil) {
+        [self sendEventWithName:@"station-change" body:@{
+            @"activeStationId": player.activeStation.identifier }];
+    }
 }
 
 - (void) onPlaybackStateDidChangeNotification: (NSNotification *)notification {

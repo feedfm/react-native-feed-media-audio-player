@@ -1,6 +1,6 @@
 {
   "name": "react-native-feed-media-audio-player",
-  "version": "4.0.5",
+  "version": "4.0.8",
   "description": "This is a React Native bridge for the Feed.fm iOS and Android SDKs",
   "main": "index.js",
   "scripts": {
@@ -33,5 +33,5 @@
   "dependencies": {
     "nanoevents": "^2.0.0"
   },
-  "yalcSig": "6f35cb34baa91a12bd935618e9493c5e"
+  "yalcSig": "5871daf369621af6555d1caa2f822db0"
 }

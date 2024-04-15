@@ -2,9 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 4.0.11
+  - Update iOS SDK to latest version to include Apple Privacy manifest. 
+
 ### 4.0.10 (2024-01-04)
 
 ### 4.0.9 (2024-01-02)
+  - Update Android SDK to latest.
+  - Add sessionUpdate() Method
 
 ### 4.0.8 (2023-09-28)
 

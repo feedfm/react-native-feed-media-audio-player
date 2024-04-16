@@ -10,9 +10,9 @@ PODS:
     - React-Core (= 0.73.0)
     - React-jsi (= 0.73.0)
     - ReactCommon/turbomodule/core (= 0.73.0)
-  - FeedMedia (5.5.4):
-    - FeedMedia/Core (= 5.5.4)
-  - FeedMedia/Core (5.5.4)
+  - FeedMedia (5.5.6):
+    - FeedMedia/Core (= 5.5.6)
+  - FeedMedia/Core (5.5.6)
   - Flipper (0.201.0):
     - Flipper-Folly (~> 2.6)
   - Flipper-Boost-iOSX (1.76.0.1.11)
@@ -947,8 +947,8 @@ PODS:
   - React-Mapbuffer (0.73.0):
     - glog
     - React-debug
-  - react-native-feed-media-audio-player (4.0.8):
-    - FeedMedia (= 5.5.4)
+  - react-native-feed-media-audio-player (4.0.10):
+    - FeedMedia (= 5.5.6)
     - React
   - React-nativeconfig (0.73.0)
   - React-NativeModulesApple (0.73.0):
@@ -1317,10 +1317,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost: 26fad476bfa736552bbfa698a06cc530475c1505
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
+  DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 39ba45baf4e398618f8b3a4bb6ba8fcdb7fc2133
   FBReactNativeSpec: 20cfca68498e27879514790359289d1df2b52c56
-  FeedMedia: 50f07741a8b38e0d3f517e055d61062f318faa90
+  FeedMedia: fa72c00bce742b599f35865b5d56fce05040d489
   Flipper: c7a0093234c4bdd456e363f2f19b2e4b27652d44
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
   Flipper-DoubleConversion: 2dc99b02f658daf147069aad9dbd29d8feb06d30
@@ -1330,7 +1330,7 @@ SPEC CHECKSUMS:
   Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
   FlipperKit: 37525a5d056ef9b93d1578e04bc3ea1de940094f
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
-  glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
+  glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 34304f8c6e8fa68f63a5fe29af82f227d817d7a7
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
@@ -1355,7 +1355,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 9f6fb9ed9f03a0fb961ab8dc2e0e0ee0dc729e77
   React-logger: 008caec0d6a587abc1e71be21bfac5ba1662fe6a
   React-Mapbuffer: 58fe558faf52ecde6705376700f848d0293d1cef
-  react-native-feed-media-audio-player: b638db5ed66c877baee4002119be5cf8d82cf925
+  react-native-feed-media-audio-player: ef7ece3879650491af4e0be39fb8bbc95a640d66
   React-nativeconfig: a063483672b8add47a4875b0281e202908ff6747
   React-NativeModulesApple: 169506a5fd708ab22811f76ee06a976595c367a1
   React-perflogger: b61e5db8e5167f5e70366e820766c492847c082e
@@ -1381,4 +1381,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: c25872b6c8e4ec17e5338750fa46de6bf56fcdce
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.15.2

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 4.1.0 (2024-04-16)
+
+
+### Features
+
+* Update iOS SDK to include Apple Privacy manifest ([5d4ffde](https://github.com/feedfm/react-native-feed-media-audio-player/commit/5d4ffde4cd1056723eb08554a010bc950061ff80))
+
 ### 4.0.11
   - Update iOS SDK to latest version to include Apple Privacy manifest. 
 
